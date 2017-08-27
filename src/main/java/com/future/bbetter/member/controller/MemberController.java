@@ -16,10 +16,6 @@ import com.future.bbetter.member.resource.MemberResource;
 @RequestMapping()
 public class MemberController {
 	
-	
-	//alfred test commit
-	
-	
 	@Autowired
 	private MemberResource memberResource;
 	
