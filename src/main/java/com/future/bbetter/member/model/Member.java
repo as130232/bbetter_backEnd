@@ -2,23 +2,32 @@ package com.future.bbetter.member.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-public class MemberEntity {
+public class Member {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long memberId;
 	private String email;
 	private String password;
 	private String salt;
 	private String name;
 	private Integer gender;
-	private Integer money;
+	@Column(name="money", columnDefinition="Decimal(10,2) default '0.00'")
+	private Double money = 0.00D;
 	private Date birthday;
 	private String address;
+	@Column(name="createdate", columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
 	private Date createdate;
+	@Column(name="updatedate", columnDefinition="TIMESTAMP CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,")
 	private Date updatedate;
 	
-	public MemberEntity() {
+	public Member() {
 	}
 
 	public Long getMemberId() {
@@ -69,11 +78,11 @@ public class MemberEntity {
 		this.gender = gender;
 	}
 
-	public Integer getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
-	public void setMoney(Integer money) {
+	public void setMoney(Double money) {
 		this.money = money;
 	}
 
