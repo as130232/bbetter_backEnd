@@ -23,6 +23,11 @@ public class MemberController {
 	@Autowired
 	private MemberResource memberResource;
 	
+	/**
+	 * 取得會員資訊
+	 * @author Charles
+	 * @date 2017年8月27日 下午7:37:14
+	 */
 	@RequestMapping("/member/{memberId}")
 	public MemberDTO getUser(@PathVariable Long memberId){
 		return memberResource.getMember(memberId);
@@ -39,7 +44,6 @@ public class MemberController {
 		
 	}
 	
-	//PUT(������s) > PATCH(��@��s)
 	@RequestMapping(value = "/member/{memberId}", method=RequestMethod.PATCH)
 	public void updateUser(@RequestBody MemberDTO updateMemberDTO){
 		memberResource.updateMember(updateMemberDTO);
