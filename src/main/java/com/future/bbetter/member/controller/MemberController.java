@@ -16,6 +16,10 @@ import com.future.bbetter.member.resource.MemberResource;
 @RequestMapping()
 public class MemberController {
 	
+	
+	//alfred test commit
+	
+	
 	@Autowired
 	private MemberResource memberResource;
 	
@@ -35,7 +39,7 @@ public class MemberController {
 		
 	}
 	
-	//PUT(¥þ³¡§ó·s) > PATCH(³æ¤@§ó·s)
+	//PUT(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s) > PATCH(ï¿½ï¿½@ï¿½ï¿½s)
 	@RequestMapping(value = "/member/{memberId}", method=RequestMethod.PATCH)
 	public void updateUser(@RequestBody MemberDTO updateMemberDTO){
 		memberResource.updateMember(updateMemberDTO);
