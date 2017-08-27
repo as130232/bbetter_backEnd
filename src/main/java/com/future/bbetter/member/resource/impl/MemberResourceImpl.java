@@ -16,6 +16,7 @@ import com.future.bbetter.member.resource.MemberResource;
 
 @Service
 public class MemberResourceImpl implements MemberResource{
+	
 	@Autowired
 	private MemberRepository memberRepository;
 	
@@ -46,7 +47,6 @@ public class MemberResourceImpl implements MemberResource{
 	public void addMember(MemberDTO memberDTO){
 		Member member = new Member();
 		BeanUtils.copyProperties(memberDTO, member);
-		
 		Date createdate = new Date();
 		Double money = 0.00D;
 		member.setMoney(money);

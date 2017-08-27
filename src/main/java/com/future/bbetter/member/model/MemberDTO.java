@@ -1,8 +1,11 @@
 package com.future.bbetter.member.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class MemberDTO {
+	
+	//member
 	private Long memberId;
 	private String email;
 	private String name;
@@ -10,6 +13,9 @@ public class MemberDTO {
 	private Double money;
 	private Date birthday;
 	private String address;
+	
+	//ªB¤Í¦Cªí
+	private List<Member> friends;
 	
 	public MemberDTO() {
 	}
@@ -69,7 +75,17 @@ public class MemberDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public List<Member> getFriends() {
+		return friends;
+	}
 
+	public void setFriends(List<Member> friends) {
+		this.friends = friends;
+	}
+
+	
+	
 	@Override
 	public String toString() {
 		return "MemberDTO [email=" + email + ", name=" + name + ", gender=" + gender + ", money=" + money
