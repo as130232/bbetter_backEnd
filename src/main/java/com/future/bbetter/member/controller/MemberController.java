@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.resource.MemberResource;
+import com.future.bbetter.member.service.MemberService;
 
 @RestController
 @RequestMapping()
@@ -18,6 +19,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberResource memberResource;
+	@Autowired
+	private MemberService memberService;
 	
 	/**
 	 * 取得會員資訊
@@ -36,7 +39,13 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member", method=RequestMethod.POST)
 	public void addUser(@RequestBody MemberDTO memberDTO){
-		memberResource.addMember(memberDTO);
+		//錯誤檢查
+//		List<String> errorList = memberService.checkAddUser(memberDTO);
+//		if(errorList != null) {
+//			return errorList;
+//		}else {
+//			memberResource.addMember(memberDTO);
+//		}
 		
 	}
 	

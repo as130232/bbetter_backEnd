@@ -28,12 +28,29 @@ repositories {
 
 
 dependencies {
+
+	
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-aop')
-	//compile('org.springframework.boot:spring-boot-starter-security')
-	
+	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	//健康(遠端)監控後台資訊，也可遠端關閉web App
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-mail')
+	
+	//log4j 2
+	//compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.0.0.M3'
+	
+	//暫存作為登入失敗將 嘗試登入失敗多次後的ip， 加入 block list 中一段時間，避免攻擊者可以無限次數的重複嘗試登入密碼。
+	compile group: 'com.google.guava', name: 'guava', version: '22.0'
+	
+	//跨平台的檔案加密，密碼存到 db 前要 hash 過，並且挑選專門用來 hash 密碼的演算法，如 bcrypt
+	compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+	
+	//DataBase:MySQL
 	runtime('mysql:mysql-connector-java')
+	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	testCompile('org.springframework.security:spring-security-test')

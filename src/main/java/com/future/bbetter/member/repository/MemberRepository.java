@@ -8,5 +8,5 @@ import com.future.bbetter.member.model.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> , JpaSpecificationExecutor<Member>{
-
+	public Member findByEmail(String email);
 }

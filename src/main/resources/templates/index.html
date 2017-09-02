@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Test Page</title>
+</head>
+<body>
+	<p>homepage</p>
+	<div>
+		<span sec:authentication="name"/> has <span sec:authentication="authorities"/>
+		<form method="post" th:action="@{/login}">
+			<input type="submit" value="sign in" />
+		</form>
+		<form method="post" th:action="@{/logout}">
+			<input type="submit" value="sign off" />
+		</form>
+	</div>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+</body>
+</html>

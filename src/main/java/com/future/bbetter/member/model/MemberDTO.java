@@ -14,8 +14,11 @@ public class MemberDTO {
 	private Date birthday;
 	private String address;
 	
-	//�B�ͦC��
+	//好友列表
 	private List<Member> friends;
+	
+	//新增會員時輸入的密碼(明碼)
+	private String password;
 	
 	public MemberDTO() {
 	}
@@ -76,6 +79,16 @@ public class MemberDTO {
 		this.address = address;
 	}
 	
+	
+	public String getPassword() {
+		return password;
+	}
+
+//	防止BeanUtil 再複製Bean的時候存值，用於新增會員時前台將密碼資訊帶至後台
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
+
 	public List<Member> getFriends() {
 		return friends;
 	}
@@ -84,14 +97,4 @@ public class MemberDTO {
 		this.friends = friends;
 	}
 
-	
-	
-	@Override
-	public String toString() {
-		return "MemberDTO [email=" + email + ", name=" + name + ", gender=" + gender + ", money=" + money
-				+ ", birthday=" + birthday + ", address=" + address + "]";
-	}
-	
-	
-	
 }
