@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.future.bbetter.authentication.password.Password;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.repository.MemberRepository;
@@ -49,7 +50,11 @@ public class MemberResourceImpl implements MemberResource{
 		BeanUtils.copyProperties(memberDTO, member);
 		Date createdate = new Date();
 		Double money = 0.00D;
+		String password = memberDTO.getPassword();
+		//密碼加密
+		String encryptPassword = Password.encrypt(password);
 		member.setMoney(money);
+		member.setPassword(encryptPassword);
 		member.setCreatedate(createdate);
 		memberRepository.save(member);
 	}

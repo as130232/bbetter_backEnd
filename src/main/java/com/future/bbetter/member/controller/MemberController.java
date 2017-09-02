@@ -2,6 +2,8 @@ package com.future.bbetter.member.controller;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,14 +40,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/member", method=RequestMethod.POST)
-	public void addUser(@RequestBody MemberDTO memberDTO){
+	public void addUser(@RequestBody MemberDTO memberDTO) throws Exception{
 		//錯誤檢查
-//		List<String> errorList = memberService.checkAddUser(memberDTO);
-//		if(errorList != null) {
-//			return errorList;
-//		}else {
-//			memberResource.addMember(memberDTO);
-//		}
+		List<String> errorList = memberService.checkAddUser(memberDTO);
+		if(!errorList.isEmpty()) {
+			throw new Exception(errorList.toString());
+		}else {
+			memberResource.addMember(memberDTO);
+		}
 		
 	}
 	

@@ -18,13 +18,10 @@ public class Member {
 	private String salt;
 	private String name;
 	private Integer gender;
-	@Column(name="money", columnDefinition="Decimal(10,2) default '0.00'")
-	private Double money = 0.00D;
+	private Double money;
 	private Date birthday;
 	private String address;
-	@Column(name="createdate", columnDefinition="TIMESTAMP default CURRENT_TIMESTAMP")
 	private Date createdate;
-	@Column(name="updatedate", columnDefinition="TIMESTAMP CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,")
 	private Date updatedate;
 	
 	public Member() {
