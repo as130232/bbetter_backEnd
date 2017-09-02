@@ -20,6 +20,7 @@ public class Password {
 	 * @return String
 	 */
     public static String encrypt(String plaintextPassword) {
+    	//BCrypt內部已用SecureRandom隨機產生內部salt，所以每次加密結果都不一樣
         String salt = BCrypt.gensalt(workload);
         String hashed_password = BCrypt.hashpw(plaintextPassword, salt);
         return(hashed_password);
@@ -46,7 +47,8 @@ public class Password {
         String tmp = "0000";	//$2a$12$dQevIWsWVAVrkzFDk6Z2LOPJWpsNGEEbkFqbltCrQ3kYXuLn2HEpC
         String encryptor  = encrypt(tmp);
         System.out.println("tmp:" + tmp + ", encryptor:" + encryptor );
-        
+        // 1.$2a$12$zgGaBVDiZK7ffB52AnD.U.FbrQ2EmOBONZOHXUoN3V/e4lgCncfBa
+        // 2.$2a$12$14L9HfHMbf23a1FBQL1HkujhBPhKRPtPFdwf5qB70EhEiibmByg5y
         boolean isValidatePassword = isValidatePassword( tmp, encryptor);
         System.out.println("isValidatePassword:" + isValidatePassword);
         System.out.println("----------");

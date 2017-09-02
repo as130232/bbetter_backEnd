@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.future.bbetter.authentication.constant.AuthorityItem;
+import com.future.bbetter.authentication.constant.AUTHORITY;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.repository.MemberRepository;
 
@@ -33,7 +33,7 @@ public class MyUserDetailsService implements UserDetailsService{
 		if(member != null) {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			//創建權限列表(該用戶的權限，可賦予多個權限)
-			authorities.add(new SimpleGrantedAuthority(AuthorityItem.USER.getRole()));
+			authorities.add(new SimpleGrantedAuthority(AUTHORITY.USER.role));
 			
 			return new org.springframework.security.core.userdetails.User(
 					member.getEmail(), member.getPassword(), 
