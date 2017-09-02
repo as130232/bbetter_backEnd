@@ -304,3 +304,18 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+
+
+
+-- -----------------------------------------------------
+-- 以下為測試資料
+-- -----------------------------------------------------
+-- Member
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('as130232@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Charles',1, Now() ,'taiwan');
+
+
+
