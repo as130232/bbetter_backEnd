@@ -1,0 +1,52 @@
+
+-- -----------------------------------------------------
+-- 以下為測試資料
+-- -----------------------------------------------------
+-- Member
+
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('as130232@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Charles',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Peter@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u', null,'Peter',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Lucy@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','111','Lucy',2, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Marry@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u', null,'Marry',2, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Andy@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Andy',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Troy@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','老江',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Gary@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Gary',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Frank@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Frank',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Patrick@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','99','Patrick',1, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Chloe@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Chloe',2, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Helen@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','123','Helen',2, Now() ,'taiwan');
+INSERT INTO Member (email, password, salt, name, gender, birthday, address) VALUES 
+('Judy@gmail.com','$2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u','1','Judy',2, Now() ,'taiwan');
+
+
+-- Friends
+
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(1,2,1,1,0,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(1,3,1,1,0,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(1,4,1,1,0,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(1,5,1,0,0,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(1,6,1,1,1,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(1,7,1,1,1,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(2,1,1,0,0,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(2,3,1,0,0,Now());
+INSERT INTO Friends (member_id, friend_member_id, source, is_accept, is_blockade, createdate) VALUES 
+(3,5,1,0,0,Now());

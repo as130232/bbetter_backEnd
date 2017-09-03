@@ -1,10 +1,9 @@
 package com.future.bbetter.exception.customize;
 
-public class ValidateFailException extends RuntimeException{
-	
+public class DataNotFoundException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 
-	public ValidateFailException(String str){
+	public DataNotFoundException(String str){
 		super(str);   
     }
 

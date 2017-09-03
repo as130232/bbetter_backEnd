@@ -1,4 +1,4 @@
-package com.future.bbetter.member.validator.impl;
+package com.future.bbetter.member.validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,16 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.future.bbetter.exception.customize.ValidateFailException;
 import com.future.bbetter.member.constant.MEMBER;
+import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.model.MemberDTO;
-import com.future.bbetter.member.validator.MemberValidateBehavior;
-import com.future.bbetter.member.validator.MemberValidator;
-import com.future.bbetter.member.validator.ValidateException;
+import com.future.bbetter.member.repository.MemberRepository;
 import com.future.bbetter.member.validator.constant.VALIDATE_BEHAVIOR;
 
 @Component
 public class MemberValidatorFactory {
-	
+	@Autowired
+	private MemberRepository memberRepository;
 	@Autowired
 	private ValidateEmail validateEmail;
 	@Autowired
@@ -47,13 +48,18 @@ public class MemberValidatorFactory {
 	@Component
 	public class ValidateEmail implements MemberValidateBehavior {
 		@Override
-		public void validate(MemberDTO memberDTO) throws ValidateException {
+		public void validate(MemberDTO memberDTO) throws ValidateFailException {
 			//檢測信箱
 			String email = memberDTO.getEmail();
 			if (email == null) {
-				throw new ValidateException("email is null");
-			}else if(email.indexOf("@") == -1 || email.matches(" ")) {
-				throw new ValidateException("信箱格式不正確");
+				throw new ValidateFailException("信箱不可為空");
+			}
+			if(email.indexOf("@") == -1 || email.matches(" ")) {
+				throw new ValidateFailException("信箱格式不正確");
+			}
+			Member member = memberRepository.findByEmail(email);
+			if(member != null) {
+				throw new ValidateFailException("該信箱已存在");
 			}
 			
 		}
@@ -61,13 +67,12 @@ public class MemberValidatorFactory {
 	
 	@Component
 	public class ValidatePassword implements MemberValidateBehavior {
-
 		@Override
-		public void validate(MemberDTO memberDTO) throws ValidateException{
+		public void validate(MemberDTO memberDTO) throws ValidateFailException{
 			//檢測信箱
 			String password = memberDTO.getPassword();
 			if(password == null || password.isEmpty()){
-				throw new ValidateException("password is null");
+				throw new ValidateFailException("密碼不可為空");
 			}
 		}
 	}
@@ -75,12 +80,12 @@ public class MemberValidatorFactory {
 	@Component
 	public class ValidateGender implements MemberValidateBehavior {
 		@Override
-		public void validate(MemberDTO memberDTO) throws ValidateException{
+		public void validate(MemberDTO memberDTO) throws ValidateFailException{
 			//檢測信箱
 			Integer gender = memberDTO.getGender();
-			if(MEMBER.GENDER_MALE.value < gender && MEMBER.GENDER_FEMALE.value > gender || gender == null) {
+			if(MEMBER.GENDER_MALE.value > gender || MEMBER.GENDER_FEMALE.value < gender || gender == null) {
 				String errorMsg = "性別格式不正確";
-				throw new ValidateException(errorMsg);
+				throw new ValidateFailException(errorMsg);
 			}
 		}
 	}
