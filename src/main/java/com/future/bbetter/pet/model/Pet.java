@@ -1,23 +1,36 @@
 package com.future.bbetter.pet.model;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class Pet {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
+	@Column(name = "pet_id")
 	private Integer petId;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "init_height")
 	private Integer initHeight;
+	@Column(name = "init_weight")
 	private Integer initWeight;
+	@Column(name = "init_vision")
 	private Integer initVision;
+	@Column(name = "init_hp")
 	private Integer initHp;
+	@Column(name = "init_mp")
 	private Integer initMp;
+	@Column(name = "init_mentality")
 	private Integer initMentality;
+	@Column(name = "init_strength")
 	private Integer initStrength;
+	@Column(name = "init_intelligence")
 	private Integer initIntelligence;
+	@Column(name = "init_dexterity")
 	private Integer initDexterity;
+	@Column(name = "init_vitality")
 	private Integer initVitality;
 	
 	public Pet() {

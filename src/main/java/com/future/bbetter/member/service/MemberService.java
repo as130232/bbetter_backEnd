@@ -58,7 +58,7 @@ public class MemberService {
 //			String errorMsg = "信箱格式不正確";
 //			errorList.add(errorMsg);
 //		}
-//		
+//		 
 //		//檢查密碼
 //		String password = memberDTO.getPassword();
 //		boolean isPasswordlQualified = this.checkIsPasswordQualified(password);
