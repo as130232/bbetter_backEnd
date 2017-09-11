@@ -14,6 +14,7 @@ import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.repository.MemberRepository;
+import com.future.bbetter.member.resource.FriendsResource;
 import com.future.bbetter.member.resource.MemberResource;
 
 @Service
@@ -21,6 +22,8 @@ public class MemberResourceImpl implements MemberResource{
 	
 	@Autowired
 	private MemberRepository memberRepository;
+	@Autowired
+	private FriendsResource friendsResource;
 	
 	
 	@Override
@@ -72,6 +75,9 @@ public class MemberResourceImpl implements MemberResource{
 		Member member = memberRepository.findByEmail(email);
 		if(member != null) {
 			BeanUtils.copyProperties(member, memberDTO);
+			//取得好友清單
+			List<MemberDTO> friends = friendsResource.getFriends(member.getMemberId());
+			memberDTO.setFriends(friends);
 		}else {
 			throw new DataNotFoundException("member email: " + email + " is not found.");
 		}

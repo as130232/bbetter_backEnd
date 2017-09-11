@@ -13,9 +13,10 @@ public class MemberDTO {
 	private Double money;
 	private Date birthday;
 	private String address;
+	private Date createdate;
 	
 	//好友列表
-	private List<Member> friends;
+	private List<MemberDTO> friends;
 	
 	//新增會員時輸入的密碼(明碼)
 	private String password;
@@ -89,12 +90,22 @@ public class MemberDTO {
 //		this.password = password;
 //	}
 
-	public List<Member> getFriends() {
+	public List<MemberDTO> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(List<Member> friends) {
+	public void setFriends(List<MemberDTO> friends) {
 		this.friends = friends;
 	}
+
+	public Date getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+	
+	
 
 }

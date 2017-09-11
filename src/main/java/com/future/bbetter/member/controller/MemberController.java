@@ -36,7 +36,6 @@ public class MemberController {
 	 */
 	@RequestMapping("/member/{memberId}")
 	public MemberDTO getMember(@PathVariable Long memberId) throws DataNotFoundException{
-		
 		MemberDTO memberInfo = memberResource.getMember(memberId);
 		return memberInfo;
 	}
