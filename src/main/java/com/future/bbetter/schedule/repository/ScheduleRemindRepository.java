@@ -11,5 +11,4 @@ import com.future.bbetter.schedule.model.ScheduleRemind;
 @Repository
 public interface ScheduleRemindRepository extends JpaRepository<ScheduleRemind, Long> , JpaSpecificationExecutor<ScheduleRemind>{
 
-	public List<ScheduleRemind> findByScheduleId(Long scheduleId);
 }

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.future.bbetter.schedule.model.ScheduleType;
 
 @Repository
-public interface ScheduleTypeRepository extends JpaRepository<ScheduleType, Long> , JpaSpecificationExecutor<ScheduleType> {
+public interface ScheduleTypeRepository extends JpaRepository<ScheduleType, Integer> , JpaSpecificationExecutor<ScheduleType> {
 
 }

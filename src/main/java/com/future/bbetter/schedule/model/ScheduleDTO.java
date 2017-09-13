@@ -3,8 +3,9 @@ package com.future.bbetter.schedule.model;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public @Data class ScheduleDTO {
+public @Data @NoArgsConstructor class ScheduleDTO {
 
 	
 	// Schedule.attributes
@@ -26,6 +27,7 @@ public @Data class ScheduleDTO {
 	
 	// ScheduleType.attributes
 	private String typeName;
+	private Integer scheduleTypeId;
 	
 	// ScheduleSubType.attributes
 	private String subTypename;

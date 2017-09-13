@@ -12,4 +12,6 @@ import com.future.bbetter.schedule.model.ScheduleHad;
 public interface ScheduleHadRepository extends JpaRepository<ScheduleHad, Long> , JpaSpecificationExecutor<ScheduleHad>{
 
 	public List<ScheduleHad> findByScheduleId(Long scheduleId);
+	
+	public List<ScheduleHad> findByMemberId(Long memberId);
 }

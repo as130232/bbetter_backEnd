@@ -6,14 +6,12 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleDTO;
 import com.future.bbetter.schedule.model.ScheduleHad;
-import com.future.bbetter.schedule.model.ScheduleRemind;
 import com.future.bbetter.schedule.model.ScheduleSubType;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.repository.ScheduleHadRepository;
@@ -41,19 +39,22 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	private ScheduleRemindRepository schRemindRepo;
 
 	@Override
-	public void addSchedule(ScheduleDTO scheduleDTO) {
+	public ScheduleDTO addSchedule(ScheduleDTO scheduleDTO) {
 		Schedule newData = new Schedule();
 		BeanUtils.copyProperties(scheduleDTO, newData);
 		newData.setCreatedate(new Date());
-		schRepo.save(newData);
+		Schedule afterData = schRepo.save(newData);
+		ScheduleDTO result = new ScheduleDTO();
+		BeanUtils.copyProperties(afterData, result);
+		return result;
 	}
 
 	@Override
 	public void updateSchedule(ScheduleDTO scheduleDTO) {
 		Long scheduleId = scheduleDTO.getScheduleId();
+		log.info("get data,id:{}",scheduleId);
 		Optional<Schedule> optData =  schRepo.findById(scheduleId);
 		if (optData.isPresent()){
-			log.info("get data,id:{}",scheduleId);
 			Schedule data = optData.get();
 			BeanUtils.copyProperties(scheduleDTO, data);
 			schRepo.save(data);
@@ -65,30 +66,37 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	 */
 	@Override
 	public void deleteSchedule(Long scheduleId) {
-		List<ScheduleRemind> reminds = schRemindRepo.findByScheduleId(scheduleId);
 		List<ScheduleHad> hads = schHadRepo.findByScheduleId(scheduleId);
 		
-		schRemindRepo.deleteAll(reminds);
 		schHadRepo.deleteAll(hads);
 		schRepo.deleteById(scheduleId);
 		
 	}
 
 	@Override
-	public void addScheduleType(ScheduleDTO scheduleDTO) {
+	public ScheduleDTO addScheduleType(ScheduleDTO scheduleDTO) {
 		ScheduleType newData = new ScheduleType();
-		BeanUtils.copyProperties(scheduleDTO, newData);
-		schTypeRepo.save(newData);
+		newData.setName(scheduleDTO.getTypeName());
+		ScheduleType afterData = schTypeRepo.save(newData);
+		ScheduleDTO result = new ScheduleDTO();
+		result.setTypeName(scheduleDTO.getTypeName());
+		result.setScheduleTypeId(afterData.getScheduleTypeId());
+		return result;
 	}
 
 	@Override
 	public void updateScheduleType(ScheduleDTO scheduleDTO) {
-		// TODO Auto-generated method stub
-
+		Integer scheduleTypeId = scheduleDTO.getScheduleTypeId();
+		Optional<ScheduleType> optData = schTypeRepo.findById(scheduleTypeId);
+		if(optData.isPresent()){
+			ScheduleType data = optData.get();
+			data.setName(scheduleDTO.getTypeName());
+			schTypeRepo.save(data);
+		}
 	}
 
 	@Override
-	public void deleteScheduleType(Long scheduleTypeId) {
+	public void deleteScheduleType(Integer scheduleTypeId) {
 		log.info("delete schedule type data, id:{}", scheduleTypeId);
 		schTypeRepo.deleteById(scheduleTypeId);
 	}
@@ -107,7 +115,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	}
 
 	@Override
-	public void deleteScheduleSubType(Long scheduleSubTypeId) {
+	public void deleteScheduleSubType(Integer scheduleSubTypeId) {
 		log.info("delete schedule sub type data, id:{}", scheduleSubTypeId);
 		schSubTypeRepo.deleteById(scheduleSubTypeId);
 	}
