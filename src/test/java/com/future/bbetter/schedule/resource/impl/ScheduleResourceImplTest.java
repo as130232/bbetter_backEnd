@@ -149,10 +149,103 @@ public class ScheduleResourceImplTest {
 		ScheduleDTO result = schRs.addScheduleType(type);
 		
 		//then
+		assertThat(result).isNotNull();
 		assertThat(result.getName()).isEqualTo(type.getName()).isNull();
 		assertThat(result.getTypeName()).isEqualTo(type.getTypeName());
+		assertThat(result.getScheduleTypeId()).isNotNull();
 	}
 	
+	
+	@Test
+	public void whenAddScheduleSubType_thenNameFieldShouldBeNull_TypeNameShouldExists(){
+		//given
+		ScheduleType type = addFakeData2ScheduleType();
+		
+		ScheduleDTO subType = new ScheduleDTO();
+		subType.setSubTypeName("test_type");
+		subType.setScheduleTypeId(type.getScheduleTypeId());
+		
+		//when
+		ScheduleDTO result = schRs.addScheduleSubType(subType);
+		
+		//then
+		assertThat(result).isNotNull();
+		assertThat(result.getName()).isEqualTo(subType.getName()).isNull();
+		assertThat(result.getTypeName())
+			.isEqualTo(subType.getTypeName())
+			.isNull();
+		assertThat(result.getScheduleSubTypeId()).isNotNull();
+		assertThat(result.getSubTypeName())
+			.isEqualTo(subType.getSubTypeName())
+			.isNotNull();
+		assertThat(result.getScheduleTypeId())
+			.isEqualTo(subType.getScheduleTypeId())
+			.isNotNull();
+	}
+	
+	
+	@Test
+	public void whenUpdateScheduleType_thenOldDataShouldBeChanged(){
+		//given
+		ScheduleType old = addFakeData2ScheduleType();
+		entityMgr.detach(old);
+		
+		ScheduleDTO updateBean = new ScheduleDTO();
+		updateBean.setScheduleTypeId(old.getScheduleTypeId());
+		updateBean.setTypeName("Update_data");
+		log.info("old.name:{}, updateBean.name:{}",old.getName(),updateBean.getTypeName());
+		
+		//when
+		schRs.updateScheduleType(updateBean);
+		
+		
+		//then
+		ScheduleType found = entityMgr.find(ScheduleType.class, old.getScheduleTypeId());
+		
+		assertThat(found).isNotNull();
+		assertThat(found.getScheduleTypeId())
+			.isEqualTo(old.getScheduleTypeId())
+			.isNotNull();
+		assertThat(found.getName())
+			.isNotEqualTo(old.getName())
+			.isNotNull();
+		
+	}
+	
+	@Test
+	public void whenUpdateScheduleSubType_thenOldDataShouldBeChanged(){
+		//given
+		ScheduleType type = addFakeData2ScheduleType();
+		entityMgr.detach(type);
+		
+		ScheduleSubType old = addFakeData2ScheduleSubType_ScheduleType();
+		entityMgr.detach(old);
+		
+		ScheduleDTO updateBean = new ScheduleDTO();
+		updateBean.setScheduleSubTypeId(old.getScheduleSubTypeId());
+		updateBean.setSubTypeName("Update_Data_subType");
+		updateBean.setScheduleTypeId(type.getScheduleTypeId());
+		log.info("old.name:{}, updateBean.name:{}",old.getName(),updateBean.getTypeName());
+		log.info("type.id:{}, updateBean.scheduleTypeId:{}",
+				type.getScheduleTypeId(),updateBean.getScheduleTypeId());
+		
+		//when
+		schRs.updateScheduleSubType(updateBean);
+		
+		
+		//then
+		ScheduleSubType found = entityMgr.find(ScheduleSubType.class, old.getScheduleSubTypeId());
+		
+		assertThat(found).isNotNull();
+		assertThat(found.getScheduleTypeId())
+			.isNotEqualTo(old.getScheduleTypeId())
+			.isNotNull();
+		assertThat(found.getName())
+			.isNotEqualTo(old.getName())
+			.isNotNull();
+		assertThat(found.getScheduleSubTypeId())
+			.isEqualTo(old.getScheduleSubTypeId());
+	}
 	
 	private ScheduleType addFakeData2ScheduleType(){
 		ScheduleType type = new ScheduleType();

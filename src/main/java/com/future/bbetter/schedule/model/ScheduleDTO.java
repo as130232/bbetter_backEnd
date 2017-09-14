@@ -30,7 +30,7 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 	private Integer scheduleTypeId;
 	
 	// ScheduleSubType.attributes
-	private String subTypename;
+	private String subTypeName;
 	
 	// ScheduleHad.attributes
 	private Long scheduleHadId;

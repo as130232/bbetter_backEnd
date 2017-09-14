@@ -70,7 +70,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		
 		schHadRepo.deleteAll(hads);
 		schRepo.deleteById(scheduleId);
-		
+		//TODO delete schedule_remind
 	}
 
 	@Override
@@ -102,16 +102,28 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	}
 
 	@Override
-	public void addScheduleSubType(ScheduleDTO scheduleDTO) {
+	public ScheduleDTO addScheduleSubType(ScheduleDTO scheduleDTO) {
 		ScheduleSubType newData = new ScheduleSubType();
-		BeanUtils.copyProperties(scheduleDTO, newData);
-		schSubTypeRepo.save(newData);
+		newData.setName(scheduleDTO.getSubTypeName());
+		newData.setScheduleTypeId(scheduleDTO.getScheduleTypeId());
+		ScheduleSubType afterData = schSubTypeRepo.save(newData);
+		ScheduleDTO result = new ScheduleDTO();
+		result.setSubTypeName(afterData.getName());
+		result.setScheduleTypeId(afterData.getScheduleTypeId());
+		result.setScheduleSubTypeId(afterData.getScheduleSubTypeId());
+		return result;
 	}
 
 	@Override
 	public void updateScheduleSubType(ScheduleDTO scheduleDTO) {
-		// TODO Auto-generated method stub
-
+		Integer scheduleSubTypeId = scheduleDTO.getScheduleSubTypeId();
+		Optional<ScheduleSubType> optData = schSubTypeRepo.findById(scheduleSubTypeId);
+		if(optData.isPresent()){
+			ScheduleSubType data = optData.get();
+			data.setName(scheduleDTO.getSubTypeName());
+			data.setScheduleTypeId(scheduleDTO.getScheduleTypeId());
+			schSubTypeRepo.save(data);
+		}
 	}
 
 	@Override
@@ -121,7 +133,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	}
 
 	@Override
-	public ScheduleDTO getScheduleInfo(Long scheduleid) throws DataNotFoundException {
+	public ScheduleDTO getScheduleInfo(Long scheduleId) throws DataNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

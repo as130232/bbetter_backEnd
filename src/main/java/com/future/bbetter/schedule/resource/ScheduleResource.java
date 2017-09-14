@@ -23,10 +23,10 @@ public interface ScheduleResource {
 	public void deleteScheduleType(Integer scheduleTypeId);
 	
 	// scheduleSubType CRUD
-	public void addScheduleSubType(ScheduleDTO scheduleDTO);
+	public ScheduleDTO addScheduleSubType(ScheduleDTO scheduleDTO);
 	public void updateScheduleSubType(ScheduleDTO scheduleDTO);
 	public void deleteScheduleSubType(Integer scheduleSubTypeId);
 
-	public ScheduleDTO getScheduleInfo(Long scheduleid) throws DataNotFoundException;
+	public ScheduleDTO getScheduleInfo(Long scheduleId) throws DataNotFoundException;
 	public List<ScheduleDTO> getScheduleByMemberId(Long memberId) throws DataNotFoundException;
 }
