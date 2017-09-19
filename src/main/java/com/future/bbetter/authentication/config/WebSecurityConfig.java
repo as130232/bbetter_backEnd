@@ -1,14 +1,23 @@
 package com.future.bbetter.authentication.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.future.bbetter.authentication.jwt.JWTFilter;
+import com.future.bbetter.authentication.jwt.JwtAuthenticationEntryPoint;
+import com.future.bbetter.authentication.password.Password;
 import com.future.bbetter.authentication.service.MyAuthenticationProvider;
 import com.future.bbetter.authentication.service.MyUserDetailsService;
 
@@ -22,13 +31,18 @@ import com.future.bbetter.authentication.service.MyUserDetailsService;
  */
 @Configuration
 @EnableWebSecurity
+//開啟可設定該資源需要什麼權限角色(@PreAuthorize("")
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	@Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 	@Autowired
 	private MyUserDetailsService myUserDetailsService;
 	@Autowired
 	private MyAuthenticationProvider myAuthenticationProvider;
-
+	@Autowired
+	private JWTFilter jwtFilter;
+	
 	/**
 	 * 配置如何通過攔截器保護請求
 	 * @author Charles
@@ -37,17 +51,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		//啟用默認的登錄頁面
-		.formLogin()
-		.and()
-		.authorizeRequests()
-		.antMatchers("/login").authenticated()
-		.anyRequest().permitAll();
+		 //使用的是JWT，因此不需要csrf
+			.csrf().disable()
+			//.cors()
+			//.and()
+			//當jwt驗證失敗時，作例外處理
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+			//基於token，因此將session設置為STATELESS，防止Spring Security創建HttpSession對象
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
+			//.httpBasic() 	// this is optional, if you want to access 
+			//.and()     	// the services from a browser
+			//啟用默認的登錄頁面
+			//.formLogin()
+			.authorizeRequests()
+		 	//可以訪問而不進行身份驗證
+			.antMatchers("/signup").permitAll()
+			.antMatchers("/login").permitAll()
+			.antMatchers("/public/**").permitAll()
+			//其他端點將被保護並且需要有效的JWT秘鑰
+			.anyRequest().authenticated();
 		
-		//暫時關閉csrf，未來上線再開啟
-		http.csrf().disable();
-		
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
+
 
 	/**
 	 * 配置user-detail、身份驗證，用於注入自定義身分驗證和密碼校驗規則
@@ -56,16 +83,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//加載用戶信息
-		auth.userDetailsService(myUserDetailsService);
-		//加載授權信息
-		auth.authenticationProvider(myAuthenticationProvider);
-
+		auth
+			//加載授權信息
+			.authenticationProvider(myAuthenticationProvider)
+	        //加載用戶信息
+	        .userDetailsService(myUserDetailsService)
+	        //使用BCrypt進行密碼的hash
+	        .passwordEncoder(Password.encoder);
+		
 		//自行定義創建使用者，用於測試
 		auth.inMemoryAuthentication()
-		.withUser("user").password("0000").roles("USER")
-		.and()
-		.withUser("admin").password("0000").roles("USER","ADMIN");
+			.withUser("user").password("0000").roles("USER")
+			.and()
+			.withUser("admin").password("0000").roles("USER","ADMIN");
 	}
 	
 	/**
@@ -88,4 +118,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public UserDetailsService userDetailsServiceBean() throws Exception {
 		return myUserDetailsService;
 	}
+	
+	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 }

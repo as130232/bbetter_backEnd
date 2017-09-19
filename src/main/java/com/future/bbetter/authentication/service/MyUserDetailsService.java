@@ -42,8 +42,18 @@ public class MyUserDetailsService implements UserDetailsService{
                     true, //證書不過期為true
                     true, //帳戶未鎖定為true
                     authorities);
+			//另一種實作
+//			return org.springframework.security.core.userdetails.User
+//					.withUsername(member.getEmail())
+//					.password(member.getPassword())
+//					.authorities(authorities)
+//					.accountExpired(false)
+//					.accountLocked(false)
+//					.credentialsExpired(false)
+//					.disabled(false)
+//					.build();
 		}
-		throw new UsernameNotFoundException("User email:" + email + "not found.");
+		throw new UsernameNotFoundException("User email not found.");
 		
 	}
 

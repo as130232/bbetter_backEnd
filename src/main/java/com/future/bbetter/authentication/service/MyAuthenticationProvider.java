@@ -1,5 +1,7 @@
 package com.future.bbetter.authentication.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
@@ -31,23 +34,23 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     private LoginAttemptService loginAttemptService;
     
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    	//可取得用戶登入時的資訊
-        WebAuthenticationDetails wad = (WebAuthenticationDetails) authentication.getDetails();
-        String userIPAddress = wad.getRemoteAddress();
-        String username = authentication.getName();
+    	//檢查該會員是否登入超過失敗次數(若登入失敗超過次數將會記錄該IP，十分鐘內防止其再登入)
+		String hostAddress = "";
+		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			hostAddress = ip.getHostAddress();
+		} catch (UnknownHostException e) {}
+		if(loginAttemptService.isBlocked(hostAddress)) {
+			//寄email，表示有人嘗試登入，且失敗，提醒用戶更改密碼
+			throw new LockedException("This IP has been blocked. Please wait a moment.");
+		}
+
+		String username = authentication.getName();
         String password = (String) authentication.getCredentials();
-        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("userIPAddress: " + userIPAddress + " , username: " + username + " , password: " + password);
- 
-        //檢查該IP是否被攔截(登入失敗超過三次將會記錄該IP，一分鐘內防止其再登入)
-        if(loginAttemptService.isBlocked(userIPAddress)) {
-            throw new LockedException("This IP has been blocked");
-        }
-        
         //載入用戶資訊
         UserDetails user = myUserDetailsService.loadUserByUsername(username);
         if(user == null){
-            throw new BadCredentialsException("User Email not found.");
+            throw new UsernameNotFoundException("User Email not found.");
         }
         
         //前台用戶輸入的密碼與數據庫儲存用戶密碼(加密過)，驗證是否正確

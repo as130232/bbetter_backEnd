@@ -1,5 +1,8 @@
 package com.future.bbetter.authentication.listener;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +25,17 @@ public class AuthenticationSuccessEventListener
 
     @Autowired
     private LoginAttemptService loginAttemptService;
-    @Autowired
-    private SmtpMailService smtpMailService;
     
     public void onApplicationEvent(AuthenticationSuccessEvent e) {
         WebAuthenticationDetails auth = (WebAuthenticationDetails)
                 e.getAuthentication().getDetails();
-        //將block中登入失敗的ip移除
-        loginAttemptService.loginSucceeded(auth.getRemoteAddress());
-        
-        //寄email，表示登入成功
-        String to = "as130232@gmail.com";
-        String subject = "Login Success!";
-        String content = "安安你好";
-		//smtpMailService.send(to, subject, content);
-		
+        try {
+			InetAddress ip = InetAddress.getLocalHost();
+			String hostAddress = ip.getHostAddress();
+			//將block中登入失敗的ip移除
+			loginAttemptService.loginSucceeded(hostAddress);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		}
     }
 }

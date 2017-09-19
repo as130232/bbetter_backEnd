@@ -24,7 +24,7 @@ public class LoginAttemptService {
 	//登入不得失敗的次數(超過該次數將該用戶IP屏蔽一分鐘內不得再登入)
 	private final int MAX_ATTEMPT = 3;
 	//若被攔阻，設定時間內該用戶不得再登入
-	private final int blockTimeMins = 1;
+	private final int blockTimeMins = 10;
 	private LoadingCache<String, Integer> blockList;
 
 	public LoginAttemptService() {
