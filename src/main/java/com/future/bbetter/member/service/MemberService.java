@@ -17,8 +17,7 @@ import com.future.bbetter.member.validator.MemberValidatorFactory.ValidatePasswo
 
 @Service
 public class MemberService {
-	@Autowired
-	private MemberResource memberResource;
+	
 	@Autowired
 	private MemberValidatorFactory memberValidatorFactory;
 	

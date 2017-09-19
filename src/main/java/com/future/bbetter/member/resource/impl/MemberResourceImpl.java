@@ -38,7 +38,7 @@ public class MemberResourceImpl implements MemberResource{
 		member.setMoney(money);
 		member.setPassword(encryptPassword);
 		member.setCreatedate(createdate);
-		memberRepository.save(member);
+		memberRepository.saveAndFlush(member);
 	}
 	
 	@Override
@@ -73,10 +73,11 @@ public class MemberResourceImpl implements MemberResource{
 	public MemberDTO getMember(String email) throws DataNotFoundException {
 		MemberDTO memberDTO = new MemberDTO();
 		Member member = memberRepository.findByEmail(email);
+		List<MemberDTO> friends = null;
 		if(member != null) {
 			BeanUtils.copyProperties(member, memberDTO);
 			//取得好友清單
-			List<MemberDTO> friends = friendsResource.getFriends(member.getMemberId());
+			friends = friendsResource.getFriends(member.getMemberId());
 			memberDTO.setFriends(friends);
 		}else {
 			throw new DataNotFoundException("member email: " + email + " is not found.");
@@ -89,11 +90,23 @@ public class MemberResourceImpl implements MemberResource{
 	public List<MemberDTO> getAllMembers(){
 		List<MemberDTO> memberDTOs = new ArrayList<>();
 		List<Member> members = memberRepository.findAll();
+		MemberDTO memberDTO = null;
 		for(Member member:members) {
-			MemberDTO memberDTO = new MemberDTO();
+			memberDTO = new MemberDTO();
 			BeanUtils.copyProperties(member, memberDTO);
+			memberDTOs.add(memberDTO);
 		}
 		return memberDTOs;
+	}
+
+	@Override
+	public Boolean checkIsEmailExist(String email) {
+		Boolean isEmailExist = false;
+		Member member = memberRepository.findByEmail(email);
+		if(member != null) {
+			isEmailExist = true;
+		}
+		return isEmailExist;
 	}
 	
 

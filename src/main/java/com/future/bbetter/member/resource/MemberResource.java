@@ -17,6 +17,13 @@ public interface MemberResource {
 	
 	public List<MemberDTO> getAllMembers();
 	
-
+	/**
+	 * 檢查該email是否已存在
+	 * @author Charles
+	 * @date 2017年9月18日 下午10:42:23
+	 * @param email
+	 * @return Boolean
+	 */
+	public Boolean checkIsEmailExist(String email);
 
 }
