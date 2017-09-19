@@ -1,3 +1,6 @@
+/*
+ * 在這個段落中你可以聲明建立腳本需要的依賴和解析下載該依賴所使用的倉儲位
+ */
 buildscript {
 	ext {
 		springBootVersion = '2.0.0.BUILD-SNAPSHOT'
@@ -12,7 +15,13 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}" , "io.franzbecker:gradle-lombok:1.10")
 	}
 }
-
+/*
+ * 宣告使用哪些插件
+ * 'java'代表這是一個Java項目，需要使用java插件
+ * eclipse工程
+ * Spring Boot插件
+ * lombok
+ */
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -50,6 +59,8 @@ dependencies {
 	
 	//跨平台的檔案加密，密碼存到 db 前要 hash 過，並且挑選專門用來 hash 密碼的演算法，如 bcrypt
 	compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
+	
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 	
 	//DataBase:MySQL
 	runtime('mysql:mysql-connector-java')
