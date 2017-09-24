@@ -9,5 +9,5 @@ import com.future.bbetter.member.model.Friend;
 
 public interface FriendRepository  extends JpaRepository<Friend, Long> , JpaSpecificationExecutor<Friend>{
 	
-	public List<Friend> findByMemberId(Long memberId);
+//	public List<Friend> findByMemberId(Long memberId);
 }

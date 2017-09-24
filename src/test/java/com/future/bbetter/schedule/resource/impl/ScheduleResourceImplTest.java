@@ -102,7 +102,7 @@ public class ScheduleResourceImplTest {
 		
 		//then
 		Schedule found = entityMgr.find(Schedule.class, result.getScheduleId());
-		assertThat(found.getScheduleSubTypeId()).isEqualTo(s.getScheduleSubTypeId());
+		assertThat(found.getScheduleSubType().getScheduleSubTypeId()).isEqualTo(s.getScheduleSubTypeId());
 		assertThat(found.getEndTime()).isEqualTo(s.getEndTime());
 	}
 	
@@ -114,7 +114,7 @@ public class ScheduleResourceImplTest {
 		
 		ScheduleSubType subType = addFakeData2ScheduleSubType_ScheduleType();
 		Schedule orginal = new Schedule();
-		orginal.setScheduleSubTypeId(subType.getScheduleSubTypeId());
+		orginal.setScheduleSubType(subType);
 		orginal.setStartTime(Date.from(now));
 		orginal.setEndTime(Date.from(afterTwoHrs));
 		orginal.setName("Test_Schedule");
@@ -237,8 +237,8 @@ public class ScheduleResourceImplTest {
 		ScheduleSubType found = entityMgr.find(ScheduleSubType.class, old.getScheduleSubTypeId());
 		
 		assertThat(found).isNotNull();
-		assertThat(found.getScheduleTypeId())
-			.isNotEqualTo(old.getScheduleTypeId())
+		assertThat(found.getScheduleType())
+			.isNotEqualTo(old.getScheduleType())
 			.isNotNull();
 		assertThat(found.getName())
 			.isNotEqualTo(old.getName())
@@ -259,7 +259,7 @@ public class ScheduleResourceImplTest {
 		
 		ScheduleSubType subType = new ScheduleSubType();
 		subType.setName("test_subtype");
-		subType.setScheduleTypeId(type.getScheduleTypeId());
+		subType.setScheduleType(type);
 		entityMgr.persistAndFlush(subType);
 		return subType;
 	}

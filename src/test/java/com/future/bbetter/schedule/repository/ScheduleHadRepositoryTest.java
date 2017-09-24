@@ -45,6 +45,11 @@ public class ScheduleHadRepositoryTest {
 	private Long schedule1_id = 0L;
 	private Long schedule2_id = 0L;
 	
+	private Member john = null;
+	private Member jay = null;
+	private Schedule sch1 = null;
+	private Schedule sch2 = null;
+	
 	
 	@Before
 	public void setup(){
@@ -67,8 +72,12 @@ public class ScheduleHadRepositoryTest {
 		jay.setAddress("South Korea");
 		entityMgr.persistAndFlush(jay);
 		
+//		this.john = john;
+//		this.jay = jay;
+		
 		john_id = john.getMemberId();
 		jay_id = jay.getMemberId();
+		
 		
 		//add schedule type data
 		ScheduleType type = new ScheduleType();
@@ -78,7 +87,7 @@ public class ScheduleHadRepositoryTest {
 		//add schedule sub type data
 		ScheduleSubType subType = new ScheduleSubType();
 		subType.setName("test_subtype");
-		subType.setScheduleTypeId(type.getScheduleTypeId());
+		subType.setScheduleType(type);
 		entityMgr.persistAndFlush(subType);
 		
 		//add schedule data
@@ -89,7 +98,7 @@ public class ScheduleHadRepositoryTest {
 				.toInstant(ZoneOffset.UTC);
 		
 		Schedule schedule1= new Schedule();
-		schedule1.setScheduleSubTypeId(subType.getScheduleSubTypeId());
+		schedule1.setScheduleSubType(subType);
 		schedule1.setStartTime(Date.from(now));
 		schedule1.setEndTime(Date.from(afterTwoHrs));
 		schedule1.setName("Test_Schedule");
@@ -103,7 +112,7 @@ public class ScheduleHadRepositoryTest {
 		
 		
 		Schedule schedule2= new Schedule();
-		schedule2.setScheduleSubTypeId(subType.getScheduleSubTypeId());
+		schedule2.setScheduleSubType(subType);
 		schedule2.setStartTime(Date.from(now));
 		schedule2.setEndTime(Date.from(afterFourHrs));
 		schedule2.setName("Test_Schedule");
@@ -115,6 +124,9 @@ public class ScheduleHadRepositoryTest {
 		schedule2.setIsValid(0);
 		entityMgr.persistAndFlush(schedule2);
 		
+//		this.sch1 = schedule1;
+//		this.sch2 = schedule2;
+		
 		schedule1_id = schedule1.getScheduleId();
 		schedule2_id = schedule2.getScheduleId();
 	}
@@ -122,17 +134,21 @@ public class ScheduleHadRepositoryTest {
 	@Test
 	public void whenFindByScheduleId_thenReturnTwoDifferentRecords(){
 		//given
+		Member john = entityMgr.find(Member.class, john_id);
+		Member jay = entityMgr.find(Member.class, jay_id);
+		Schedule sch1 = entityMgr.find(Schedule.class, schedule1_id);
+		
 		ScheduleHad had = new ScheduleHad();
-		had.setMemberId(john_id);
-		had.setScheduleId(schedule1_id);
+		had.setMember(john);
+		had.setSchedule(sch1);
 		had.setAuthority(1);
 		had.setIsValid(1);
 		had.setAccumulatedTime(0);
 		entityMgr.persistAndFlush(had);
 		
 		ScheduleHad had2 = new ScheduleHad();
-		had2.setMemberId(jay_id);
-		had2.setScheduleId(schedule1_id);
+		had2.setMember(jay);
+		had2.setSchedule(sch1);
 		had2.setAuthority(1);
 		had2.setIsValid(1);
 		had2.setAccumulatedTime(0);
@@ -146,8 +162,8 @@ public class ScheduleHadRepositoryTest {
 		assertThat(founds.size()).isEqualTo(2);
 
 		for(ScheduleHad found : founds){
-			assertThat(found.getScheduleId())
-				.isEqualTo(had.getScheduleId());
+			assertThat(found.getSchedule())
+				.isEqualTo(had.getSchedule());
 		}
 		
 		assertThat(founds.get(0).getScheduleHadId())
@@ -158,17 +174,21 @@ public class ScheduleHadRepositoryTest {
 	@Test
 	public void whenFindByMemberId_thenReturnTwoDifferentRecords(){
 		//given
+		Member john = entityMgr.find(Member.class, john_id);
+		Schedule sch1 = entityMgr.find(Schedule.class, schedule1_id);
+		Schedule sch2 = entityMgr.find(Schedule.class, schedule2_id);
+		
 		ScheduleHad had = new ScheduleHad();
-		had.setMemberId(john_id);
-		had.setScheduleId(schedule1_id);
+		had.setMember(john);
+		had.setSchedule(sch1);
 		had.setAuthority(1);
 		had.setIsValid(1);
 		had.setAccumulatedTime(0);
 		entityMgr.persistAndFlush(had);
 		
 		ScheduleHad had2 = new ScheduleHad();
-		had2.setMemberId(john_id);
-		had2.setScheduleId(schedule2_id);
+		had2.setMember(john);
+		had2.setSchedule(sch2);
 		had2.setAuthority(1);
 		had2.setIsValid(1);
 		had2.setAccumulatedTime(0);
@@ -181,8 +201,8 @@ public class ScheduleHadRepositoryTest {
 		assertThat(founds.size()).isEqualTo(2);
 
 		for(ScheduleHad found : founds){
-			assertThat(found.getMemberId())
-				.isEqualTo(had.getMemberId());
+			assertThat(found.getMember())
+				.isEqualTo(had.getMember());
 		}
 		
 		assertThat(founds.get(0).getScheduleHadId())
