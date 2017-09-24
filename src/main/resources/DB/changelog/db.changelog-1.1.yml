@@ -1,0 +1,663 @@
+databaseChangeLog:
+- defaultContexts:
+    context: test
+- changeSet:
+    id: test-insert-data
+    author: alfred
+    changes: 
+    - insert:
+        tableName: member
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: email
+            value: as130232@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: Charles
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        
+- changeSet:
+    id: 1506172006100-1
+    author: alfread (generated)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 2
+        - column:
+            name: email
+            value: Peter@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+        - column:
+            name: name
+            value: Peter
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 3
+        - column:
+            name: email
+            value: Lucy@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '111'
+        - column:
+            name: name
+            value: Lucy
+        - column:
+            name: gender
+            valueNumeric: 2
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 4
+        - column:
+            name: email
+            value: Marry@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+        - column:
+            name: name
+            value: Marry
+        - column:
+            name: gender
+            valueNumeric: 2
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 5
+        - column:
+            name: email
+            value: Andy@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: Andy
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 6
+        - column:
+            name: email
+            value: Troy@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: !!binary |-
+              w6jCgMKBw6bCscKf
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 7
+        - column:
+            name: email
+            value: Gary@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: Gary
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 8
+        - column:
+            name: email
+            value: Frank@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: Frank
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 9
+        - column:
+            name: email
+            value: Patrick@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '99'
+        - column:
+            name: name
+            value: Patrick
+        - column:
+            name: gender
+            valueNumeric: 1
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 10
+        - column:
+            name: email
+            value: Chloe@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: Chloe
+        - column:
+            name: gender
+            valueNumeric: 2
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 11
+        - column:
+            name: email
+            value: Helen@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '123'
+        - column:
+            name: name
+            value: Helen
+        - column:
+            name: gender
+            valueNumeric: 2
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+    - insert:
+        columns:
+        - column:
+            name: member_id
+            valueNumeric: 12
+        - column:
+            name: email
+            value: Judy@gmail.com
+        - column:
+            name: password
+            value: $2a$12$i4mVJGFB5JyvzjC3/YgjL.egVaTs9cU9lmbPo6ZCQGMfgrg.8QF8u
+        - column:
+            name: salt
+            value: '1'
+        - column:
+            name: name
+            value: Judy
+        - column:
+            name: gender
+            valueNumeric: 2
+        - column:
+            name: money
+            valueNumeric: 0.0
+        - column:
+            name: birthday
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: address
+            value: taiwan
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        - column:
+            name: updatedate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: member
+- changeSet:
+    id: 1506172006100-2
+    author: alfread (generated)
+    changes:
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 1
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: friend_member_id
+            valueNumeric: 2
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 1
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 2
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: friend_member_id
+            valueNumeric: 3
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 1
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 3
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: friend_member_id
+            valueNumeric: 4
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 1
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 4
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: friend_member_id
+            valueNumeric: 5
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 0
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 5
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: friend_member_id
+            valueNumeric: 6
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 1
+        - column:
+            name: is_blockade
+            valueNumeric: 1
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 6
+        - column:
+            name: member_id
+            valueNumeric: 1
+        - column:
+            name: friend_member_id
+            valueNumeric: 7
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 1
+        - column:
+            name: is_blockade
+            valueNumeric: 1
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 7
+        - column:
+            name: member_id
+            valueNumeric: 2
+        - column:
+            name: friend_member_id
+            valueNumeric: 1
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 0
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 8
+        - column:
+            name: member_id
+            valueNumeric: 2
+        - column:
+            name: friend_member_id
+            valueNumeric: 3
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 0
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend
+    - insert:
+        columns:
+        - column:
+            name: friend_id
+            valueNumeric: 9
+        - column:
+            name: member_id
+            valueNumeric: 3
+        - column:
+            name: friend_member_id
+            valueNumeric: 5
+        - column:
+            name: source
+            valueNumeric: 1
+        - column:
+            name: is_accept
+            valueNumeric: 0
+        - column:
+            name: is_blockade
+            valueNumeric: 0
+        - column:
+            name: createdate
+            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+        tableName: friend

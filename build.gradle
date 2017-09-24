@@ -4,6 +4,9 @@
 buildscript {
 	ext {
 		springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+		lombokVersion = '1.10'
+		liquibasePluginVersion = '1.2.4'
+		snakeyamlVersion = '1.15'
 	}
 	repositories {
 		mavenCentral()
@@ -12,7 +15,10 @@ buildscript {
 		maven { url "https://plugins.gradle.org/m2/" }
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}" , "io.franzbecker:gradle-lombok:1.10")
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}" 
+		classpath "io.franzbecker:gradle-lombok:${lombokVersion}"
+		classpath "org.liquibase:liquibase-gradle-plugin:${liquibasePluginVersion}"
+		classpath "org.yaml:snakeyaml:${snakeyamlVersion}"
 	}
 }
 /*
@@ -27,6 +33,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "io.franzbecker.gradle-lombok"
+apply plugin: "org.liquibase.gradle"
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -62,6 +69,15 @@ dependencies {
 	
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 	
+	// liquibase depends snakeyaml for read yaml file
+	compile group: 'org.yaml', name: 'snakeyaml', version: '1.15'
+	
+	// https://mvnrepository.com/artifact/org.liquibase/liquibase-core
+	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
+	// https://mvnrepository.com/artifact/org.liquibase.ext/liquibase-hibernate5
+	compile group: 'org.liquibase.ext', name: 'liquibase-hibernate5', version: '3.6'
+	
+	
 	//DataBase:MySQL
 	runtime('mysql:mysql-connector-java')
 	
@@ -70,3 +86,22 @@ dependencies {
 	testCompile('org.springframework.security:spring-security-test')
 }
 
+
+def changelog = "$projectDir/src/main/resources/DB/changelog/db.changelog-1.1.yml"
+
+liquibase {
+  activities { 
+    main {
+      changeLogFile changelog
+      url 'jdbc:mysql://localhost/bbetter?nullNamePatternMatchesAll=true'
+      username 'alfred'
+      password '1234'
+      changeLogParameters([ myToken: 'myvalue',
+                            second: 'secondValue'])
+    }
+  }
+
+  // runList = project.ext.runList
+  // runList = 'main'
+  runList = 'main'
+}

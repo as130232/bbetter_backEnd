@@ -1,0 +1,888 @@
+databaseChangeLog:
+- changeSet:
+    id: 1506170971274-1
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: achievement_had_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: achievement_type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: member_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: getdate
+            type: TIMESTAMP
+        tableName: achievement_had
+- changeSet:
+    id: 1506170971274-2
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: achievement_type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(45)
+        tableName: achievement_type
+- changeSet:
+    id: 1506170971274-3
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: friend_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: member_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: friend_member_id
+            type: BIGINT
+        - column:
+            name: source
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_accept
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_blockade
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        tableName: friend
+- changeSet:
+    id: 1506170971274-4
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: member_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(45)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(60)
+        - column:
+            name: salt
+            type: VARCHAR(45)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(45)
+        - column:
+            constraints:
+              nullable: false
+            name: gender
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0.00
+            name: money
+            type: DOUBLE(10, 2)
+        - column:
+            name: birthday
+            type: TIMESTAMP
+        - column:
+            constraints:
+              nullable: false
+            name: address
+            type: VARCHAR(200)
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: updatedate
+            type: TIMESTAMP
+        tableName: member
+- changeSet:
+    id: 1506170971274-5
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: pet_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_height
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_weight
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_vision
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_hp
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_mp
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_mentality
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_strength
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_intelligence
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_dexterity
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: init_vitality
+            type: INT
+        tableName: pet
+- changeSet:
+    id: 1506170971274-6
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: pets_had_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: member_id
+            type: BIGINT
+        - column:
+            name: nickname
+            type: VARCHAR(60)
+        - column:
+            constraints:
+              nullable: false
+            name: pet_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: is_current
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: height
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: weight
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: vision
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: hp
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: mp
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: mentality
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: strength
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: intelligence
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: dexterity
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: vitality
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_death
+            type: INT
+        tableName: pets_had
+- changeSet:
+    id: 1506170971274-7
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: report_schedule_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: member_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_schedule_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_review
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: report_type
+            type: INT
+        tableName: report_schedule
+- changeSet:
+    id: 1506170971274-8
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_sub_type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: start_time
+            type: TIMESTAMP
+        - column:
+            name: end_time
+            type: TIMESTAMP
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(45)
+        - column:
+            name: location
+            type: VARCHAR(100)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: status
+            type: INT
+        - column:
+            name: continuous_time
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 2
+            name: visibility
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_cycle
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_need_remind
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_team_schedule
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: is_valid
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: updatedate
+            type: TIMESTAMP
+        tableName: schedule
+- changeSet:
+    id: 1506170971274-9
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_had_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: member_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: authority
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: is_valid
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: accumulated_time
+            type: INT
+        tableName: schedule_had
+- changeSet:
+    id: 1506170971274-10
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_remind_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_had_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: remind_time
+            type: TIMESTAMP
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: remind_way
+            type: INT
+        - column:
+            name: remark
+            type: VARCHAR(200)
+        tableName: schedule_remind
+- changeSet:
+    id: 1506170971274-11
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_sub_type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(45)
+        tableName: schedule_sub_type
+- changeSet:
+    id: 1506170971274-12
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_type_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(45)
+        tableName: schedule_type
+- changeSet:
+    id: 1506170971274-13
+    author: alfread (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: report_schedule_id
+        constraintName: PRIMARY
+        tableName: report_schedule
+- changeSet:
+    id: 1506170971274-14
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: email_UNIQUE
+        tableName: member
+- changeSet:
+    id: 1506170971274-15
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: achievement_type_id
+        indexName: fk_achievement_had_achievement_type1_idx
+        tableName: achievement_had
+- changeSet:
+    id: 1506170971274-16
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: member_id
+        indexName: fk_achievement_member1_idx
+        tableName: achievement_had
+- changeSet:
+    id: 1506170971274-17
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: member_id
+        indexName: fk_friends_member1
+        tableName: friend
+- changeSet:
+    id: 1506170971274-18
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: friend_member_id
+        indexName: fk_friends_member2_idx
+        tableName: friend
+- changeSet:
+    id: 1506170971274-19
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: member_id
+        indexName: fk_pets_had_member1_idx
+        tableName: pets_had
+- changeSet:
+    id: 1506170971274-20
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: pet_id
+        indexName: fk_pets_had_pet1_idx
+        tableName: pets_had
+- changeSet:
+    id: 1506170971274-21
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: member_id
+        indexName: fk_report_schedule_member1_idx
+        tableName: report_schedule
+- changeSet:
+    id: 1506170971274-22
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_schedule_id
+        indexName: fk_report_schedule_schedule1_idx
+        tableName: report_schedule
+- changeSet:
+    id: 1506170971274-23
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: member_id
+        indexName: fk_schedule_had_member_idx
+        tableName: schedule_had
+- changeSet:
+    id: 1506170971274-24
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_id
+        indexName: fk_schedule_had_schedule1_idx
+        tableName: schedule_had
+- changeSet:
+    id: 1506170971274-25
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_had_id
+        indexName: fk_schedule_remind_schedule_had1_idx
+        tableName: schedule_remind
+- changeSet:
+    id: 1506170971274-26
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_sub_type_id
+        indexName: fk_schedule_schedule_sub_type1_idx
+        tableName: schedule
+- changeSet:
+    id: 1506170971274-27
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_type_id
+        indexName: fk_schedule_sub_type_schedule_type1_idx
+        tableName: schedule_sub_type
+- changeSet:
+    id: 1506170971274-28
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: achievement_type_id
+        baseTableName: achievement_had
+        constraintName: fk_achievement_had_achievement_type1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: achievement_type_id
+        referencedTableName: achievement_type
+- changeSet:
+    id: 1506170971274-29
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: member_id
+        baseTableName: achievement_had
+        constraintName: fk_achievement_member1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1506170971274-30
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: member_id
+        baseTableName: friend
+        constraintName: fk_friends_member1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1506170971274-31
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: friend_member_id
+        baseTableName: friend
+        constraintName: fk_friends_member2
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1506170971274-32
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: member_id
+        baseTableName: pets_had
+        constraintName: fk_pets_had_member1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1506170971274-33
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: pet_id
+        baseTableName: pets_had
+        constraintName: fk_pets_had_pet1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: pet_id
+        referencedTableName: pet
+- changeSet:
+    id: 1506170971274-34
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: member_id
+        baseTableName: report_schedule
+        constraintName: fk_report_schedule_member1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1506170971274-35
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_schedule_id
+        baseTableName: report_schedule
+        constraintName: fk_report_schedule_schedule1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_id
+        referencedTableName: schedule
+- changeSet:
+    id: 1506170971274-36
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: member_id
+        baseTableName: schedule_had
+        constraintName: fk_schedule_had_member
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1506170971274-37
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_id
+        baseTableName: schedule_had
+        constraintName: fk_schedule_had_schedule1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_id
+        referencedTableName: schedule
+- changeSet:
+    id: 1506170971274-38
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_had_id
+        baseTableName: schedule_remind
+        constraintName: fk_schedule_remind_schedule_had1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_had_id
+        referencedTableName: schedule_had
+- changeSet:
+    id: 1506170971274-39
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_sub_type_id
+        baseTableName: schedule
+        constraintName: fk_schedule_schedule_sub_type1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_sub_type_id
+        referencedTableName: schedule_sub_type
+- changeSet:
+    id: 1506170971274-40
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_type_id
+        baseTableName: schedule_sub_type
+        constraintName: fk_schedule_sub_type_schedule_type1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_type_id
+        referencedTableName: schedule_type
+
+- changeSet:
+    id: tag-version
+    author: alfread
+    changes: 
+    - tagDatabase:
+        tag: version_1.0
