@@ -24,7 +24,7 @@ import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.service.MemberService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/public")
 //設定該資源需要什麼權限角色
 //@PreAuthorize("hasRole('ROLE_USER')")
 public class MemberController {
@@ -51,24 +51,13 @@ public class MemberController {
 	}
 	
 	//只有系統管理者才有權限訪問
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/members")
 	public List<MemberDTO> getAllMembers(HttpServletRequest req, HttpServletResponse res) {
 		//取的用戶的當地語言，未來用於i18n
 		Locale userPreferredLocale = req.getLocale();
 		return memberResource.getAllMembers();
 	}
-	
-//	@RequestMapping(value = "/member", method=RequestMethod.POST)
-//	public void addUser(@RequestBody MemberDTO memberDTO) throws ValidateFailException{
-//		//錯誤檢查
-//		List<String> errorList = memberService.checkAddUser(memberDTO);
-//		if(!errorList.isEmpty()) {
-//			throw new ValidateFailException(errorList.toString());
-//		}else {
-//			memberResource.addMember(memberDTO);
-//		}
-//	}
 	
 	@RequestMapping(value = "/member/{memberId}", method=RequestMethod.PATCH)
 	public void updateUser(@RequestBody MemberDTO updateMemberDTO){
