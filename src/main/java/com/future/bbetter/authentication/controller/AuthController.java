@@ -32,14 +32,21 @@ public class AuthController {
     
 
     @GetMapping("/authenticate")
+    @CrossOrigin
     public void authenticate() {
     	// we don't have to do anything here
     	// this is just a secure endpoint and the JWTFilter
     	// validates the token
     	// this service is called at startup of the app to check 
     	// if the jwt token is still valid
+    	System.out.println("test");
     }
-
+    
+    @GetMapping("/secret")
+	@CrossOrigin
+	public String secretService() {
+		return "A secret message";
+	}
     /**
 	 * 登入
 	 * @author Charles
