@@ -20,20 +20,20 @@
 //@Configuration
 //public class CorsFilter extends OncePerRequestFilter {
 //    private final static String ALLOWORIGIN_CORS_A = "http://localhost:8100";
-////    private final static String ALLOWORIGIN_CORS_b = "http://127.0.0.1:8082";
+//    //private final static String ALLOWORIGIN_CORS_b = "http://127.0.0.1:8082";
 //
 //    @Override
 //    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 //        // Access-Control-Allow-Origin: 指定授權訪問的域，表明它允許"http://localhost:8100"發起跨域請求 
-//        response.addHeader("Access-Control-Allow-Origin", ALLOWORIGIN_CORS_A);  //此優先級高於controller @CrossOrigin配置
+//        response.addHeader("Access-Control-Allow-Origin", "*");  //此優先級高於controller @CrossOrigin配置
 //        // Access-Control-Allow-Methods: 授權請求的方法（GET, POST, PUT, DELETE，OPTIONS等)
 //        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 //        // 表明它允許跨域請求包含content-type头
 //        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
 //        // 表明1800秒內，不需要再發送預檢驗請求，可以緩存該結果（CROS協議中，一個AJAX請求被分成了第一步的OPTION預檢測請求和正式請求）
 //        response.addHeader("Access-Control-Max-Age", "1800"); //30min
-////        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization");
-////        response.setHeader("Access-Control-Allow-Credentials", "true");
+//        //response.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization");
+//        //response.setHeader("Access-Control-Allow-Credentials", "true");
 //        filterChain.doFilter(request, response);
 //    }
 //

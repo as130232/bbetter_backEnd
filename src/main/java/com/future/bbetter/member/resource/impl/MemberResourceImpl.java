@@ -14,7 +14,7 @@ import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.repository.MemberRepository;
-import com.future.bbetter.member.resource.FriendsResource;
+import com.future.bbetter.member.resource.FriendResource;
 import com.future.bbetter.member.resource.MemberResource;
 
 @Service
@@ -22,14 +22,15 @@ public class MemberResourceImpl implements MemberResource{
 	
 	@Autowired
 	private MemberRepository memberRepository;
-	@Autowired
-	private FriendsResource friendsResource;
-	
 	
 	@Override
 	public void addMember(MemberDTO memberDTO){
 		Member member = new Member();
-		BeanUtils.copyProperties(memberDTO, member);
+		member.setAddress(memberDTO.getAddress());
+		member.setBirthday(memberDTO.getBirthday());
+		member.setEmail(memberDTO.getEmail());
+		member.setGender(memberDTO.getGender());
+		member.setName(memberDTO.getName());
 		Date createdate = new Date();
 		Double money = 0.00D;
 		String password = memberDTO.getPassword();
@@ -62,7 +63,7 @@ public class MemberResourceImpl implements MemberResource{
 		Optional<Member> optional = memberRepository.findById(memberId);
 		if(optional.isPresent()) {
 			Member member = optional.get();
-			BeanUtils.copyProperties(member, memberDTO);
+			memberDTO = MemberDTO.fromEntity(member);
 		}else {
 			throw new DataNotFoundException("member id: " + memberId.toString() + " is not found.");
 		}
@@ -73,18 +74,13 @@ public class MemberResourceImpl implements MemberResource{
 	public MemberDTO getMember(String email) throws DataNotFoundException {
 		MemberDTO memberDTO = new MemberDTO();
 		Member member = memberRepository.findByEmail(email);
-		List<MemberDTO> friends = null;
 		if(member != null) {
-			BeanUtils.copyProperties(member, memberDTO);
-			//取得好友清單
-			friends = friendsResource.getFriends(member.getMemberId());
-			memberDTO.setFriends(friends);
+			memberDTO = MemberDTO.fromEntity(member);
 		}else {
 			throw new DataNotFoundException("member email: " + email + " is not found.");
 		}
 		return memberDTO;
 	}
-	
 	
 	@Override
 	public List<MemberDTO> getAllMembers(){

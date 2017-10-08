@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.future.bbetter.authentication.jwt.JWTFilter;
 import com.future.bbetter.authentication.jwt.JwtAuthenticationEntryPoint;
@@ -51,12 +54,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		 //使用的是JWT，因此不需要csrf
+			//使用spring security，若有跨域這裡需配置cors
+			.cors()
+			.and()
+			//使用的是JWT，因此不需要csrf
 			.csrf().disable()
-			//.cors()
-			//.and()
 			//當jwt驗證失敗時，作例外處理
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+			.and()
 			//基於token，因此將session設置為STATELESS，防止Spring Security創建HttpSession對象
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
@@ -125,4 +130,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
+//	@Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("*")
+//                .allowedOrigins("*")
+//        	    .allowedOrigins("*")
+//        	    .allowedHeaders("*")
+//        	    .allowedMethods("*");
+//            }
+//        };
+//    }
 }
