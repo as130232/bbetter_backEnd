@@ -1,5 +1,5 @@
 package com.future.bbetter.pet.model;
-// Generated 2017/9/24 下午 02:49:40 by Hibernate Tools 5.2.3.Final
+// Generated 2017/10/14 上午 11:25:08 by Hibernate Tools 5.2.3.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,23 +21,23 @@ public class Pet implements java.io.Serializable {
 
 	private Integer petId;
 	private String name;
-	private int initHeight;
-	private int initWeight;
-	private int initVision;
-	private int initHp;
-	private int initMp;
-	private int initMentality;
-	private int initStrength;
-	private int initIntelligence;
-	private int initDexterity;
-	private int initVitality;
+	private float initHeight;
+	private float initWeight;
+	private float initVision;
+	private float initHp;
+	private float initMp;
+	private float initMentality;
+	private float initStrength;
+	private float initIntelligence;
+	private float initDexterity;
+	private float initVitality;
 	private Set<PetsHad> petsHads = new HashSet<PetsHad>(0);
 
 	public Pet() {
 	}
 
-	public Pet(String name, int initHeight, int initWeight, int initVision, int initHp, int initMp, int initMentality,
-			int initStrength, int initIntelligence, int initDexterity, int initVitality) {
+	public Pet(String name, float initHeight, float initWeight, float initVision, float initHp, float initMp,
+			float initMentality, float initStrength, float initIntelligence, float initDexterity, float initVitality) {
 		this.name = name;
 		this.initHeight = initHeight;
 		this.initWeight = initWeight;
@@ -51,8 +51,9 @@ public class Pet implements java.io.Serializable {
 		this.initVitality = initVitality;
 	}
 
-	public Pet(String name, int initHeight, int initWeight, int initVision, int initHp, int initMp, int initMentality,
-			int initStrength, int initIntelligence, int initDexterity, int initVitality, Set<PetsHad> petsHads) {
+	public Pet(String name, float initHeight, float initWeight, float initVision, float initHp, float initMp,
+			float initMentality, float initStrength, float initIntelligence, float initDexterity, float initVitality,
+			Set<PetsHad> petsHads) {
 		this.name = name;
 		this.initHeight = initHeight;
 		this.initWeight = initWeight;
@@ -88,93 +89,93 @@ public class Pet implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "init_height", nullable = false)
-	public int getInitHeight() {
+	@Column(name = "init_height", nullable = false, precision = 6, scale = 3)
+	public float getInitHeight() {
 		return this.initHeight;
 	}
 
-	public void setInitHeight(int initHeight) {
+	public void setInitHeight(float initHeight) {
 		this.initHeight = initHeight;
 	}
 
-	@Column(name = "init_weight", nullable = false)
-	public int getInitWeight() {
+	@Column(name = "init_weight", nullable = false, precision = 6, scale = 3)
+	public float getInitWeight() {
 		return this.initWeight;
 	}
 
-	public void setInitWeight(int initWeight) {
+	public void setInitWeight(float initWeight) {
 		this.initWeight = initWeight;
 	}
 
-	@Column(name = "init_vision", nullable = false)
-	public int getInitVision() {
+	@Column(name = "init_vision", nullable = false, precision = 6, scale = 3)
+	public float getInitVision() {
 		return this.initVision;
 	}
 
-	public void setInitVision(int initVision) {
+	public void setInitVision(float initVision) {
 		this.initVision = initVision;
 	}
 
-	@Column(name = "init_hp", nullable = false)
-	public int getInitHp() {
+	@Column(name = "init_hp", nullable = false, precision = 6, scale = 3)
+	public float getInitHp() {
 		return this.initHp;
 	}
 
-	public void setInitHp(int initHp) {
+	public void setInitHp(float initHp) {
 		this.initHp = initHp;
 	}
 
-	@Column(name = "init_mp", nullable = false)
-	public int getInitMp() {
+	@Column(name = "init_mp", nullable = false, precision = 6, scale = 3)
+	public float getInitMp() {
 		return this.initMp;
 	}
 
-	public void setInitMp(int initMp) {
+	public void setInitMp(float initMp) {
 		this.initMp = initMp;
 	}
 
-	@Column(name = "init_mentality", nullable = false)
-	public int getInitMentality() {
+	@Column(name = "init_mentality", nullable = false, precision = 6, scale = 3)
+	public float getInitMentality() {
 		return this.initMentality;
 	}
 
-	public void setInitMentality(int initMentality) {
+	public void setInitMentality(float initMentality) {
 		this.initMentality = initMentality;
 	}
 
-	@Column(name = "init_strength", nullable = false)
-	public int getInitStrength() {
+	@Column(name = "init_strength", nullable = false, precision = 6, scale = 3)
+	public float getInitStrength() {
 		return this.initStrength;
 	}
 
-	public void setInitStrength(int initStrength) {
+	public void setInitStrength(float initStrength) {
 		this.initStrength = initStrength;
 	}
 
-	@Column(name = "init_intelligence", nullable = false)
-	public int getInitIntelligence() {
+	@Column(name = "init_intelligence", nullable = false, precision = 6, scale = 3)
+	public float getInitIntelligence() {
 		return this.initIntelligence;
 	}
 
-	public void setInitIntelligence(int initIntelligence) {
+	public void setInitIntelligence(float initIntelligence) {
 		this.initIntelligence = initIntelligence;
 	}
 
-	@Column(name = "init_dexterity", nullable = false)
-	public int getInitDexterity() {
+	@Column(name = "init_dexterity", nullable = false, precision = 6, scale = 3)
+	public float getInitDexterity() {
 		return this.initDexterity;
 	}
 
-	public void setInitDexterity(int initDexterity) {
+	public void setInitDexterity(float initDexterity) {
 		this.initDexterity = initDexterity;
 	}
 
-	@Column(name = "init_vitality", nullable = false)
-	public int getInitVitality() {
+	@Column(name = "init_vitality", nullable = false, precision = 6, scale = 3)
+	public float getInitVitality() {
 		return this.initVitality;
 	}
 
-	public void setInitVitality(int initVitality) {
+	public void setInitVitality(float initVitality) {
 		this.initVitality = initVitality;
 	}
 

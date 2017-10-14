@@ -1,5 +1,5 @@
 package com.future.bbetter.schedule.model;
-// Generated 2017/9/24 下午 02:49:40 by Hibernate Tools 5.2.3.Final
+// Generated 2017/10/14 上午 11:25:08 by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -39,7 +39,7 @@ public class Schedule implements java.io.Serializable {
 	private int isValid;
 	private Date createdate;
 	private Date updatedate;
-	private Set<ReportSchedule> reportSchedules = new HashSet<ReportSchedule>(0);
+	private Set<ScheduleReport> scheduleReports = new HashSet<ScheduleReport>(0);
 	private Set<ScheduleHad> scheduleHads = new HashSet<ScheduleHad>(0);
 
 	public Schedule() {
@@ -61,7 +61,7 @@ public class Schedule implements java.io.Serializable {
 
 	public Schedule(ScheduleSubType scheduleSubType, Date startTime, Date endTime, String name, String location,
 			int status, Integer continuousTime, int visibility, int isCycle, int isNeedRemind, int isTeamSchedule,
-			int isValid, Date createdate, Date updatedate, Set<ReportSchedule> reportSchedules,
+			int isValid, Date createdate, Date updatedate, Set<ScheduleReport> scheduleReports,
 			Set<ScheduleHad> scheduleHads) {
 		this.scheduleSubType = scheduleSubType;
 		this.startTime = startTime;
@@ -77,7 +77,7 @@ public class Schedule implements java.io.Serializable {
 		this.isValid = isValid;
 		this.createdate = createdate;
 		this.updatedate = updatedate;
-		this.reportSchedules = reportSchedules;
+		this.scheduleReports = scheduleReports;
 		this.scheduleHads = scheduleHads;
 	}
 
@@ -225,12 +225,12 @@ public class Schedule implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "schedule")
-	public Set<ReportSchedule> getReportSchedules() {
-		return this.reportSchedules;
+	public Set<ScheduleReport> getScheduleReports() {
+		return this.scheduleReports;
 	}
 
-	public void setReportSchedules(Set<ReportSchedule> reportSchedules) {
-		this.reportSchedules = reportSchedules;
+	public void setScheduleReports(Set<ScheduleReport> scheduleReports) {
+		this.scheduleReports = scheduleReports;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "schedule")

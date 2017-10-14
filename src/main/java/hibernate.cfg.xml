@@ -4,29 +4,28 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.username">alfred</property>
         <property name="hibernate.connection.password">1234</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost/bbetter</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.username">alfred</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         
         
-
         <mapping class="com.future.bbetter.pet.model.Pet"/>
         <mapping class="com.future.bbetter.pet.model.PetsHad"/>
-
-        <mapping class="com.future.bbetter.achievement.model.AchievementHad"/>
         <mapping class="com.future.bbetter.achievement.model.AchievementType"/>
-
-        <mapping class="com.future.bbetter.schedule.model.Schedule"/>
-        <mapping class="com.future.bbetter.schedule.model.ReportSchedule"/>
-        <mapping class="com.future.bbetter.schedule.model.ScheduleHad"/>
-        <mapping class="com.future.bbetter.schedule.model.ScheduleRemind"/>
-        <mapping class="com.future.bbetter.schedule.model.ScheduleSubType"/>
-        <mapping class="com.future.bbetter.schedule.model.ScheduleType"/>
-        
+        <mapping class="com.future.bbetter.achievement.model.AchievementHad"/>
         <mapping class="com.future.bbetter.member.model.Friend"/>
         <mapping class="com.future.bbetter.member.model.Member"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleHad"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleReport"/>
+        <mapping class="com.future.bbetter.schedule.model.CycleRule"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleType"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleOwner"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleHistory"/>
+        <mapping class="com.future.bbetter.schedule.model.Schedule"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleRemind"/>
+        <mapping class="com.future.bbetter.schedule.model.ScheduleSubType"/>
     </session-factory>
 </hibernate-configuration>

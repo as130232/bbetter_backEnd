@@ -1,7 +1,7 @@
 package com.future.bbetter.member.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import com.future.bbetter.member.model.Member;
 
@@ -27,7 +27,7 @@ public @Data @NoArgsConstructor class MemberDTO {
 	private String email;
 	private String name;
 	private Integer gender;
-	private Double money;
+	private BigDecimal money;
 	private Date birthday;
 	private String address;
 	private Date createdate;

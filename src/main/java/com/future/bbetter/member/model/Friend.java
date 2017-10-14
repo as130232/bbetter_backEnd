@@ -1,5 +1,5 @@
 package com.future.bbetter.member.model;
-// Generated 2017/9/24 下午 02:49:40 by Hibernate Tools 5.2.3.Final
+// Generated 2017/10/14 上午 11:25:08 by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -28,6 +28,7 @@ public class Friend implements java.io.Serializable {
 	private int isAccept;
 	private int isBlockade;
 	private Date createdate;
+	private Date updatedate;
 
 	public Friend() {
 	}
@@ -42,13 +43,14 @@ public class Friend implements java.io.Serializable {
 	}
 
 	public Friend(Member memberByFriendMemberId, Member memberByMemberId, Integer source, int isAccept, int isBlockade,
-			Date createdate) {
+			Date createdate, Date updatedate) {
 		this.memberByFriendMemberId = memberByFriendMemberId;
 		this.memberByMemberId = memberByMemberId;
 		this.source = source;
 		this.isAccept = isAccept;
 		this.isBlockade = isBlockade;
 		this.createdate = createdate;
+		this.updatedate = updatedate;
 	}
 
 	@Id
@@ -118,6 +120,16 @@ public class Friend implements java.io.Serializable {
 
 	public void setCreatedate(Date createdate) {
 		this.createdate = createdate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updatedate", length = 19)
+	public Date getUpdatedate() {
+		return this.updatedate;
+	}
+
+	public void setUpdatedate(Date updatedate) {
+		this.updatedate = updatedate;
 	}
 
 }

@@ -1,5 +1,5 @@
 package com.future.bbetter.achievement.model;
-// Generated 2017/9/24 下午 02:49:40 by Hibernate Tools 5.2.3.Final
+// Generated 2017/10/14 上午 11:25:08 by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
 import javax.persistence.Column;
