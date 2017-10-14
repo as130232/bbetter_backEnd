@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.future.bbetter.authentication.password.Password;
 import com.future.bbetter.exception.customize.DataNotFoundException;
+import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.model.Member;
-import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.repository.MemberRepository;
 import com.future.bbetter.member.resource.FriendResource;
 import com.future.bbetter.member.resource.MemberResource;

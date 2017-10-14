@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.future.bbetter.authentication.jwt.TokenProvider;
 import com.future.bbetter.authentication.service.AuthService;
 import com.future.bbetter.exception.customize.ValidateFailException;
+import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.model.Member;
-import com.future.bbetter.member.model.MemberDTO;
 
 
 @CrossOrigin

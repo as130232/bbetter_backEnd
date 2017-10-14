@@ -3,7 +3,7 @@ package com.future.bbetter.member.resource;
 import java.util.List;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.member.model.MemberDTO;
+import com.future.bbetter.member.dto.MemberDTO;
 
 public interface MemberResource {
 

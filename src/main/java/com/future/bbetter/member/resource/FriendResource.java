@@ -2,7 +2,7 @@ package com.future.bbetter.member.resource;
 
 import java.util.List;
 
-import com.future.bbetter.member.model.FriendDTO;
+import com.future.bbetter.member.dto.FriendDTO;
 
 public interface FriendResource {
 

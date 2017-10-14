@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.future.bbetter.authentication.service.AuthService;
 import com.future.bbetter.exception.customize.ValidateFailException;
-import com.future.bbetter.member.model.MemberDTO;
+import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.service.MemberService;
 

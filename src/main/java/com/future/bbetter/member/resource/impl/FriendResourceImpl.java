@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.member.constant.FRIEND;
+import com.future.bbetter.member.dto.FriendDTO;
+import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.model.Friend;
-import com.future.bbetter.member.model.FriendDTO;
 import com.future.bbetter.member.model.Member;
-import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.repository.FriendRepository;
 import com.future.bbetter.member.repository.MemberRepository;
 import com.future.bbetter.member.resource.FriendResource;

@@ -1,7 +1,10 @@
-package com.future.bbetter.member.model;
+package com.future.bbetter.member.dto;
 
 import java.util.Date;
 import java.util.List;
+
+import com.future.bbetter.member.model.Friend;
+import com.future.bbetter.member.model.Member;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import com.future.bbetter.exception.customize.ValidateFailException;
 import com.future.bbetter.member.constant.MEMBER;
+import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.model.Member;
-import com.future.bbetter.member.model.MemberDTO;
 import com.future.bbetter.member.repository.MemberRepository;
 import com.future.bbetter.member.validator.constant.VALIDATE_BEHAVIOR;
 

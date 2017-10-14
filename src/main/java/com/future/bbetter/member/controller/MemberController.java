@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.member.model.FriendDTO;
-import com.future.bbetter.member.model.MemberDTO;
+import com.future.bbetter.member.dto.FriendDTO;
+import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.resource.FriendResource;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.service.MemberService;

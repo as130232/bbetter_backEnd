@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.future.bbetter.schedule.model.ScheduleHad;
@@ -17,4 +18,6 @@ public interface ScheduleHadRepository extends JpaRepository<ScheduleHad, Long> 
 	
 	@Query(value = "select * from schedule_had h where h.member_id = ?1" , nativeQuery = true)
 	public List<ScheduleHad> findByMemberId(Long memberId);
+	
+	public List<ScheduleHad> findByMemberMemberIdAndStatusInAndIsValid(Long memberId, List<Integer> status, Integer isValid);
 }
