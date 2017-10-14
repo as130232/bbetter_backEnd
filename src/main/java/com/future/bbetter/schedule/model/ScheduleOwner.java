@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.future.bbetter.member.model.Member;
 
 /**
@@ -75,6 +77,7 @@ public class ScheduleOwner implements java.io.Serializable {
 	}
 
 	@Column(name = "is_valid", nullable = false)
+	@ColumnDefault("1")
 	public int getIsValid() {
 		return this.isValid;
 	}

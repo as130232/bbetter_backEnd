@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.future.bbetter.member.model.Member;
 
 /**
@@ -220,6 +222,7 @@ public class PetsHad implements java.io.Serializable {
 	}
 
 	@Column(name = "is_death", nullable = false, precision = 6, scale = 3)
+	@ColumnDefault("0.0")
 	public float getIsDeath() {
 		return this.isDeath;
 	}

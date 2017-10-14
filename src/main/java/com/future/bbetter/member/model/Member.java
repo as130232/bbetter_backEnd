@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.future.bbetter.achievement.model.AchievementHad;
 import com.future.bbetter.pet.model.PetsHad;
 import com.future.bbetter.schedule.model.ScheduleOwner;
@@ -136,6 +138,7 @@ public class Member implements java.io.Serializable {
 	}
 
 	@Column(name = "money", nullable = false, precision = 10)
+	@ColumnDefault(value = "0.0")
 	public BigDecimal getMoney() {
 		return this.money;
 	}
