@@ -7,6 +7,7 @@ buildscript {
 		lombokVersion = '1.10'
 		liquibasePluginVersion = '1.2.4'
 		snakeyamlVersion = '1.15'
+		liquibaseHibernate5Version = '3.6'
 	}
 	repositories {
 		mavenCentral()
@@ -19,6 +20,9 @@ buildscript {
 		classpath "io.franzbecker:gradle-lombok:${lombokVersion}"
 		classpath "org.liquibase:liquibase-gradle-plugin:${liquibasePluginVersion}"
 		classpath "org.yaml:snakeyaml:${snakeyamlVersion}"
+		classpath "mysql:mysql-connector-java:5.1.44"
+		classpath "org.liquibase.ext:liquibase-hibernate5:${liquibaseHibernate5Version}"
+		classpath 'org.hibernate:hibernate-core:5.2.3.Final'
 	}
 }
 /*
@@ -38,6 +42,8 @@ apply plugin: "org.liquibase.gradle"
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+//使用另外一個檔案
+apply from: 'liquibase.gradle'
 
 repositories {
 	mavenCentral()
@@ -85,23 +91,9 @@ dependencies {
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	testCompile('org.springframework.security:spring-security-test')
 }
-
-
-def changelog = "$projectDir/src/main/resources/DB/changelog/db.changelog-1.1.yml"
-
-liquibase {
-  activities { 
-    main {
-      changeLogFile changelog
-      url 'jdbc:mysql://localhost/bbetter?nullNamePatternMatchesAll=true'
-      username 'alfred'
-      password '1234'
-      changeLogParameters([ myToken: 'myvalue',
-                            second: 'secondValue'])
-    }
-  }
-
-  // runList = project.ext.runList
-  // runList = 'main'
-  runList = 'main'
+//備份專案所使用的library
+task copyToLib(type: Copy) {
+    into "$buildDir/output/libs"
+    from configurations.runtime
 }
+
