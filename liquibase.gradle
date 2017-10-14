@@ -16,7 +16,7 @@ configurations {
 
 if (OperatingSystem.current().isWindows()) {
     task pathingLiquibaseJar(type: Jar) {
-        dependsOn configurations.liquibase
+        //dependsOn configurations.liquibase
         appendix = 'pathingLiquibase'
 
         doFirst {
