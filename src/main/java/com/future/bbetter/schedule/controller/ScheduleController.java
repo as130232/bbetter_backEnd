@@ -32,7 +32,7 @@ public class ScheduleController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String email = auth.getName();
 	    MemberDTO memberInfo = memberResource.getMember(email);
-	    List<ScheduleDTO> schedules = scheduleResource.getSchedulesByMemberId(memberInfo.getMemberId());
+	    List<ScheduleDTO> schedules = null;
 		return schedules;
 	}
 }
