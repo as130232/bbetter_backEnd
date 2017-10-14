@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
+import com.future.bbetter.schedule.dto.ScheduleDTO;
+import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
 import com.future.bbetter.schedule.model.Schedule;
-import com.future.bbetter.schedule.model.ScheduleDTO;
-import com.future.bbetter.schedule.model.ScheduleHad;
 import com.future.bbetter.schedule.model.ScheduleSubType;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.repository.ScheduleHadRepository;
@@ -21,6 +21,7 @@ import com.future.bbetter.schedule.repository.ScheduleSubTypeRepository;
 import com.future.bbetter.schedule.repository.ScheduleTypeRepository;
 import com.future.bbetter.schedule.resource.ScheduleResource;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -48,21 +49,18 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		return defaultType;
 	}
 
+	
 	@Override
-	public ScheduleDTO addSchedule(ScheduleDTO scheduleDTO) {
-		Schedule newData = new Schedule();
-		BeanUtils.copyProperties(scheduleDTO, newData);
+	public ScheduleDTO addSchedule(@NonNull ScheduleDTO scheduleDTO) {
+		Schedule newData = scheduleDTO.toSchedule();
 		newData.setCreatedate(new Date());
-		newData.setScheduleSubType(schSubTypeRepo.getOne(scheduleDTO.getScheduleSubTypeId()));
 		Schedule afterData = schRepo.save(newData);
-		ScheduleDTO result = new ScheduleDTO();
-		BeanUtils.copyProperties(afterData, result);
-		result.setScheduleSubTypeId(afterData.getScheduleSubType().getScheduleSubTypeId());
+		ScheduleDTO result = ScheduleDTO.from(afterData);
 		return result;
 	}
 
 	@Override
-	public void updateSchedule(ScheduleDTO scheduleDTO) {
+	public void updateSchedule(@NonNull ScheduleDTO scheduleDTO) {
 		Long scheduleId = scheduleDTO.getScheduleId();
 		log.info("get data,id:{}",scheduleId);
 		Optional<Schedule> optData =  schRepo.findById(scheduleId);
@@ -86,23 +84,33 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	}
 
 	@Override
-	public ScheduleDTO addScheduleType(ScheduleDTO scheduleDTO) {
-		ScheduleType newData = new ScheduleType();
-		newData.setName(scheduleDTO.getTypeName());
-		ScheduleType afterData = schTypeRepo.save(newData);
-		ScheduleDTO result = new ScheduleDTO();
-		result.setTypeName(scheduleDTO.getTypeName());
-		result.setScheduleTypeId(afterData.getScheduleTypeId());
-		return result;
+	public ScheduleDTO addScheduleType(@NonNull ScheduleDTO scheduleDTO) {
+		ScheduleTypeDTO typeDTO = new ScheduleTypeDTO();
+		if(scheduleDTO.getType() != null){
+			typeDTO = addScheduleType(scheduleDTO.getType());
+			scheduleDTO.setType(typeDTO);
+			return scheduleDTO;
+		}
+		//TODO 可改為拋出exception
+		return null;
 	}
 
 	@Override
-	public void updateScheduleType(ScheduleDTO scheduleDTO) {
-		Integer scheduleTypeId = scheduleDTO.getScheduleTypeId();
+	public ScheduleTypeDTO addScheduleType(@NonNull ScheduleTypeDTO typeDTO) {
+		ScheduleType newData = typeDTO.toType();
+		ScheduleType afterData = schTypeRepo.save(newData);
+		ScheduleTypeDTO result = ScheduleTypeDTO.from(afterData);
+		return result;
+	}
+
+
+	@Override
+	public void updateScheduleType(@NonNull ScheduleTypeDTO typeDTO) {
+		Integer scheduleTypeId = typeDTO.getScheduleTypeId();
 		Optional<ScheduleType> optData = schTypeRepo.findById(scheduleTypeId);
 		if(optData.isPresent()){
 			ScheduleType data = optData.get();
-			data.setName(scheduleDTO.getTypeName());
+			data.setName(typeDTO.getTypeName());
 			schTypeRepo.save(data);
 		}
 	}
@@ -114,28 +122,21 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	}
 
 	@Override
-	public ScheduleDTO addScheduleSubType(ScheduleDTO scheduleDTO) {
-		Optional<ScheduleType> type = schTypeRepo.findById(scheduleDTO.getScheduleTypeId());
-		ScheduleSubType newData = new ScheduleSubType();
-		newData.setName(scheduleDTO.getSubTypeName());
-		//如果找不到資料則new一個空的type
-		newData.setScheduleType(type.orElse(defaultScheduleType()));
+	public ScheduleTypeDTO addScheduleSubType(@NonNull ScheduleTypeDTO subTypeDTO) {
+		ScheduleSubType newData = subTypeDTO.toSubType();
 		ScheduleSubType afterData = schSubTypeRepo.save(newData);
-		ScheduleDTO result = new ScheduleDTO();
-		result.setSubTypeName(afterData.getName());
-		result.setScheduleTypeId(afterData.getScheduleType().getScheduleTypeId());
-		result.setScheduleSubTypeId(afterData.getScheduleSubTypeId());
+		ScheduleTypeDTO result = ScheduleTypeDTO.from(afterData);
 		return result;
 	}
 
 	@Override
-	public void updateScheduleSubType(ScheduleDTO scheduleDTO) {
-		Integer scheduleSubTypeId = scheduleDTO.getScheduleSubTypeId();
+	public void updateScheduleSubType(ScheduleTypeDTO subTypeDTO) {
+		Integer scheduleSubTypeId = subTypeDTO.getScheduleSubTypeId();
 		Optional<ScheduleSubType> optData = schSubTypeRepo.findById(scheduleSubTypeId);
 		if(optData.isPresent()){
-			Optional<ScheduleType> type = schTypeRepo.findById(scheduleDTO.getScheduleTypeId());
+			Optional<ScheduleType> type = schTypeRepo.findById(subTypeDTO.getScheduleTypeId());
 			ScheduleSubType data = optData.get();
-			data.setName(scheduleDTO.getSubTypeName());
+			data.setName(subTypeDTO.getSubTypeName());
 			data.setScheduleType(type.orElse(defaultScheduleType()));
 			schSubTypeRepo.save(data);
 		}
@@ -158,5 +159,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
