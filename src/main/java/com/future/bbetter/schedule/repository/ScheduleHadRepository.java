@@ -19,5 +19,5 @@ public interface ScheduleHadRepository extends JpaRepository<ScheduleHad, Long> 
 	@Query(value = "select * from schedule_had h where h.member_id = ?1" , nativeQuery = true)
 	public List<ScheduleHad> findByMemberId(Long memberId);
 	
-	public List<ScheduleHad> findByMemberMemberIdAndStatusInAndIsValid(Long memberId, List<Integer> status, Integer isValid);
+	//public List<ScheduleHad> findByMemberMemberIdAndStatusInAndIsValid(Long memberId, List<Integer> status, Integer isValid);
 }

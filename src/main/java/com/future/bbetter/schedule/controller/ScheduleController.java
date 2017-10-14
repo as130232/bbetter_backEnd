@@ -22,8 +22,8 @@ import com.future.bbetter.schedule.resource.ScheduleResource;
 public class ScheduleController {
 	@Autowired
 	private MemberResource memberResource;
-	@Autowired
-	private ScheduleResource scheduleResource;
+//	@Autowired
+//	private ScheduleResource scheduleResource;
 	
 	@PreAuthorize("hasRole('USER')")
 	@PostAuthorize("returnObject.email == principal.username")
