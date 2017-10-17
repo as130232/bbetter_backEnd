@@ -1,5 +1,6 @@
 package com.future.bbetter.member.resource.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ public class MemberResourceImpl implements MemberResource{
 		member.setGender(memberDTO.getGender());
 		member.setName(memberDTO.getName());
 		Date createdate = new Date();
-		Double money = 0.00D;
+		BigDecimal money = new BigDecimal(0.0);
 		String password = memberDTO.getPassword();
 		//密碼加密
 		String encryptPassword = Password.encrypt(password);

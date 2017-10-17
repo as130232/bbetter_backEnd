@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1506170971274-1
+    id: 1507977417177-1
     author: alfread (generated)
     changes:
     - createTable:
@@ -29,7 +29,7 @@ databaseChangeLog:
             type: TIMESTAMP
         tableName: achievement_had
 - changeSet:
-    id: 1506170971274-2
+    id: 1507977417177-2
     author: alfread (generated)
     changes:
     - createTable:
@@ -47,7 +47,49 @@ databaseChangeLog:
             type: VARCHAR(45)
         tableName: achievement_type
 - changeSet:
-    id: 1506170971274-3
+    id: 1507977417177-3
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: cycle_rule_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_had_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: period
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: time_point
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: is_valid
+            type: INT
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: updatedate
+            type: TIMESTAMP
+        tableName: cycle_rule
+- changeSet:
+    id: 1507977417177-4
     author: alfread (generated)
     changes:
     - createTable:
@@ -89,9 +131,13 @@ databaseChangeLog:
             defaultValueComputed: CURRENT_TIMESTAMP
             name: createdate
             type: TIMESTAMP
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: updatedate
+            type: TIMESTAMP
         tableName: friend
 - changeSet:
-    id: 1506170971274-4
+    id: 1507977417177-5
     author: alfread (generated)
     changes:
     - createTable:
@@ -130,7 +176,7 @@ databaseChangeLog:
               nullable: false
             defaultValueNumeric: 0.00
             name: money
-            type: DOUBLE(10, 2)
+            type: DECIMAL(10, 2)
         - column:
             name: birthday
             type: TIMESTAMP
@@ -149,7 +195,7 @@ databaseChangeLog:
             type: TIMESTAMP
         tableName: member
 - changeSet:
-    id: 1506170971274-5
+    id: 1507977417177-6
     author: alfread (generated)
     changes:
     - createTable:
@@ -168,66 +214,66 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_height
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_weight
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_vision
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_hp
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_mp
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_mentality
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_strength
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_intelligence
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_dexterity
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: init_vitality
-            type: INT
+            type: FLOAT(6, 3)
         tableName: pet
 - changeSet:
-    id: 1506170971274-6
+    id: 1507977417177-7
     author: alfread (generated)
     changes:
     - createTable:
@@ -241,6 +287,11 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
+            name: pet_id
+            type: INT
+        - column:
+            constraints:
+              nullable: false
             name: member_id
             type: BIGINT
         - column:
@@ -249,111 +300,67 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: pet_id
-            type: INT
-        - column:
-            constraints:
-              nullable: false
             name: is_current
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: height
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: weight
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: vision
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: hp
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: mp
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: mentality
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: strength
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: intelligence
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: dexterity
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
             name: vitality
-            type: INT
+            type: FLOAT(6, 3)
         - column:
             constraints:
               nullable: false
-            defaultValueNumeric: 0
+            defaultValueNumeric: 0.0
             name: is_death
-            type: INT
+            type: FLOAT(6, 3)
         tableName: pets_had
 - changeSet:
-    id: 1506170971274-7
-    author: alfread (generated)
-    changes:
-    - createTable:
-        columns:
-        - column:
-            constraints:
-              nullable: false
-            name: report_schedule_id
-            type: BIGINT
-        - column:
-            constraints:
-              nullable: false
-            name: member_id
-            type: BIGINT
-        - column:
-            constraints:
-              nullable: false
-            name: schedule_schedule_id
-            type: BIGINT
-        - column:
-            constraints:
-              nullable: false
-            defaultValueComputed: CURRENT_TIMESTAMP
-            name: createdate
-            type: TIMESTAMP
-        - column:
-            constraints:
-              nullable: false
-            defaultValueNumeric: 0
-            name: is_review
-            type: INT
-        - column:
-            constraints:
-              nullable: false
-            name: report_type
-            type: INT
-        tableName: report_schedule
-- changeSet:
-    id: 1506170971274-8
+    id: 1507977417177-8
     author: alfread (generated)
     changes:
     - createTable:
@@ -437,7 +444,7 @@ databaseChangeLog:
             type: TIMESTAMP
         tableName: schedule
 - changeSet:
-    id: 1506170971274-9
+    id: 1507977417177-9
     author: alfread (generated)
     changes:
     - createTable:
@@ -451,12 +458,12 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: schedule_id
+            name: schedule_owner_id
             type: BIGINT
         - column:
             constraints:
               nullable: false
-            name: member_id
+            name: schedule_id
             type: BIGINT
         - column:
             constraints:
@@ -476,9 +483,80 @@ databaseChangeLog:
             defaultValueNumeric: 0
             name: accumulated_time
             type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: updatedate
+            type: TIMESTAMP
         tableName: schedule_had
 - changeSet:
-    id: 1506170971274-10
+    id: 1507977417177-10
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_history_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_had_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: status
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        tableName: schedule_history
+- changeSet:
+    id: 1507977417177-11
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_owner_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: member_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 1
+            name: is_valid
+            type: INT
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: updatedate
+            type: TIMESTAMP
+        tableName: schedule_owner
+- changeSet:
+    id: 1507977417177-12
     author: alfread (generated)
     changes:
     - createTable:
@@ -497,7 +575,7 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            defaultValueComputed: CURRENT_TIMESTAMP
+            defaultValueComputed: CURRENT_TIMESTAMP(2)
             name: remind_time
             type: TIMESTAMP
         - column:
@@ -511,7 +589,47 @@ databaseChangeLog:
             type: VARCHAR(200)
         tableName: schedule_remind
 - changeSet:
-    id: 1506170971274-11
+    id: 1507977417177-13
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: schedule_report_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_owner_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_schedule_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: is_review
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: report_type
+            type: INT
+        tableName: schedule_report
+- changeSet:
+    id: 1507977417177-14
     author: alfread (generated)
     changes:
     - createTable:
@@ -532,9 +650,13 @@ databaseChangeLog:
               nullable: false
             name: name
             type: VARCHAR(45)
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
         tableName: schedule_sub_type
 - changeSet:
-    id: 1506170971274-12
+    id: 1507977417177-15
     author: alfread (generated)
     changes:
     - createTable:
@@ -550,17 +672,13 @@ databaseChangeLog:
               nullable: false
             name: name
             type: VARCHAR(45)
+        - column:
+            defaultValueComputed: CURRENT_TIMESTAMP
+            name: createdate
+            type: TIMESTAMP
         tableName: schedule_type
 - changeSet:
-    id: 1506170971274-13
-    author: alfread (generated)
-    changes:
-    - addPrimaryKey:
-        columnNames: report_schedule_id
-        constraintName: PRIMARY
-        tableName: report_schedule
-- changeSet:
-    id: 1506170971274-14
+    id: 1507977417177-16
     author: alfread (generated)
     changes:
     - addUniqueConstraint:
@@ -568,7 +686,7 @@ databaseChangeLog:
         constraintName: email_UNIQUE
         tableName: member
 - changeSet:
-    id: 1506170971274-15
+    id: 1507977417177-17
     author: alfread (generated)
     changes:
     - createIndex:
@@ -578,7 +696,7 @@ databaseChangeLog:
         indexName: fk_achievement_had_achievement_type1_idx
         tableName: achievement_had
 - changeSet:
-    id: 1506170971274-16
+    id: 1507977417177-18
     author: alfread (generated)
     changes:
     - createIndex:
@@ -588,7 +706,17 @@ databaseChangeLog:
         indexName: fk_achievement_member1_idx
         tableName: achievement_had
 - changeSet:
-    id: 1506170971274-17
+    id: 1507977417177-19
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_had_id
+        indexName: fk_cycle_rule_schedule_had1_idx
+        tableName: cycle_rule
+- changeSet:
+    id: 1507977417177-20
     author: alfread (generated)
     changes:
     - createIndex:
@@ -598,7 +726,7 @@ databaseChangeLog:
         indexName: fk_friends_member1
         tableName: friend
 - changeSet:
-    id: 1506170971274-18
+    id: 1507977417177-21
     author: alfread (generated)
     changes:
     - createIndex:
@@ -608,7 +736,7 @@ databaseChangeLog:
         indexName: fk_friends_member2_idx
         tableName: friend
 - changeSet:
-    id: 1506170971274-19
+    id: 1507977417177-22
     author: alfread (generated)
     changes:
     - createIndex:
@@ -618,7 +746,7 @@ databaseChangeLog:
         indexName: fk_pets_had_member1_idx
         tableName: pets_had
 - changeSet:
-    id: 1506170971274-20
+    id: 1507977417177-23
     author: alfread (generated)
     changes:
     - createIndex:
@@ -628,17 +756,7 @@ databaseChangeLog:
         indexName: fk_pets_had_pet1_idx
         tableName: pets_had
 - changeSet:
-    id: 1506170971274-21
-    author: alfread (generated)
-    changes:
-    - createIndex:
-        columns:
-        - column:
-            name: member_id
-        indexName: fk_report_schedule_member1_idx
-        tableName: report_schedule
-- changeSet:
-    id: 1506170971274-22
+    id: 1507977417177-24
     author: alfread (generated)
     changes:
     - createIndex:
@@ -646,19 +764,19 @@ databaseChangeLog:
         - column:
             name: schedule_schedule_id
         indexName: fk_report_schedule_schedule1_idx
-        tableName: report_schedule
+        tableName: schedule_report
 - changeSet:
-    id: 1506170971274-23
+    id: 1507977417177-25
     author: alfread (generated)
     changes:
     - createIndex:
         columns:
         - column:
-            name: member_id
-        indexName: fk_schedule_had_member_idx
-        tableName: schedule_had
+            name: schedule_owner_id
+        indexName: fk_report_schedule_schedule_owner1_idx
+        tableName: schedule_report
 - changeSet:
-    id: 1506170971274-24
+    id: 1507977417177-26
     author: alfread (generated)
     changes:
     - createIndex:
@@ -668,7 +786,37 @@ databaseChangeLog:
         indexName: fk_schedule_had_schedule1_idx
         tableName: schedule_had
 - changeSet:
-    id: 1506170971274-25
+    id: 1507977417177-27
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_owner_id
+        indexName: fk_schedule_had_schedule_owner1_idx
+        tableName: schedule_had
+- changeSet:
+    id: 1507977417177-28
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: schedule_had_id
+        indexName: fk_schedule_history_schedule_had1_idx
+        tableName: schedule_history
+- changeSet:
+    id: 1507977417177-29
+    author: alfread (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: member_id
+        indexName: fk_schedule_owner_member1_idx
+        tableName: schedule_owner
+- changeSet:
+    id: 1507977417177-30
     author: alfread (generated)
     changes:
     - createIndex:
@@ -678,7 +826,7 @@ databaseChangeLog:
         indexName: fk_schedule_remind_schedule_had1_idx
         tableName: schedule_remind
 - changeSet:
-    id: 1506170971274-26
+    id: 1507977417177-31
     author: alfread (generated)
     changes:
     - createIndex:
@@ -688,7 +836,7 @@ databaseChangeLog:
         indexName: fk_schedule_schedule_sub_type1_idx
         tableName: schedule
 - changeSet:
-    id: 1506170971274-27
+    id: 1507977417177-32
     author: alfread (generated)
     changes:
     - createIndex:
@@ -698,7 +846,7 @@ databaseChangeLog:
         indexName: fk_schedule_sub_type_schedule_type1_idx
         tableName: schedule_sub_type
 - changeSet:
-    id: 1506170971274-28
+    id: 1507977417177-33
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -712,7 +860,7 @@ databaseChangeLog:
         referencedColumnNames: achievement_type_id
         referencedTableName: achievement_type
 - changeSet:
-    id: 1506170971274-29
+    id: 1507977417177-34
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -726,7 +874,21 @@ databaseChangeLog:
         referencedColumnNames: member_id
         referencedTableName: member
 - changeSet:
-    id: 1506170971274-30
+    id: 1507977417177-35
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_had_id
+        baseTableName: cycle_rule
+        constraintName: fk_cycle_rule_schedule_had1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_had_id
+        referencedTableName: schedule_had
+- changeSet:
+    id: 1507977417177-36
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -740,7 +902,7 @@ databaseChangeLog:
         referencedColumnNames: member_id
         referencedTableName: member
 - changeSet:
-    id: 1506170971274-31
+    id: 1507977417177-37
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -754,7 +916,7 @@ databaseChangeLog:
         referencedColumnNames: member_id
         referencedTableName: member
 - changeSet:
-    id: 1506170971274-32
+    id: 1507977417177-38
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -768,7 +930,7 @@ databaseChangeLog:
         referencedColumnNames: member_id
         referencedTableName: member
 - changeSet:
-    id: 1506170971274-33
+    id: 1507977417177-39
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -782,26 +944,12 @@ databaseChangeLog:
         referencedColumnNames: pet_id
         referencedTableName: pet
 - changeSet:
-    id: 1506170971274-34
-    author: alfread (generated)
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: member_id
-        baseTableName: report_schedule
-        constraintName: fk_report_schedule_member1
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: member_id
-        referencedTableName: member
-- changeSet:
-    id: 1506170971274-35
+    id: 1507977417177-40
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
         baseColumnNames: schedule_schedule_id
-        baseTableName: report_schedule
+        baseTableName: schedule_report
         constraintName: fk_report_schedule_schedule1
         deferrable: false
         initiallyDeferred: false
@@ -810,21 +958,21 @@ databaseChangeLog:
         referencedColumnNames: schedule_id
         referencedTableName: schedule
 - changeSet:
-    id: 1506170971274-36
+    id: 1507977417177-41
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
-        baseColumnNames: member_id
-        baseTableName: schedule_had
-        constraintName: fk_schedule_had_member
+        baseColumnNames: schedule_owner_id
+        baseTableName: schedule_report
+        constraintName: fk_report_schedule_schedule_owner1
         deferrable: false
         initiallyDeferred: false
         onDelete: NO ACTION
         onUpdate: NO ACTION
-        referencedColumnNames: member_id
-        referencedTableName: member
+        referencedColumnNames: schedule_owner_id
+        referencedTableName: schedule_owner
 - changeSet:
-    id: 1506170971274-37
+    id: 1507977417177-42
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -838,7 +986,49 @@ databaseChangeLog:
         referencedColumnNames: schedule_id
         referencedTableName: schedule
 - changeSet:
-    id: 1506170971274-38
+    id: 1507977417177-43
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_owner_id
+        baseTableName: schedule_had
+        constraintName: fk_schedule_had_schedule_owner1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_owner_id
+        referencedTableName: schedule_owner
+- changeSet:
+    id: 1507977417177-44
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_had_id
+        baseTableName: schedule_history
+        constraintName: fk_schedule_history_schedule_had1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: schedule_had_id
+        referencedTableName: schedule_had
+- changeSet:
+    id: 1507977417177-45
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: member_id
+        baseTableName: schedule_owner
+        constraintName: fk_schedule_owner_member1
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: member_id
+        referencedTableName: member
+- changeSet:
+    id: 1507977417177-46
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -852,7 +1042,7 @@ databaseChangeLog:
         referencedColumnNames: schedule_had_id
         referencedTableName: schedule_had
 - changeSet:
-    id: 1506170971274-39
+    id: 1507977417177-47
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -866,7 +1056,7 @@ databaseChangeLog:
         referencedColumnNames: schedule_sub_type_id
         referencedTableName: schedule_sub_type
 - changeSet:
-    id: 1506170971274-40
+    id: 1507977417177-48
     author: alfread (generated)
     changes:
     - addForeignKeyConstraint:
@@ -880,9 +1070,3 @@ databaseChangeLog:
         referencedColumnNames: schedule_type_id
         referencedTableName: schedule_type
 
-- changeSet:
-    id: tag-version
-    author: alfread
-    changes: 
-    - tagDatabase:
-        tag: version_1.0
