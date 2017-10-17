@@ -11,16 +11,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.future.bbetter.schedule.dto.ScheduleDTO;
+import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
 import com.future.bbetter.schedule.model.Schedule;
-import com.future.bbetter.schedule.model.ScheduleDTO;
 import com.future.bbetter.schedule.model.ScheduleSubType;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.resource.ScheduleResource;
@@ -30,8 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles("test")
 public class ScheduleResourceImplTest {
+
 	
 	@TestConfiguration
 	static class ScheduleResourceImplTestContextConfiguration{
@@ -85,8 +86,8 @@ public class ScheduleResourceImplTest {
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
 		
 		ScheduleSubType subType = addFakeData2ScheduleSubType_ScheduleType();
+		ScheduleTypeDTO typeDto = ScheduleTypeDTO.from(subType);
 		ScheduleDTO s = new ScheduleDTO();
-		s.setScheduleSubTypeId(subType.getScheduleSubTypeId());
 		s.setStartTime(Date.from(now));
 		s.setEndTime(Date.from(afterTwoHrs));
 		s.setName("Test_Schedule");
@@ -96,14 +97,16 @@ public class ScheduleResourceImplTest {
 		s.setIsNeedRemind(0);
 		s.setIsTeamSchedule(0);
 		s.setIsValid(0);
+		s.setType(typeDto);
 		
 		//when
 		ScheduleDTO result = schRs.addSchedule(s);
 		
 		//then
 		Schedule found = entityMgr.find(Schedule.class, result.getScheduleId());
-		assertThat(found.getScheduleSubType().getScheduleSubTypeId()).isEqualTo(s.getScheduleSubTypeId());
 		assertThat(found.getEndTime()).isEqualTo(s.getEndTime());
+		assertThat(found.getName()).isEqualTo(s.getName());
+		assertThat(found.getStatus()).isEqualTo(s.getStatus());
 	}
 	
 	@Test
@@ -113,44 +116,44 @@ public class ScheduleResourceImplTest {
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
 		
 		ScheduleSubType subType = addFakeData2ScheduleSubType_ScheduleType();
-		Schedule orginal = new Schedule();
-		orginal.setScheduleSubType(subType);
-		orginal.setStartTime(Date.from(now));
-		orginal.setEndTime(Date.from(afterTwoHrs));
-		orginal.setName("Test_Schedule");
-		orginal.setStatus(1);
-		orginal.setVisibility(2);
-		orginal.setIsCycle(0);
-		orginal.setIsNeedRemind(0);
-		orginal.setIsTeamSchedule(0);
-		orginal.setIsValid(0);		
-		entityMgr.persistAndFlush(orginal);
-		entityMgr.detach(orginal); //因為複製屬性關係，所以如果不分離會一起被改動值
+		Schedule original = new Schedule();
+		original.setScheduleSubType(subType);
+		original.setStartTime(Date.from(now));
+		original.setEndTime(Date.from(afterTwoHrs));
+		original.setName("Test_Schedule");
+		original.setStatus(1);
+		original.setVisibility(2);
+		original.setIsCycle(0);
+		original.setIsNeedRemind(0);
+		original.setIsTeamSchedule(0);
+		original.setIsValid(0);		
+		original.setCreatedate(Date.from(now));
+		entityMgr.persistAndFlush(original);
+		entityMgr.detach(original); //因為複製屬性關係，所以如果不分離會一起被改動值
 		
 		//when
 		ScheduleDTO updateBean = new ScheduleDTO();
-		BeanUtils.copyProperties(orginal, updateBean);
+		BeanUtils.copyProperties(original, updateBean);
 		updateBean.setName("Updated");
-		updateBean.setScheduleId(orginal.getScheduleId());
+		updateBean.setScheduleId(original.getScheduleId());
 		schRs.updateSchedule(updateBean);
 		
 		//then
-		Schedule found = entityMgr.find(Schedule.class, orginal.getScheduleId());
-		assertThat(found.getName()).isNotEqualTo(orginal.getName());
+		Schedule found = entityMgr.find(Schedule.class, original.getScheduleId());
+		assertThat(found.getName()).isNotEqualTo(original.getName());
 	}
 	
 	@Test
 	public void whenAddScheduleType_thenNameFieldShouldBeNull_TypeNameShouldExists(){
 		//given
-		ScheduleDTO type = new ScheduleDTO();
+		ScheduleTypeDTO type = new ScheduleTypeDTO();
 		type.setTypeName("test_type");
 		
 		//when
-		ScheduleDTO result = schRs.addScheduleType(type);
+		ScheduleTypeDTO result = schRs.addScheduleType(type);
 		
 		//then
 		assertThat(result).isNotNull();
-		assertThat(result.getName()).isEqualTo(type.getName()).isNull();
 		assertThat(result.getTypeName()).isEqualTo(type.getTypeName());
 		assertThat(result.getScheduleTypeId()).isNotNull();
 	}
@@ -161,16 +164,15 @@ public class ScheduleResourceImplTest {
 		//given
 		ScheduleType type = addFakeData2ScheduleType();
 		
-		ScheduleDTO subType = new ScheduleDTO();
+		ScheduleTypeDTO subType = new ScheduleTypeDTO();
 		subType.setSubTypeName("test_type");
 		subType.setScheduleTypeId(type.getScheduleTypeId());
 		
 		//when
-		ScheduleDTO result = schRs.addScheduleSubType(subType);
+		ScheduleTypeDTO result = schRs.addScheduleSubType(subType);
 		
 		//then
 		assertThat(result).isNotNull();
-		assertThat(result.getName()).isEqualTo(subType.getName()).isNull();
 		assertThat(result.getTypeName())
 			.isEqualTo(subType.getTypeName())
 			.isNull();
@@ -190,7 +192,7 @@ public class ScheduleResourceImplTest {
 		ScheduleType old = addFakeData2ScheduleType();
 		entityMgr.detach(old);
 		
-		ScheduleDTO updateBean = new ScheduleDTO();
+		ScheduleTypeDTO updateBean = new ScheduleTypeDTO();
 		updateBean.setScheduleTypeId(old.getScheduleTypeId());
 		updateBean.setTypeName("Update_data");
 		log.info("old.name:{}, updateBean.name:{}",old.getName(),updateBean.getTypeName());
@@ -221,7 +223,7 @@ public class ScheduleResourceImplTest {
 		ScheduleSubType old = addFakeData2ScheduleSubType_ScheduleType();
 		entityMgr.detach(old);
 		
-		ScheduleDTO updateBean = new ScheduleDTO();
+		ScheduleTypeDTO updateBean = new ScheduleTypeDTO();
 		updateBean.setScheduleSubTypeId(old.getScheduleSubTypeId());
 		updateBean.setSubTypeName("Update_Data_subType");
 		updateBean.setScheduleTypeId(type.getScheduleTypeId());

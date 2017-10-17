@@ -1,9 +1,12 @@
 databaseChangeLog:
 - defaultContexts:
-    context: test
+#this config is not available, why?
+    context: test and !prod
+    
 - changeSet:
     id: test-insert-data
     author: alfred
+    context: test
     changes: 
     - insert:
         tableName: member
@@ -31,20 +34,21 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         
 - changeSet:
     id: 1506172006100-1
     author: alfread (generated)
+    context: test
     changes:
     - insert:
         columns:
@@ -70,16 +74,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -106,16 +110,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -141,16 +145,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -177,16 +181,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -214,16 +218,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -250,16 +254,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -286,16 +290,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -322,16 +326,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -358,16 +362,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -394,16 +398,16 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
     - insert:
         columns:
@@ -430,20 +434,21 @@ databaseChangeLog:
             valueNumeric: 0.0
         - column:
             name: birthday
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: address
             value: taiwan
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         - column:
             name: updatedate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: member
 - changeSet:
     id: 1506172006100-2
     author: alfread (generated)
+    context: test
     changes:
     - insert:
         columns:
@@ -467,7 +472,7 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -491,7 +496,7 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -515,7 +520,7 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -539,7 +544,7 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -563,7 +568,7 @@ databaseChangeLog:
             valueNumeric: 1
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -587,7 +592,7 @@ databaseChangeLog:
             valueNumeric: 1
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -611,7 +616,7 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -635,7 +640,7 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
     - insert:
         columns:
@@ -659,5 +664,5 @@ databaseChangeLog:
             valueNumeric: 0
         - column:
             name: createdate
-            valueComputed: TIMESTAMP("2017-09-20", "07:39:34")
+            valueComputed: TIMESTAMP '2017-09-20 07:39:34' 
         tableName: friend
