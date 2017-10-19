@@ -19,8 +19,8 @@ public class CorsConfigurerAdapter extends WebMvcConfigurerAdapter{
 	
 	@Override 
 	public void addCorsMappings(CorsRegistry registry) {
-	    registry.addMapping("/api/**")
-	    .allowedOrigins(ALLOWORIGIN_CORS_A)
+		registry.addMapping("/api/**")
+	    .allowedOrigins("*")
 	    //.allowedHeaders("Content-Type")
 	    .allowedHeaders("*")
 	    .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
