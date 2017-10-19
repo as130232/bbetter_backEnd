@@ -41,6 +41,7 @@ public class Member implements java.io.Serializable {
 	private String address;
 	private Date createdate;
 	private Date updatedate;
+	private String imageUrl;
 	private Set<AchievementHad> achievementHads = new HashSet<AchievementHad>(0);
 	private Set<Friend> friendsForFriendMemberId = new HashSet<Friend>(0);
 	private Set<ScheduleOwner> scheduleOwners = new HashSet<ScheduleOwner>(0);
@@ -50,17 +51,18 @@ public class Member implements java.io.Serializable {
 	public Member() {
 	}
 
-	public Member(String email, String password, String name, int gender, BigDecimal money, String address) {
+	public Member(String email, String password, String name, int gender, BigDecimal money, String address, String imageUrl) {
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.gender = gender;
 		this.money = money;
 		this.address = address;
+		this.imageUrl = imageUrl;
 	}
 
 	public Member(String email, String password, String salt, String name, int gender, BigDecimal money, Date birthday,
-			String address, Date createdate, Date updatedate, Set<AchievementHad> achievementHads,
+			String address, String imageUrl, Date createdate, Date updatedate, Set<AchievementHad> achievementHads,
 			Set<Friend> friendsForFriendMemberId, Set<ScheduleOwner> scheduleOwners, Set<Friend> friendsForMemberId,
 			Set<PetsHad> petsHads) {
 		this.email = email;
@@ -71,6 +73,7 @@ public class Member implements java.io.Serializable {
 		this.money = money;
 		this.birthday = birthday;
 		this.address = address;
+		this.imageUrl = imageUrl;
 		this.createdate = createdate;
 		this.updatedate = updatedate;
 		this.achievementHads = achievementHads;
@@ -82,7 +85,6 @@ public class Member implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "member_id", unique = true, nullable = false)
 	public Long getMemberId() {
 		return this.memberId;
@@ -92,7 +94,7 @@ public class Member implements java.io.Serializable {
 		this.memberId = memberId;
 	}
 
-	@Column(name = "email", unique = true, nullable = false, length = 45)
+	@Column(name = "email", unique = true, length = 45)
 	public String getEmail() {
 		return this.email;
 	}
@@ -136,6 +138,15 @@ public class Member implements java.io.Serializable {
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
+	
+	@Column(name = "image_url", length = 100)
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	@Column(name = "money", nullable = false, precision = 10)
 	@ColumnDefault(value = "0.0")
@@ -157,7 +168,7 @@ public class Member implements java.io.Serializable {
 		this.birthday = birthday;
 	}
 
-	@Column(name = "address", nullable = false, length = 200)
+	@Column(name = "address", length = 200)
 	public String getAddress() {
 		return this.address;
 	}

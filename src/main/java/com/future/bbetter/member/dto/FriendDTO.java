@@ -27,6 +27,7 @@ public @Data @NoArgsConstructor class FriendDTO {
 		friendDTO.setEmail(member.getEmail());
 		friendDTO.setGender(member.getGender());
 		friendDTO.setBirthday(member.getBirthday());
+		friendDTO.setImageUrl(member.getImageUrl());
 		friendDTO.setCreatedate(friend.getCreatedate());
 		return friendDTO;
 	}
@@ -36,5 +37,5 @@ public @Data @NoArgsConstructor class FriendDTO {
 	private Integer gender;
 	private Date birthday;
 	private Date createdate;
-	
+	private String imageUrl;
 }

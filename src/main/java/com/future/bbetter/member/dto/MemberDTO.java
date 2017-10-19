@@ -19,6 +19,7 @@ public @Data @NoArgsConstructor class MemberDTO {
 		memberDTO.setGender(member.getGender());
 		memberDTO.setAddress(member.getAddress());
 		memberDTO.setMoney(member.getMoney());
+		memberDTO.setImageUrl(member.getImageUrl());
 		return memberDTO;
 	}
 	
@@ -33,5 +34,5 @@ public @Data @NoArgsConstructor class MemberDTO {
 	private Date createdate;
 	//新增會員時輸入的密碼(明碼)
 	private String password;
-
+	private String imageUrl;
 }
