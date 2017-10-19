@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.future.bbetter.exception.customize.DataNotFoundException;
+import com.future.bbetter.exception.customize.ThirdVerificationException;
 import com.future.bbetter.exception.customize.ValidateFailException;
 import com.future.bbetter.exception.model.ErrorInfo;
 
@@ -64,4 +66,22 @@ public class GobalExceptionHandler {
 		error.setUrl(req.getRequestURL().toString());
 		return error;
 	}
+	
+	
+	/**
+	 * 第三方驗證失敗
+	 * @author Charles
+	 * @date 2017年10月15日 下午10:14:47
+	 */
+	@ExceptionHandler(value = ThirdVerificationException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ErrorInfo<String> ThirdVerificationExceptionHandler(HttpServletRequest req, HttpServletResponse res,
+			ThirdVerificationException e) {
+		ErrorInfo<String> error = new ErrorInfo<>();
+		error.setCode(HttpStatus.UNAUTHORIZED.value());
+		error.setMessage(e.getMessage());
+		error.setUrl(req.getRequestURL().toString());
+		return error;
+	}
+	
 }
