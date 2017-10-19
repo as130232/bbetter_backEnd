@@ -27,6 +27,9 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 		if(schedule.getScheduleSubType() != null){
 			scheduleDTO.setType(ScheduleTypeDTO.from(schedule.getScheduleSubType()));
 		}
+		if(schedule.getScheduleId() != null){
+			scheduleDTO.setScheduleId(schedule.getScheduleId());
+		}
 		scheduleDTO.setStartTime(schedule.getStartTime());
 		scheduleDTO.setEndTime(schedule.getEndTime());
 		scheduleDTO.setName(schedule.getName());
