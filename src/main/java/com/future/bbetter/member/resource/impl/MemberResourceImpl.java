@@ -25,12 +25,13 @@ public class MemberResourceImpl implements MemberResource{
 	private MemberRepository memberRepository;
 	
 	@Override
-	public void addMember(MemberDTO memberDTO){
+	public MemberDTO addMember(MemberDTO memberDTO){
 		Member member = new Member();
 		member.setAddress(memberDTO.getAddress());
 		member.setBirthday(memberDTO.getBirthday());
 		member.setEmail(memberDTO.getEmail());
 		member.setGender(memberDTO.getGender());
+		member.setImageUrl(memberDTO.getImageUrl());
 		member.setName(memberDTO.getName());
 		Date createdate = new Date();
 		BigDecimal money = new BigDecimal(0.0);
@@ -40,7 +41,9 @@ public class MemberResourceImpl implements MemberResource{
 		member.setMoney(money);
 		member.setPassword(encryptPassword);
 		member.setCreatedate(createdate);
-		memberRepository.saveAndFlush(member);
+		Member newMember = memberRepository.saveAndFlush(member);
+		MemberDTO newMemberDTO = MemberDTO.fromEntity(newMember);
+		return newMemberDTO;
 	}
 	
 	@Override
@@ -78,7 +81,7 @@ public class MemberResourceImpl implements MemberResource{
 		if(member != null) {
 			memberDTO = MemberDTO.fromEntity(member);
 		}else {
-			throw new DataNotFoundException("member email: " + email + " is not found.");
+			throw new DataNotFoundException("email: " + email + " is not found.");
 		}
 		return memberDTO;
 	}
