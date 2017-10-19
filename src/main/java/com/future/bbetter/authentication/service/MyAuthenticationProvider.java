@@ -50,7 +50,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         //載入用戶資訊
         UserDetails user = myUserDetailsService.loadUserByUsername(username);
         if(user == null){
-            throw new UsernameNotFoundException("User Email not found.");
+            throw new UsernameNotFoundException("User ID not found.");
         }
         
         //前台用戶輸入的密碼與數據庫儲存用戶密碼(加密過)，驗證是否正確

@@ -43,14 +43,13 @@ public class MemberController {
 	 * @date 2017年8月27日 下午7:37:14
 	 */
 	//必須具備USER權限，且該取得的會員資訊必須為會原本人
-	//例:已登入但欲取得他人帳戶資訊，利用該IP查到的會員eamil與當前登入中的Authentication的username做比對
+	//例:已登入但欲取得他人帳戶資訊，利用該IP查到的會員memberId與當前登入中的Authentication的username做比對
 	@PreAuthorize("hasRole('USER')")
-	@PostAuthorize("returnObject.email == principal.username")
-	@GetMapping("/member/self")
+	@PostAuthorize("returnObject.memberId.toString() == principal.username")
+	@GetMapping("/member/me")
 	public MemberDTO getMember() throws DataNotFoundException{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String email = auth.getName();
-	    MemberDTO memberInfo = memberResource.getMember(email);
+	    MemberDTO memberInfo = memberResource.getMember(new Long(auth.getName()));
 		return memberInfo;
 	}
 	

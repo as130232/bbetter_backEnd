@@ -14,9 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.future.bbetter.authentication.jwt.JWTFilter;
 import com.future.bbetter.authentication.jwt.JwtAuthenticationEntryPoint;
@@ -71,8 +68,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//.formLogin()
 			.authorizeRequests()
 		 	//可以訪問而不進行身份驗證
-			.antMatchers("/signup").permitAll()
 			.antMatchers("/login").permitAll()
+			.antMatchers("/signup").permitAll()
+			//第三方登入(facebook、google)
+			.antMatchers("/signin/**").permitAll()
 			.antMatchers("/public/**").permitAll()
 			//其他端點將被保護並且需要有效的JWT秘鑰
 			.anyRequest().authenticated();
@@ -143,4 +142,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            }
 //        };
 //    }
+	
 }
