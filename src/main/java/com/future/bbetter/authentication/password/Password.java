@@ -1,4 +1,9 @@
 package com.future.bbetter.authentication.password;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +42,20 @@ public class Password {
         return BCrypt.checkpw(password, hashPassword);
     }
     
+    public static String createRandomPassword() {
+    	StringBuilder result = new StringBuilder(); 
+    	final String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    final int N = alphabet.length();
+
+	    Random r = new Random();
+	    int length = 10;
+	    
+	    for (int i = 0; i < length; i++) {
+	    	result.append(alphabet.charAt(r.nextInt(N)));
+	    }
+    	return result.toString();
+    }
+    
     /**
 	 * 測試
 	 * @author Charles
@@ -44,19 +63,39 @@ public class Password {
 	 */
     public static void main(String[] args) {
     	//test
-        String tmp = "0000";	//$2a$12$dQevIWsWVAVrkzFDk6Z2LOPJWpsNGEEbkFqbltCrQ3kYXuLn2HEpC
-        String encryptor  = encrypt(tmp);
-        System.out.println("tmp:" + tmp + ", encryptor:" + encryptor );
-        // 1.$2a$12$zgGaBVDiZK7ffB52AnD.U.FbrQ2EmOBONZOHXUoN3V/e4lgCncfBa
-        // 2.$2a$12$14L9HfHMbf23a1FBQL1HkujhBPhKRPtPFdwf5qB70EhEiibmByg5y
-        boolean isValidatePassword = isValidatePassword( tmp, encryptor);
-        System.out.println("isValidatePassword:" + isValidatePassword);
-        System.out.println("----------");
-        String method = "getUserId";
-        String MethodOfSetOrGet = (method.toString()).substring(0, 3);
-		String property = (method.toString()).substring(3, 4).toLowerCase() + (method.toString()).substring(4);
+//        String tmp = "0000";	//$2a$12$dQevIWsWVAVrkzFDk6Z2LOPJWpsNGEEbkFqbltCrQ3kYXuLn2HEpC
+//        String encryptor  = encrypt(tmp);
+//        System.out.println("tmp:" + tmp + ", encryptor:" + encryptor );
+//        // 1.$2a$12$zgGaBVDiZK7ffB52AnD.U.FbrQ2EmOBONZOHXUoN3V/e4lgCncfBa
+//        // 2.$2a$12$14L9HfHMbf23a1FBQL1HkujhBPhKRPtPFdwf5qB70EhEiibmByg5y
+//        boolean isValidatePassword = isValidatePassword( tmp, encryptor);
+//        System.out.println("isValidatePassword:" + isValidatePassword);
+//        System.out.println("----------");
+//        String method = "getUserId";
+//        String MethodOfSetOrGet = (method.toString()).substring(0, 3);
+//		String property = (method.toString()).substring(3, 4).toLowerCase() + (method.toString()).substring(4);
+//		
+//		System.out.println("MethodOfSetOrGet:" + MethodOfSetOrGet);
+//		System.out.println("property:" + property);
 		
-		System.out.println("MethodOfSetOrGet:" + MethodOfSetOrGet);
-		System.out.println("property:" + property);
+//    	String result = createRandomPassword();
+//    	System.out.println("test:" +  result);
+    	
+    	
+    	String birthdayStr = "03/14/1992";
+		String[] birthdayArray = birthdayStr.split("/");
+		String birthdayFormate = birthdayArray[2] + "/"+ birthdayArray[0] + "/" + birthdayArray[1];
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			Date birthday = formatter.parse(birthdayFormate);
+			System.out.println("1:" + birthday);
+			
+			Date birthday2 = formatter.parse(birthdayStr);
+			System.out.println("2:" + birthday2);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
     }
 }
