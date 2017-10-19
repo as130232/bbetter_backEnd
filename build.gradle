@@ -73,16 +73,20 @@ dependencies {
 	//跨平台的檔案加密，密碼存到 db 前要 hash 過，並且挑選專門用來 hash 密碼的演算法，如 bcrypt
 	compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 	
+	//json web token
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 	
 	// liquibase depends snakeyaml for read yaml file
 	compile group: 'org.yaml', name: 'snakeyaml', version: '1.15'
-	
 	// https://mvnrepository.com/artifact/org.liquibase/liquibase-core
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	// https://mvnrepository.com/artifact/org.liquibase.ext/liquibase-hibernate5
 	compile group: 'org.liquibase.ext', name: 'liquibase-hibernate5', version: '3.6'
 	
+	//facebook authentication
+	compile("org.springframework.social:spring-social-facebook")
+	
+	compile("org.springframework.social:spring-social-security")
 	
 	//DataBase:MySQL
 	runtime('mysql:mysql-connector-java')
