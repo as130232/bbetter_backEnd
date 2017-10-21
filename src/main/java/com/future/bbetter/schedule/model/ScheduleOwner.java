@@ -29,7 +29,8 @@ import com.future.bbetter.member.model.Member;
 public class ScheduleOwner implements java.io.Serializable {
 
 	private Long scheduleOwnerId;
-	private Member member;
+	private Long registrantId;
+	private int source;
 	private int isValid;
 	private Date createdate;
 	private Date updatedate;
@@ -39,14 +40,10 @@ public class ScheduleOwner implements java.io.Serializable {
 	public ScheduleOwner() {
 	}
 
-	public ScheduleOwner(Member member, int isValid) {
-		this.member = member;
-		this.isValid = isValid;
-	}
 
-	public ScheduleOwner(Member member, int isValid, Date createdate, Date updatedate,
+	public ScheduleOwner(Long registrantId, int isValid, Date createdate, Date updatedate,
 			Set<ScheduleReport> scheduleReports, Set<ScheduleHad> scheduleHads) {
-		this.member = member;
+		this.registrantId = registrantId;
 		this.isValid = isValid;
 		this.createdate = createdate;
 		this.updatedate = updatedate;
@@ -56,7 +53,6 @@ public class ScheduleOwner implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "schedule_owner_id", unique = true, nullable = false)
 	public Long getScheduleOwnerId() {
 		return this.scheduleOwnerId;
@@ -66,15 +62,26 @@ public class ScheduleOwner implements java.io.Serializable {
 		this.scheduleOwnerId = scheduleOwnerId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id", nullable = false)
-	public Member getMember() {
-		return this.member;
+	@Column(name = "registrant_id", nullable = false)
+	public Long getRegistrantId() {
+		return registrantId;
 	}
 
-	public void setMember(Member member) {
-		this.member = member;
+
+	public void setRegistrantId(Long registrantId) {
+		this.registrantId = registrantId;
 	}
+
+	@Column(name = "source", nullable = false)
+	public int getSource() {
+		return source;
+	}
+
+
+	public void setSource(int source) {
+		this.source = source;
+	}
+
 
 	@Column(name = "is_valid", nullable = false)
 	@ColumnDefault("1")
