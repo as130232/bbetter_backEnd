@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
+import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.exception.customize.ThirdVerificationException;
-import com.future.bbetter.exception.customize.ValidateFailException;
+import com.future.bbetter.exception.customize.ValidateFailureException;
 import com.future.bbetter.exception.model.ErrorInfo;
 
 @ControllerAdvice
@@ -23,10 +24,10 @@ public class GobalExceptionHandler {
 	 * @author Charles
 	 * @date 2017年9月17日 上午11:05:59
 	 */
-	@ExceptionHandler(value = ValidateFailException.class)
+	@ExceptionHandler(value = ValidateFailureException.class)
 	//狀態碼用來表示此次請求的結果(成功、失敗、其他原因等)
 	@ResponseStatus(HttpStatus.PRECONDITION_FAILED)
-	public ErrorInfo<String> validateHandler(HttpServletRequest req, HttpServletResponse res, ValidateFailException e) {
+	public ErrorInfo<String> validateHandler(HttpServletRequest req, HttpServletResponse res, ValidateFailureException e) {
 		ErrorInfo<String> error = new ErrorInfo<>();
 		//此處的Code為錯誤碼，暫時先存狀態碼，未來討論錯誤碼
 		error.setCode(HttpStatus.PRECONDITION_FAILED.value());
@@ -84,4 +85,20 @@ public class GobalExceptionHandler {
 		return error;
 	}
 	
+	
+	/**
+	 * 新增或更新資料失敗
+	 * @author Charles
+	 * @date 2017年10月21日 下午10:14:47
+	 */
+	@ExceptionHandler(value = InsertOrUpdateDataFailureException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ErrorInfo<String> InsertOrUpdateDataFailExceptionHandler(HttpServletRequest req, HttpServletResponse res,
+			InsertOrUpdateDataFailureException e) {
+		ErrorInfo<String> error = new ErrorInfo<>();
+		error.setCode(HttpStatus.BAD_REQUEST.value());
+		error.setMessage(e.getMessage());
+		error.setUrl(req.getRequestURL().toString());
+		return error;
+	}
 }

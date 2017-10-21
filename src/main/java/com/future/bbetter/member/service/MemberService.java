@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.future.bbetter.exception.customize.ValidateFailException;
+import com.future.bbetter.exception.customize.ValidateFailureException;
 import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.validator.constant.VALIDATE_BEHAVIOR;
@@ -43,7 +43,7 @@ public class MemberService {
 		memberValidators.stream().forEach(validator -> {
 			try {
 				validator.validate(memberDTO);
-			} catch (ValidateFailException e) {
+			} catch (ValidateFailureException e) {
 				errorList.add(e.toString());
 			}
 		});

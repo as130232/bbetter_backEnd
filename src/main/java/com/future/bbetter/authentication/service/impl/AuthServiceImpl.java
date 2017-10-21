@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.authentication.service.AuthService;
-import com.future.bbetter.exception.customize.ValidateFailException;
+import com.future.bbetter.exception.customize.ValidateFailureException;
 import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.service.MemberService;
@@ -49,11 +49,11 @@ public class AuthServiceImpl implements AuthService{
 	 * @return void
 	 */
 	@Override
-	public void register(MemberDTO memberDTO) throws ValidateFailException{
+	public void register(MemberDTO memberDTO){
 		//錯誤檢查
 		List<String> errorList = memberService.checkAddUser(memberDTO);
 		if(!errorList.isEmpty()) {
-			throw new ValidateFailException(errorList.toString());
+			throw new ValidateFailureException(errorList.toString());
 		}else {
 			memberResource.addMember(memberDTO);
 		}
