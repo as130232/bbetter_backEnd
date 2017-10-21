@@ -124,6 +124,6 @@ public class FacebookAuthService {
 		MemberDTO newMemberDTO = memberResource.addMember(memberDTO);
 		
 		//並將該會員及來源供應商ID新增至第三方驗證表中
-		thirdPartAuthResource.insert(newMemberDTO.getMemberId(), userProfile.getId(), THIRD_PART_AUTH.SOURCE_FACEBOOK.value);
+		thirdPartAuthResource.addThirdPartAuth(newMemberDTO.getMemberId(), userProfile.getId(), THIRD_PART_AUTH.SOURCE_FACEBOOK.value);
 	}
 }

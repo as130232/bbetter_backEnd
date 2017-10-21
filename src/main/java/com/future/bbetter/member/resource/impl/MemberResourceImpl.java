@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.future.bbetter.authentication.password.Password;
 import com.future.bbetter.exception.customize.DataNotFoundException;
+import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
+import com.future.bbetter.exception.customize.ThirdVerificationException;
 import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.repository.MemberRepository;
@@ -23,43 +25,6 @@ public class MemberResourceImpl implements MemberResource{
 	
 	@Autowired
 	private MemberRepository memberRepository;
-	
-	@Override
-	public MemberDTO addMember(MemberDTO memberDTO){
-		Member member = new Member();
-		member.setAddress(memberDTO.getAddress());
-		member.setBirthday(memberDTO.getBirthday());
-		member.setEmail(memberDTO.getEmail());
-		member.setGender(memberDTO.getGender());
-		member.setImageUrl(memberDTO.getImageUrl());
-		member.setName(memberDTO.getName());
-		Date createdate = new Date();
-		BigDecimal money = new BigDecimal(0.0);
-		String password = memberDTO.getPassword();
-		//密碼加密
-		String encryptPassword = Password.encrypt(password);
-		member.setMoney(money);
-		member.setPassword(encryptPassword);
-		member.setCreatedate(createdate);
-		Member newMember = memberRepository.saveAndFlush(member);
-		MemberDTO newMemberDTO = MemberDTO.fromEntity(newMember);
-		return newMemberDTO;
-	}
-	
-	@Override
-	public void updateMember(MemberDTO updateMemberDTO){
-		Long memberId = updateMemberDTO.getMemberId();
-		Optional<Member> optional = memberRepository.findById(memberId);
-		if(optional.isPresent()) {
-			Member member = optional.get();
-			memberRepository.save(member);
-		}
-	}
-	
-	@Override
-	public void deleteMember(Long memberId){
-		memberRepository.deleteById(memberId);
-	}
 	
 	@Override
 	public MemberDTO getMember(Long memberId) throws DataNotFoundException{
@@ -109,6 +74,58 @@ public class MemberResourceImpl implements MemberResource{
 		return isEmailExist;
 	}
 	
-
+	@Override
+	public MemberDTO addMember(MemberDTO memberDTO){
+		boolean isEmailExist = this.checkIsEmailExist(memberDTO.getEmail());
+        if(isEmailExist) {
+        	throw new InsertOrUpdateDataFailureException("此信箱已註冊過！");
+        }
+        MemberDTO newMemberDTO = this.insert(memberDTO);
+		return newMemberDTO;
+	}
+	
+	/**
+	 * 新增一筆會員資訊，並回傳新增會員
+	 * @author Charles
+	 * @date 2017年10月21日 下午6:04:06
+	 * @return MemberDTO
+	 */
+	private MemberDTO insert(MemberDTO memberDTO) {
+		Date createdate = new Date();
+		BigDecimal money = new BigDecimal(0.0);
+		String password = memberDTO.getPassword();
+		//密碼加密
+		String encryptPassword = Password.encrypt(password);
+		
+		Member member = new Member();
+		member.setAddress(memberDTO.getAddress());
+		member.setBirthday(memberDTO.getBirthday());
+		member.setEmail(memberDTO.getEmail());
+		member.setGender(memberDTO.getGender());
+		member.setImageUrl(memberDTO.getImageUrl());
+		member.setName(memberDTO.getName());
+		member.setMoney(money);
+		member.setPassword(encryptPassword);
+		member.setCreatedate(createdate);
+		Member newMember = memberRepository.saveAndFlush(member);
+		MemberDTO newMemberDTO = MemberDTO.fromEntity(newMember);
+		return newMemberDTO;
+	}
+	
+	@Override
+	public void updateMember(MemberDTO updateMemberDTO){
+		Long memberId = updateMemberDTO.getMemberId();
+		Optional<Member> optional = memberRepository.findById(memberId);
+		if(optional.isPresent()) {
+			Member member = optional.get();
+			memberRepository.save(member);
+		}
+	}
+	
+	@Override
+	public void deleteMember(Long memberId){
+		memberRepository.deleteById(memberId);
+	}
+	
 	
 }
