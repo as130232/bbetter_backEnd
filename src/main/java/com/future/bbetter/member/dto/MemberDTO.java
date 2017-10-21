@@ -9,7 +9,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public @Data @NoArgsConstructor class MemberDTO {
-	
+	//member.attributes
+	private Long memberId;
+	private String email;
+	private String name;
+	private Integer gender;
+	private BigDecimal money;
+	private Date birthday;
+	private String address;
+	private Date createdate;
+	//新增會員時輸入的密碼(明碼)
+	private String password;
+	private String imageUrl;
+		
 	public static MemberDTO fromEntity(Member member) {
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMemberId(member.getMemberId());
@@ -23,16 +35,4 @@ public @Data @NoArgsConstructor class MemberDTO {
 		return memberDTO;
 	}
 	
-	//member
-	private Long memberId;
-	private String email;
-	private String name;
-	private Integer gender;
-	private BigDecimal money;
-	private Date birthday;
-	private String address;
-	private Date createdate;
-	//新增會員時輸入的密碼(明碼)
-	private String password;
-	private String imageUrl;
 }
