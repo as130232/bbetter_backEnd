@@ -62,7 +62,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		insert.setIsValid(isValid);
 		insert.setLocation(scheduleDTO.getLocation());
 		insert.setName(scheduleDTO.getName());
-		insert.setScheduleType(new ScheduleType(scheduleDTO.getScheduleTypeId()));
+		insert.setScheduleType(new ScheduleType(scheduleDTO.getScheduleTypeInfo().getScheduleTypeId()));
 		insert.setSkillId(scheduleDTO.getSkillId());
 		insert.setStartTime(scheduleDTO.getStartTime());	//注意時間轉換問題
 		insert.setStatus(scheduleDTO.getStatus());
