@@ -4,11 +4,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.future.bbetter.member.model.Member;
+import com.future.bbetter.schedule.model.ScheduleRegistrant;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public @Data @NoArgsConstructor class MemberDTO {
+public @Data @NoArgsConstructor class MemberDTO implements ScheduleRegistrant{
 	//member.attributes
 	private Long memberId;
 	private String email;
