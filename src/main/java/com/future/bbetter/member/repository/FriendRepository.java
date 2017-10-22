@@ -10,4 +10,6 @@ import com.future.bbetter.member.model.Member;
 
 public interface FriendRepository  extends JpaRepository<Friend, Long> , JpaSpecificationExecutor<Friend>{
 	public List<Friend> findByMemberByMemberId(Member member);
+	public List<Friend> findByMemberByMemberIdAndIsBlockadeAndIsAccept(Member member, Integer isBlockade,
+			Integer isAccept);
 }
