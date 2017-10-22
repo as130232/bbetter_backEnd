@@ -28,8 +28,8 @@ public class ScheduleOwner implements java.io.Serializable {
 
 	private Long scheduleOwnerId;
 	private Long registrantId;
-	private int source;
-	private int isValid;
+	private Integer source;
+	private Integer isValid;
 	private Date createdate;
 	private Date updatedate;
 	private Set<ScheduleReport> scheduleReports = new HashSet<ScheduleReport>(0);
@@ -37,9 +37,12 @@ public class ScheduleOwner implements java.io.Serializable {
 
 	public ScheduleOwner() {
 	}
+	
+	public ScheduleOwner(Long scheduleOwnerId) {
+		this.scheduleOwnerId = scheduleOwnerId;
+	}
 
-
-	public ScheduleOwner(Long registrantId, int isValid, Date createdate, Date updatedate,
+	public ScheduleOwner(Long registrantId, Integer isValid, Date createdate, Date updatedate,
 			Set<ScheduleReport> scheduleReports, Set<ScheduleHad> scheduleHads) {
 		this.registrantId = registrantId;
 		this.isValid = isValid;
@@ -71,23 +74,23 @@ public class ScheduleOwner implements java.io.Serializable {
 	}
 
 	@Column(name = "source", nullable = false)
-	public int getSource() {
+	public Integer getSource() {
 		return source;
 	}
 
 
-	public void setSource(int source) {
+	public void setSource(Integer source) {
 		this.source = source;
 	}
 
 
 	@Column(name = "is_valid", nullable = false)
 	@ColumnDefault("1")
-	public int getIsValid() {
+	public Integer getIsValid() {
 		return this.isValid;
 	}
 
-	public void setIsValid(int isValid) {
+	public void setIsValid(Integer isValid) {
 		this.isValid = isValid;
 	}
 

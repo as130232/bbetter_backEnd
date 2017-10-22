@@ -1,14 +1,16 @@
 package com.future.bbetter.schedule.model;
 // Generated 2017/10/14 上午 11:25:08 by Hibernate Tools 5.2.3.Final
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,24 +27,27 @@ public class ScheduleType implements java.io.Serializable {
 	private Integer scheduleTypeId;
 	private String name;
 	private Date createdate;
-	private Set<ScheduleSubType> scheduleSubTypes = new HashSet<ScheduleSubType>(0);
+	private Set<Schedule> schedule = new HashSet<Schedule>(0);
 
 	public ScheduleType() {
 	}
-
+	
+	public ScheduleType(Integer scheduleTypeId) {
+		this.scheduleTypeId = scheduleTypeId;
+	}
+	
 	public ScheduleType(String name) {
 		this.name = name;
 	}
 
-	public ScheduleType(String name, Date createdate, Set<ScheduleSubType> scheduleSubTypes) {
+	public ScheduleType(String name, Date createdate, Set<Schedule> schedule) {
 		this.name = name;
 		this.createdate = createdate;
-		this.scheduleSubTypes = scheduleSubTypes;
+		this.schedule = schedule;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "schedule_type_id", unique = true, nullable = false)
 	public Integer getScheduleTypeId() {
 		return this.scheduleTypeId;
@@ -72,12 +77,12 @@ public class ScheduleType implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleType")
-	public Set<ScheduleSubType> getScheduleSubTypes() {
-		return this.scheduleSubTypes;
+	public Set<Schedule> getSchedule() {
+		return this.schedule;
 	}
 
-	public void setScheduleSubTypes(Set<ScheduleSubType> scheduleSubTypes) {
-		this.scheduleSubTypes = scheduleSubTypes;
+	public void setSchedule(Set<Schedule> schedule) {
+		this.schedule = schedule;
 	}
 
 }
