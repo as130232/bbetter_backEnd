@@ -49,7 +49,11 @@ public class Member implements java.io.Serializable {
 
 	public Member() {
 	}
-
+	
+	public Member(Long memberId) {
+		this.memberId = memberId;
+	}
+	
 	public Member(String email, String password, String name, int gender, BigDecimal money, String address, String imageUrl) {
 		this.email = email;
 		this.password = password;
