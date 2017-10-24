@@ -4,9 +4,12 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import com.future.bbetter.BbetterApplication;
 
 /**
  * 寄信服務
@@ -36,5 +39,8 @@ public class SmtpMailService {
 		     e.printStackTrace();
 	    }
 	}
-	
+	public static void main(String[] args) {
+		SmtpMailService smtpMailService = new SmtpMailService();
+		smtpMailService.send("as130232@gmail.com", "test", "test");
+	}
 }

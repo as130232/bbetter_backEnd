@@ -18,10 +18,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.future.bbetter.member.constant.MEMBER;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.schedule.model.Schedule;
-import com.future.bbetter.schedule.model.ScheduleDTO;
 import com.future.bbetter.schedule.model.ScheduleHad;
 import com.future.bbetter.schedule.model.ScheduleSubType;
 import com.future.bbetter.schedule.model.ScheduleType;
@@ -59,7 +57,6 @@ public class ScheduleHadRepositoryTest {
 		john.setEmail("john@gmail.com");
 		john.setPassword("password");
 		john.setGender(1);
-		john.setMoney(0.0);
 		john.setAddress("North Korea");
 		entityMgr.persistAndFlush(john);
 		
@@ -68,7 +65,6 @@ public class ScheduleHadRepositoryTest {
 		jay.setEmail("jay@gmail.com");
 		jay.setPassword("password");
 		jay.setGender(1);
-		jay.setMoney(100.0);
 		jay.setAddress("South Korea");
 		entityMgr.persistAndFlush(jay);
 		
@@ -139,7 +135,6 @@ public class ScheduleHadRepositoryTest {
 		Schedule sch1 = entityMgr.find(Schedule.class, schedule1_id);
 		
 		ScheduleHad had = new ScheduleHad();
-		had.setMember(john);
 		had.setSchedule(sch1);
 		had.setAuthority(1);
 		had.setIsValid(1);
@@ -147,7 +142,6 @@ public class ScheduleHadRepositoryTest {
 		entityMgr.persistAndFlush(had);
 		
 		ScheduleHad had2 = new ScheduleHad();
-		had2.setMember(jay);
 		had2.setSchedule(sch1);
 		had2.setAuthority(1);
 		had2.setIsValid(1);
@@ -179,7 +173,6 @@ public class ScheduleHadRepositoryTest {
 		Schedule sch2 = entityMgr.find(Schedule.class, schedule2_id);
 		
 		ScheduleHad had = new ScheduleHad();
-		had.setMember(john);
 		had.setSchedule(sch1);
 		had.setAuthority(1);
 		had.setIsValid(1);
@@ -187,7 +180,6 @@ public class ScheduleHadRepositoryTest {
 		entityMgr.persistAndFlush(had);
 		
 		ScheduleHad had2 = new ScheduleHad();
-		had2.setMember(john);
 		had2.setSchedule(sch2);
 		had2.setAuthority(1);
 		had2.setIsValid(1);
@@ -200,10 +192,6 @@ public class ScheduleHadRepositoryTest {
 		//then
 		assertThat(founds.size()).isEqualTo(2);
 
-		for(ScheduleHad found : founds){
-			assertThat(found.getMember())
-				.isEqualTo(had.getMember());
-		}
 		
 		assertThat(founds.get(0).getScheduleHadId())
 			.isNotEqualTo(founds.get(1).getScheduleHadId());

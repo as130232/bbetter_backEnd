@@ -2,6 +2,7 @@ package com.future.bbetter.authentication.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,17 +27,19 @@ public class MyUserDetailsService implements UserDetailsService{
 	private MemberRepository memberRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
 		//查找是否數據庫是否擁有該會員(email)
-		Member member = memberRepository.findByEmail(email);
-		
-		if(member != null) {
+		//Member member = memberRepository.findByEmail(email);
+		//10/19改由PK查詢
+		Optional<Member> memberOptional = memberRepository.findById(new Long(memberId));
+		if(memberOptional.isPresent()) {
+			Member member = memberOptional.get();
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			//創建權限列表(該用戶的權限，可賦予多個權限)
 			authorities.add(new SimpleGrantedAuthority(AUTHORITY.USER.role));
 			
 			return new org.springframework.security.core.userdetails.User(
-					member.getEmail(), member.getPassword(), 
+					member.getMemberId().toString(), member.getPassword(), 
                     true, //是否可用
                     true, //是否过期
                     true, //證書不過期為true
@@ -53,7 +56,7 @@ public class MyUserDetailsService implements UserDetailsService{
 //					.disabled(false)
 //					.build();
 		}
-		throw new UsernameNotFoundException("User email not found.");
+		throw new UsernameNotFoundException("User ID not found.");
 		
 	}
 

@@ -7,6 +7,7 @@ buildscript {
 		lombokVersion = '1.10'
 		liquibasePluginVersion = '1.2.4'
 		snakeyamlVersion = '1.15'
+		liquibaseHibernate5Version = '3.6'
 	}
 	repositories {
 		mavenCentral()
@@ -19,6 +20,9 @@ buildscript {
 		classpath "io.franzbecker:gradle-lombok:${lombokVersion}"
 		classpath "org.liquibase:liquibase-gradle-plugin:${liquibasePluginVersion}"
 		classpath "org.yaml:snakeyaml:${snakeyamlVersion}"
+		classpath "mysql:mysql-connector-java:5.1.44"
+		classpath "org.liquibase.ext:liquibase-hibernate5:${liquibaseHibernate5Version}"
+		classpath 'org.hibernate:hibernate-core:5.2.3.Final'
 	}
 }
 /*
@@ -38,6 +42,8 @@ apply plugin: "org.liquibase.gradle"
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+//使用另外一個檔案
+apply from: 'liquibase.gradle'
 
 repositories {
 	mavenCentral()
@@ -67,16 +73,20 @@ dependencies {
 	//跨平台的檔案加密，密碼存到 db 前要 hash 過，並且挑選專門用來 hash 密碼的演算法，如 bcrypt
 	compile group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 	
+	//json web token
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 	
 	// liquibase depends snakeyaml for read yaml file
 	compile group: 'org.yaml', name: 'snakeyaml', version: '1.15'
-	
 	// https://mvnrepository.com/artifact/org.liquibase/liquibase-core
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	// https://mvnrepository.com/artifact/org.liquibase.ext/liquibase-hibernate5
 	compile group: 'org.liquibase.ext', name: 'liquibase-hibernate5', version: '3.6'
 	
+	//facebook authentication
+	compile("org.springframework.social:spring-social-facebook")
+	
+	compile("org.springframework.social:spring-social-security")
 	
 	//DataBase:MySQL
 	runtime('mysql:mysql-connector-java')
@@ -84,24 +94,12 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	testCompile('org.springframework.security:spring-security-test')
+	testCompile "com.h2database:h2"
+}
+//備份專案所使用的library
+task copyToLib(type: Copy) {
+    into "$buildDir/output/libs"
+    from configurations.runtime
 }
 
 
-def changelog = "$projectDir/src/main/resources/DB/changelog/db.changelog-1.1.yml"
-
-liquibase {
-  activities { 
-    main {
-      changeLogFile changelog
-      url 'jdbc:mysql://localhost/bbetter?nullNamePatternMatchesAll=true'
-      username 'alfred'
-      password '1234'
-      changeLogParameters([ myToken: 'myvalue',
-                            second: 'secondValue'])
-    }
-  }
-
-  // runList = project.ext.runList
-  // runList = 'main'
-  runList = 'main'
-}

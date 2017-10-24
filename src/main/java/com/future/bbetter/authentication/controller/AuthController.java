@@ -15,23 +15,35 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.authentication.jwt.TokenProvider;
+import com.future.bbetter.authentication.model.AuthResponse;
 import com.future.bbetter.authentication.service.AuthService;
+import com.future.bbetter.authentication.service.thirdPartAuth.FacebookAuthService;
+import com.future.bbetter.exception.customize.DataNotFoundException;
+import com.future.bbetter.exception.customize.ThirdVerificationException;
 import com.future.bbetter.exception.customize.ValidateFailException;
-import com.future.bbetter.member.model.Member;
-import com.future.bbetter.member.model.MemberDTO;
+import com.future.bbetter.member.constant.THIRD_PART_AUTH;
+import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.resource.MemberResource;
+import com.future.bbetter.member.resource.ThirdPartAuthResource;
 
 
 @CrossOrigin
 @RestController
 public class AuthController {
-
 	@Autowired
 	private TokenProvider tokenProvider;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private FacebookAuthService facebookAuthService;
     
+    @Autowired
+    private ThirdPartAuthResource thirdPartAuthResource;
+    @Autowired
+    private MemberResource memberResource;
 
     @GetMapping("/authenticate")
+    @CrossOrigin
     public void authenticate() {
     	// we don't have to do anything here
     	// this is just a secure endpoint and the JWTFilter
@@ -39,18 +51,19 @@ public class AuthController {
     	// this service is called at startup of the app to check 
     	// if the jwt token is still valid
     }
-
+    
     /**
 	 * 登入
 	 * @author Charles
 	 * @date 2017年9月16日 下午8:45:18
 	 */
 	@PostMapping("/login")
-	public String authorize(@Valid @RequestBody Member loginMember,
-			HttpServletRequest request, HttpServletResponse response) throws AuthenticationException{
-		authService.login(loginMember.getEmail(), loginMember.getPassword());
+	public String login(@Valid @RequestBody MemberDTO authMemberDTO,
+			HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, DataNotFoundException{
+		MemberDTO memberDTO = memberResource.getMember(authMemberDTO.getEmail());
+		authService.login(memberDTO.getMemberId(), authMemberDTO.getPassword());
         //成功登入回傳token
-		final String token = tokenProvider.createToken(loginMember.getEmail());
+		final String token = tokenProvider.createToken(memberDTO.getMemberId().toString());
 		return token;
 	}
 	
@@ -66,4 +79,21 @@ public class AuthController {
 		authService.register(memberDTO);
 		return tokenProvider.createToken(memberDTO.getEmail());
 	}
+	
+	/**
+	 * Facebook登入
+	 * 前端會員登入後會接收facebook回傳的userID、accessToken，將此資訊傳遞給後端後，後台藉由此token判斷是否為該會員(userID)
+	 * 若正確且狀態為連線中，表示為合法會員
+	 * 進一步判斷是否擁有該會員，若有回傳自定義token，若無則註冊該會員
+	 * @author Charles
+	 * @date 2017年9月16日 下午8:45:18
+	 */
+	@PostMapping("/signin/facebook")
+	public String loginWithFb(@RequestBody AuthResponse authResponse) throws ThirdVerificationException{
+		facebookAuthService.login(authResponse);
+		Integer source = THIRD_PART_AUTH.SOURCE_FACEBOOK.value;
+		Long memberId = thirdPartAuthResource.getMemberId(authResponse.getUserID(), source);
+		return tokenProvider.createToken(memberId.toString());
+	}
+	
 }

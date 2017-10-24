@@ -51,12 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		 //使用的是JWT，因此不需要csrf
+			//使用spring security，若有跨域這裡需配置cors
+			.cors()
+			.and()
+			//使用的是JWT，因此不需要csrf
 			.csrf().disable()
-			//.cors()
-			//.and()
 			//當jwt驗證失敗時，作例外處理
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+			.and()
 			//基於token，因此將session設置為STATELESS，防止Spring Security創建HttpSession對象
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
@@ -66,8 +68,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//.formLogin()
 			.authorizeRequests()
 		 	//可以訪問而不進行身份驗證
-			.antMatchers("/signup").permitAll()
 			.antMatchers("/login").permitAll()
+			.antMatchers("/signup").permitAll()
+			//第三方登入(facebook、google)
+			.antMatchers("/signin/**").permitAll()
 			.antMatchers("/public/**").permitAll()
 			//其他端點將被保護並且需要有效的JWT秘鑰
 			.anyRequest().authenticated();
@@ -125,4 +129,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
+//	@Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("*")
+//                .allowedOrigins("*")
+//        	    .allowedOrigins("*")
+//        	    .allowedHeaders("*")
+//        	    .allowedMethods("*");
+//            }
+//        };
+//    }
+	
 }
