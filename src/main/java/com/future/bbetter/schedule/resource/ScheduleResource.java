@@ -8,33 +8,26 @@ import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
 
 public interface ScheduleResource {
 	
-	// schedule CRUD
-	/***
-	 * 
+	/**
+	 * 取得該行程資訊
+	 * @author Charles
+	 * @date 2017年10月21日 下午6:33:56
+	 * @return ScheduleDTO
+	 */
+	public ScheduleDTO getScheduleInfo(Long scheduleId);
+	
+	/**
+	 * 新增一筆行程
+	 * @author Charles
+	 * @date 2017年10月21日 下午9:11:48
 	 * @param scheduleDTO
-	 * @return 回傳成功插入schedule表的值物件DTO,內有scheduleId
+	 * @return ScheduleDTO
 	 */
 	public ScheduleDTO addSchedule(ScheduleDTO scheduleDTO);
 	public void updateSchedule(ScheduleDTO scheduleDTO);
 	public void deleteSchedule(Long scheduleId);
 	
-	// scheduleType CRUD
-	/***
-	 * 從ScheduleDTO的type取出，並新增至資料庫，若type為null,則回傳的物件亦為null
-	 * 新增完資料庫後會將type設定回原本的參數物件。
-	 * @param scheduleDTO 物件內的type必須要有值
-	 * @return ScheduleDTO 新增完資料庫的type設回原本的參數物件,若參數內的type為null,則回傳的物件亦為null
-	 */
-	public ScheduleDTO addScheduleType(ScheduleDTO scheduleDTO);
-	public ScheduleTypeDTO addScheduleType(ScheduleTypeDTO typeDTO);
-	public void updateScheduleType(ScheduleTypeDTO typeDTO);
-	public void deleteScheduleType(Integer scheduleTypeId);
-	
-	// scheduleSubType CRUD
-	public ScheduleTypeDTO addScheduleSubType(ScheduleTypeDTO subTypeDTO);
-	public void updateScheduleSubType(ScheduleTypeDTO subTypeDTO);
-	public void deleteScheduleSubType(Integer scheduleSubTypeId);
 
-	public ScheduleDTO getScheduleInfo(Long scheduleId) throws DataNotFoundException;
-	public List<ScheduleDTO> getScheduleByMemberId(Long memberId) throws DataNotFoundException;
+
+
 }

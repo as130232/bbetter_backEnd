@@ -11,15 +11,13 @@ import lombok.NoArgsConstructor;
 
 public @Data @NoArgsConstructor class FriendDTO {
 	
-//	public static FriendDTO fromDTO(MemberDTO memberDTO, List<MemberDTO> friendsDTO) {
-//		FriendDTO friendDTO = new FriendDTO();
-//		friendDTO.setMemberDTO(memberDTO);
-//		friendDTO.setFriendsDTO(friendsDTO);
-//		return friendDTO;
-//	}
-//	
-//	private MemberDTO memberDTO;
-//	private List<MemberDTO> friendsDTO;
+	private String email;
+	private String name;
+	private Integer gender;
+	private Date birthday;
+	private Date createdate;
+	private String imageUrl;
+	
 	
 	public static FriendDTO fromEntity(Member member, Friend friend) {
 		FriendDTO friendDTO = new FriendDTO();
@@ -31,11 +29,4 @@ public @Data @NoArgsConstructor class FriendDTO {
 		friendDTO.setCreatedate(friend.getCreatedate());
 		return friendDTO;
 	}
-	
-	private String email;
-	private String name;
-	private Integer gender;
-	private Date birthday;
-	private Date createdate;
-	private String imageUrl;
 }

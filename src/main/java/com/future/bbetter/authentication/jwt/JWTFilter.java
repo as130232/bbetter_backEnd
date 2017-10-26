@@ -61,6 +61,7 @@ public class JWTFilter extends GenericFilterBean {
 				| SignatureException | UsernameNotFoundException e) {
 			//當該密鑰有效但用戶不存在於數據庫中(ex:auth.inMemoryAuthentication())時，或者當JWT的驗證失敗時，會拋出例外
 			((HttpServletResponse) servletResponse).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			((HttpServletResponse) servletResponse).getWriter().write("Please login again and get valid Token.");
 		}
 	}
 

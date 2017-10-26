@@ -74,9 +74,10 @@ public class MemberController {
 	 * @date 2017年10月2日 下午11:18:10
 	 */
 	@PreAuthorize("hasRole('USER')")
-	@GetMapping("/member/{memberId}/friends")
-	public List<FriendDTO> getFriends(@PathVariable Long memberId) throws DataNotFoundException{
-		List<FriendDTO> friends = friendsResource.getFriends(memberId);
+	@GetMapping("/member/me/friends")
+	public List<FriendDTO> getFriends() throws DataNotFoundException{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		List<FriendDTO> friends = friendsResource.getFriends(new Long(auth.getName()));
 		return friends;
 	}
 	

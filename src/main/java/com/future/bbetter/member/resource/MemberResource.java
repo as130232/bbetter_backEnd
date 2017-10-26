@@ -7,13 +7,21 @@ import com.future.bbetter.member.dto.MemberDTO;
 
 public interface MemberResource {
 
-
-	public MemberDTO addMember(MemberDTO memberDTO);
-	public void updateMember(MemberDTO updateMemberDTO);
-	public void deleteMember(Long memberId);
+	/**
+	 * 取得該會員資訊
+	 * @author Charles
+	 * @date 2017年10月21日 下午5:58:26
+	 * @return MemberDTO
+	 */
 	public MemberDTO getMember(Long memberId) throws DataNotFoundException;
 	public MemberDTO getMember(String email) throws DataNotFoundException;
 	
+	/**
+	 * 取得所有會員
+	 * @author Charles
+	 * @date 2017年10月21日 下午5:58:53
+	 * @return List<MemberDTO>
+	 */
 	public List<MemberDTO> getAllMembers();
 	
 	/**
@@ -24,5 +32,17 @@ public interface MemberResource {
 	 * @return Boolean
 	 */
 	public Boolean checkIsEmailExist(String email);
+	
+	/**
+	 * 檢查是否有該會員，新增一筆會員，並回傳新增會員
+	 * @author Charles
+	 * @date 2017年10月21日 下午5:59:23
+	 * @return MemberDTO
+	 */
+	public MemberDTO addMember(MemberDTO memberDTO);
+	
+	public void updateMember(MemberDTO updateMemberDTO);
+	public void deleteMember(Long memberId);
+
 
 }

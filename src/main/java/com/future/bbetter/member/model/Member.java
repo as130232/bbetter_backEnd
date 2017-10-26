@@ -44,13 +44,16 @@ public class Member implements java.io.Serializable {
 	private String imageUrl;
 	private Set<AchievementHad> achievementHads = new HashSet<AchievementHad>(0);
 	private Set<Friend> friendsForFriendMemberId = new HashSet<Friend>(0);
-	private Set<ScheduleOwner> scheduleOwners = new HashSet<ScheduleOwner>(0);
 	private Set<Friend> friendsForMemberId = new HashSet<Friend>(0);
 	private Set<PetsHad> petsHads = new HashSet<PetsHad>(0);
 
 	public Member() {
 	}
-
+	
+	public Member(Long memberId) {
+		this.memberId = memberId;
+	}
+	
 	public Member(String email, String password, String name, int gender, BigDecimal money, String address, String imageUrl) {
 		this.email = email;
 		this.password = password;
@@ -78,7 +81,6 @@ public class Member implements java.io.Serializable {
 		this.updatedate = updatedate;
 		this.achievementHads = achievementHads;
 		this.friendsForFriendMemberId = friendsForFriendMemberId;
-		this.scheduleOwners = scheduleOwners;
 		this.friendsForMemberId = friendsForMemberId;
 		this.petsHads = petsHads;
 	}
@@ -213,15 +215,6 @@ public class Member implements java.io.Serializable {
 
 	public void setFriendsForFriendMemberId(Set<Friend> friendsForFriendMemberId) {
 		this.friendsForFriendMemberId = friendsForFriendMemberId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
-	public Set<ScheduleOwner> getScheduleOwners() {
-		return this.scheduleOwners;
-	}
-
-	public void setScheduleOwners(Set<ScheduleOwner> scheduleOwners) {
-		this.scheduleOwners = scheduleOwners;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "memberByMemberId")

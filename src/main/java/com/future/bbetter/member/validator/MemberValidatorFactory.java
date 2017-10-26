@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.future.bbetter.exception.customize.ValidateFailException;
+import com.future.bbetter.exception.customize.ValidateFailureException;
 import com.future.bbetter.member.constant.MEMBER;
 import com.future.bbetter.member.dto.MemberDTO;
 import com.future.bbetter.member.model.Member;
@@ -48,18 +48,18 @@ public class MemberValidatorFactory {
 	@Component
 	public class ValidateEmail implements MemberValidateBehavior {
 		@Override
-		public void validate(MemberDTO memberDTO) throws ValidateFailException {
+		public void validate(MemberDTO memberDTO) throws ValidateFailureException {
 			//檢測信箱
 			String email = memberDTO.getEmail();
 			if (email == null) {
-				throw new ValidateFailException("信箱不可為空");
+				throw new ValidateFailureException("信箱不可為空");
 			}
 			if(email.indexOf("@") == -1 || email.matches(" ")) {
-				throw new ValidateFailException("信箱格式不正確");
+				throw new ValidateFailureException("信箱格式不正確");
 			}
 			Member member = memberRepository.findByEmail(email);
 			if(member != null) {
-				throw new ValidateFailException("該信箱已存在");
+				throw new ValidateFailureException("該信箱已存在");
 			}
 			
 		}
@@ -68,11 +68,11 @@ public class MemberValidatorFactory {
 	@Component
 	public class ValidatePassword implements MemberValidateBehavior {
 		@Override
-		public void validate(MemberDTO memberDTO) throws ValidateFailException{
+		public void validate(MemberDTO memberDTO) throws ValidateFailureException{
 			//檢測信箱
 			String password = memberDTO.getPassword();
 			if(password == null || password.isEmpty()){
-				throw new ValidateFailException("密碼不可為空");
+				throw new ValidateFailureException("密碼不可為空");
 			}
 		}
 	}
@@ -80,12 +80,12 @@ public class MemberValidatorFactory {
 	@Component
 	public class ValidateGender implements MemberValidateBehavior {
 		@Override
-		public void validate(MemberDTO memberDTO) throws ValidateFailException{
+		public void validate(MemberDTO memberDTO) throws ValidateFailureException{
 			//檢測信箱
 			Integer gender = memberDTO.getGender();
 			if(MEMBER.GENDER_MALE.value > gender || MEMBER.GENDER_FEMALE.value < gender || gender == null) {
 				String errorMsg = "性別格式不正確";
-				throw new ValidateFailException(errorMsg);
+				throw new ValidateFailureException(errorMsg);
 			}
 		}
 	}

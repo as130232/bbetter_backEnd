@@ -22,26 +22,20 @@ public class FriendResourceImpl implements FriendResource{
 	private MemberRepository memberRepository;
 	@Autowired
 	private FriendRepository friendRepository;
-	@Autowired
-	private MemberResource memberResource;
 	
 	@Override
 	public List<FriendDTO> getFriends(Long memberId) {
 		List<FriendDTO> result = new ArrayList<>();
-		MemberDTO memberDTO = memberResource.getMember(memberId);
-		Member query = new Member();
-		query.setMemberId(memberId);
-		List<Friend> friends = friendRepository.findByMemberByMemberId(query);
-		friends.stream().forEach(friend -> {
-			Integer isBlockade = friend.getIsBlockade();
-			Integer isAccept = friend.getIsAccept();
-			//無被封鎖且接收邀請才會出現在好友列表
-			if(FRIEND.IS_BLOCKADE_NO.value.equals(isBlockade) && FRIEND.IS_ACCEPT_YES.value.equals(isAccept)) {
-				//取得朋友資訊
-				Member member = friend.getMemberByFriendMemberId();
-				FriendDTO friendDTO = FriendDTO.fromEntity(member, friend);
-				result.add(friendDTO);
-			}
+		//無被封鎖
+		Integer isBlockade = FRIEND.IS_BLOCKADE_NO.value;
+		//接收好友邀請
+		Integer isAccept = FRIEND.IS_ACCEPT_YES.value;
+		List<Friend> friends = friendRepository.findByMemberByMemberIdAndIsBlockadeAndIsAccept(new Member(memberId), isBlockade, isAccept);
+		friends.stream()
+		.forEach(friend -> {
+			Member member = friend.getMemberByFriendMemberId();
+			FriendDTO friendDTO = FriendDTO.fromEntity(member, friend);
+			result.add(friendDTO);
 		});
 		return result;
 	}

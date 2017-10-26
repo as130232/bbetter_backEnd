@@ -8,6 +8,15 @@ public enum SCHEDULE_HAD {
 	/** 失敗(2) **/
 	STATUS_FAIL(2, "失敗"),
 	
+	
+	/** 該行程中的權限:無權限(0) **/
+	AUTHORITY_NO_PERMISSION(0, "無權限"),
+	/** 該行程中的權限:無權限(1) **/
+	AUTHORITY_MEMBER(1, "團員"),
+	/** 該行程中的權限:無權限(2) **/
+	AUTHORITY_LEADER(2, "團長"),
+	
+	
 	/** 無效(0) **/
 	IS_VALID_NO(0, "無效"),
 	/** 有效(1) **/

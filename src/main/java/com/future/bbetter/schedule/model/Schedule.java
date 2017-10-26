@@ -1,14 +1,16 @@
 package com.future.bbetter.schedule.model;
 // Generated 2017/10/14 上午 11:25:08 by Hibernate Tools 5.2.3.Final
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,18 +29,19 @@ import org.hibernate.annotations.ColumnDefault;
 public class Schedule implements java.io.Serializable {
 
 	private Long scheduleId;
-	private ScheduleSubType scheduleSubType;
+	private ScheduleType scheduleType;
+	private Integer skillId;
 	private Date startTime;
 	private Date endTime;
 	private String name;
 	private String location;
-	private int status;
+	private Integer status;
 	private Integer continuousTime;
-	private int visibility;
-	private int isCycle;
-	private int isNeedRemind;
-	private int isTeamSchedule;
-	private int isValid;
+	private Integer visibility;
+	private Integer isCycle;
+	private Integer isNeedRemind;
+	private Integer isTeamSchedule;
+	private Integer isValid;
 	private Date createdate;
 	private Date updatedate;
 	private Set<ScheduleReport> scheduleReports = new HashSet<ScheduleReport>(0);
@@ -46,10 +49,14 @@ public class Schedule implements java.io.Serializable {
 
 	public Schedule() {
 	}
-
-	public Schedule(ScheduleSubType scheduleSubType, Date startTime, String name, int status, int visibility,
-			int isCycle, int isNeedRemind, int isTeamSchedule, int isValid, Date createdate) {
-		this.scheduleSubType = scheduleSubType;
+	
+	public Schedule(Long scheduleId) {
+		this.scheduleId = scheduleId;
+	}
+	
+	public Schedule(ScheduleType scheduleSubType, Date startTime, String name, Integer status, Integer visibility,
+			Integer isCycle, Integer isNeedRemind, Integer isTeamSchedule, Integer isValid, Date createdate) {
+		this.scheduleType = scheduleSubType;
 		this.startTime = startTime;
 		this.name = name;
 		this.status = status;
@@ -61,11 +68,11 @@ public class Schedule implements java.io.Serializable {
 		this.createdate = createdate;
 	}
 
-	public Schedule(ScheduleSubType scheduleSubType, Date startTime, Date endTime, String name, String location,
-			int status, Integer continuousTime, int visibility, int isCycle, int isNeedRemind, int isTeamSchedule,
-			int isValid, Date createdate, Date updatedate, Set<ScheduleReport> scheduleReports,
+	public Schedule(ScheduleType scheduleSubType, Date startTime, Date endTime, String name, String location,
+			Integer status, Integer continuousTime, Integer visibility, Integer isCycle, Integer isNeedRemind, Integer isTeamSchedule,
+			Integer isValid, Date createdate, Date updatedate, Set<ScheduleReport> scheduleReports,
 			Set<ScheduleHad> scheduleHads) {
-		this.scheduleSubType = scheduleSubType;
+		this.scheduleType = scheduleSubType;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.name = name;
@@ -85,7 +92,6 @@ public class Schedule implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "schedule_id", unique = true, nullable = false)
 	public Long getScheduleId() {
 		return this.scheduleId;
@@ -96,13 +102,22 @@ public class Schedule implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "schedule_sub_type_id", nullable = false)
-	public ScheduleSubType getScheduleSubType() {
-		return this.scheduleSubType;
+	@JoinColumn(name = "schedule_type_id", nullable = false)
+	public ScheduleType getScheduleType() {
+		return this.scheduleType;
 	}
 
-	public void setScheduleSubType(ScheduleSubType scheduleSubType) {
-		this.scheduleSubType = scheduleSubType;
+	public void setScheduleType(ScheduleType scheduleType) {
+		this.scheduleType = scheduleType;
+	}
+	
+	@Column(name = "skill_id")
+	public Integer getSkillId() {
+		return skillId;
+	}
+
+	public void setSkillId(Integer skillId) {
+		this.skillId = skillId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -145,11 +160,11 @@ public class Schedule implements java.io.Serializable {
 
 	@Column(name = "status", nullable = false)
 	@ColumnDefault("1")
-	public int getStatus() {
+	public Integer getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -164,51 +179,51 @@ public class Schedule implements java.io.Serializable {
 
 	@Column(name = "visibility", nullable = false)
 	@ColumnDefault("2")
-	public int getVisibility() {
+	public Integer getVisibility() {
 		return this.visibility;
 	}
 
-	public void setVisibility(int visibility) {
+	public void setVisibility(Integer visibility) {
 		this.visibility = visibility;
 	}
 
 	@Column(name = "is_cycle", nullable = false)
 	@ColumnDefault("0")
-	public int getIsCycle() {
+	public Integer getIsCycle() {
 		return this.isCycle;
 	}
 
-	public void setIsCycle(int isCycle) {
+	public void setIsCycle(Integer isCycle) {
 		this.isCycle = isCycle;
 	}
 
 	@Column(name = "is_need_remind", nullable = false)
 	@ColumnDefault("0")
-	public int getIsNeedRemind() {
+	public Integer getIsNeedRemind() {
 		return this.isNeedRemind;
 	}
 
-	public void setIsNeedRemind(int isNeedRemind) {
+	public void setIsNeedRemind(Integer isNeedRemind) {
 		this.isNeedRemind = isNeedRemind;
 	}
 
 	@Column(name = "is_team_schedule", nullable = false)
 	@ColumnDefault("0")
-	public int getIsTeamSchedule() {
+	public Integer getIsTeamSchedule() {
 		return this.isTeamSchedule;
 	}
 
-	public void setIsTeamSchedule(int isTeamSchedule) {
+	public void setIsTeamSchedule(Integer isTeamSchedule) {
 		this.isTeamSchedule = isTeamSchedule;
 	}
 
 	@Column(name = "is_valid", nullable = false)
 	@ColumnDefault("1")
-	public int getIsValid() {
+	public Integer getIsValid() {
 		return this.isValid;
 	}
 
-	public void setIsValid(int isValid) {
+	public void setIsValid(Integer isValid) {
 		this.isValid = isValid;
 	}
 
