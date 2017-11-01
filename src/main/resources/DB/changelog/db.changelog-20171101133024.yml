@@ -1,0 +1,262 @@
+databaseChangeLog:
+- changeSet:
+    id: 1509543030741-1
+    author: alfread (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: third_part_authPK
+            name: third_part_auth_id
+            type: BIGINT
+        - column:
+            name: member_id
+            type: BIGINT
+        - column:
+            name: provider_id
+            type: VARCHAR(255)
+        - column:
+            name: source
+            type: INT
+        tableName: third_part_auth
+- changeSet:
+    id: 1509543030741-2
+    author: alfread (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: image_url
+            type: varchar(100)
+        tableName: member
+- changeSet:
+    id: 1509543030741-3
+    author: alfread (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: registrant_id
+            type: bigint
+        tableName: schedule_owner
+- changeSet:
+    id: 1509543030741-4
+    author: alfread (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_type_id
+            type: integer
+        tableName: schedule
+- changeSet:
+    id: 1509543030741-5
+    author: alfread (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: skill_id
+            type: integer
+        tableName: schedule
+- changeSet:
+    id: 1509543030741-6
+    author: alfread (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: source
+            type: integer
+        tableName: schedule_owner
+- changeSet:
+    id: 1509543030741-7
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: achievement_had_id
+        constraintName: UC_ACHIEVEMENT_HADACHIEVEMENT_HAD_ID_COL
+        tableName: achievement_had
+- changeSet:
+    id: 1509543030741-8
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: achievement_type_id
+        constraintName: UC_ACHIEVEMENT_TYPEACHIEVEMENT_TYPE_ID_COL
+        tableName: achievement_type
+- changeSet:
+    id: 1509543030741-9
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: cycle_rule_id
+        constraintName: UC_CYCLE_RULECYCLE_RULE_ID_COL
+        tableName: cycle_rule
+- changeSet:
+    id: 1509543030741-10
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: friend_id
+        constraintName: UC_FRIENDFRIEND_ID_COL
+        tableName: friend
+- changeSet:
+    id: 1509543030741-11
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: member_id
+        constraintName: UC_MEMBERMEMBER_ID_COL
+        tableName: member
+- changeSet:
+    id: 1509543030741-12
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: pet_id
+        constraintName: UC_PETPET_ID_COL
+        tableName: pet
+- changeSet:
+    id: 1509543030741-13
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: pets_had_id
+        constraintName: UC_PETS_HADPETS_HAD_ID_COL
+        tableName: pets_had
+- changeSet:
+    id: 1509543030741-14
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_id
+        constraintName: UC_SCHEDULESCHEDULE_ID_COL
+        tableName: schedule
+- changeSet:
+    id: 1509543030741-15
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_had_id
+        constraintName: UC_SCHEDULE_HADSCHEDULE_HAD_ID_COL
+        tableName: schedule_had
+- changeSet:
+    id: 1509543030741-16
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_history_id
+        constraintName: UC_SCHEDULE_HISTORYSCHEDULE_HISTORY_ID_COL
+        tableName: schedule_history
+- changeSet:
+    id: 1509543030741-17
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_owner_id
+        constraintName: UC_SCHEDULE_OWNERSCHEDULE_OWNER_ID_COL
+        tableName: schedule_owner
+- changeSet:
+    id: 1509543030741-18
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_remind_id
+        constraintName: UC_SCHEDULE_REMINDSCHEDULE_REMIND_ID_COL
+        tableName: schedule_remind
+- changeSet:
+    id: 1509543030741-19
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_report_id
+        constraintName: UC_SCHEDULE_REPORTSCHEDULE_REPORT_ID_COL
+        tableName: schedule_report
+- changeSet:
+    id: 1509543030741-20
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: schedule_type_id
+        constraintName: UC_SCHEDULE_TYPESCHEDULE_TYPE_ID_COL
+        tableName: schedule_type
+- changeSet:
+    id: 1509543030741-21
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_type_id
+        baseTableName: schedule
+        constraintName: FKae7nok31a19n7wlj9uwsp3i1x
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: schedule_type_id
+        referencedTableName: schedule_type
+- changeSet:
+    id: 1509543030741-22
+    author: alfread (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: schedule_owner
+        constraintName: fk_schedule_owner_member1
+- changeSet:
+    id: 1509543030741-23
+    author: alfread (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: schedule
+        constraintName: fk_schedule_schedule_sub_type1
+- changeSet:
+    id: 1509543030741-24
+    author: alfread (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: schedule_sub_type
+        constraintName: fk_schedule_sub_type_schedule_type1
+- changeSet:
+    id: 1509543030741-25
+    author: alfread (generated)
+    changes:
+    - dropTable:
+        tableName: schedule_sub_type
+- changeSet:
+    id: 1509543030741-26
+    author: alfread (generated)
+    changes:
+    - dropColumn:
+        columnName: member_id
+        tableName: schedule_owner
+- changeSet:
+    id: 1509543030741-27
+    author: alfread (generated)
+    changes:
+    - dropColumn:
+        columnName: schedule_sub_type_id
+        tableName: schedule
+- changeSet:
+    id: 1509543030741-28
+    author: alfread (generated)
+    changes:
+    - dropNotNullConstraint:
+        columnDataType: varchar(200)
+        columnName: address
+        tableName: member
+- changeSet:
+    id: 1509543030741-29
+    author: alfread (generated)
+    changes:
+    - dropNotNullConstraint:
+        columnDataType: varchar(45)
+        columnName: email
+        tableName: member
+
