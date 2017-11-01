@@ -96,14 +96,4 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		//TODO delete schedule_remind
 	}
 
-	/***
-	 * 當資料庫找不到資料時，呼叫該方法取得預設資料
-	 * @return
-	 */
-	private ScheduleType defaultScheduleType(){
-		
-		ScheduleType defaultType = new ScheduleType("Default Type!!!!");
-		defaultType.setScheduleTypeId(Integer.MIN_VALUE);
-		return defaultType;
-	}
 }
