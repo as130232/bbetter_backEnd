@@ -1,11 +1,11 @@
 package com.future.bbetter.schedule.resource.impl;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.future.bbetter.schedule.dto.ScheduleDTO;
 import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.repository.ScheduleTypeRepository;
@@ -19,24 +19,14 @@ public class ScheduleTypeResourceImpl implements ScheduleTypeResource{
 	@Autowired
 	private ScheduleTypeRepository schTypeRepo;
 	
-	@Override
-	public ScheduleDTO addScheduleType(@NonNull ScheduleDTO scheduleDTO) {
-		ScheduleTypeDTO typeDTO = new ScheduleTypeDTO();
-//		if(scheduleDTO.getType() != null){
-//			typeDTO = addScheduleType(scheduleDTO.getType());
-//			scheduleDTO.setType(typeDTO);
-//			return scheduleDTO;
-//		}
-		//TODO 可改為拋出exception
-		return null;
-	}
 
 	@Override
 	public ScheduleTypeDTO addScheduleType(@NonNull ScheduleTypeDTO typeDTO) {
-//		ScheduleType newData = typeDTO.toType();
-//		ScheduleType afterData = schTypeRepo.save(newData);
-//		ScheduleTypeDTO result = ScheduleTypeDTO.from(afterData);
-		return null;
+		ScheduleType newData = typeDTO.toEntity();
+		newData.setCreatedate(new Date());
+		ScheduleType afterData = schTypeRepo.save(newData);
+		ScheduleTypeDTO result = ScheduleTypeDTO.from(afterData);
+		return result;
 	}
 
 
