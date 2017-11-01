@@ -51,7 +51,7 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 		scheduleDTO.setIsCycle(schedule.getIsCycle());
 		scheduleDTO.setIsNeedRemind(schedule.getIsNeedRemind());
 		scheduleDTO.setIsTeamSchedule(schedule.getIsTeamSchedule());
-		scheduleDTO.setScheduleTypeInfo(ScheduleTypeDTO.fromEntity(schedule.getScheduleType()));
+		scheduleDTO.setScheduleTypeInfo(ScheduleTypeDTO.from(schedule.getScheduleType()));
 		scheduleDTO.setCreatedate(schedule.getCreatedate());
 		//scheduleDTO.setIsValid(schedule.getIsValid());
 		//scheduleDTO.setUpdatedate(schedule.getUpdatedate());

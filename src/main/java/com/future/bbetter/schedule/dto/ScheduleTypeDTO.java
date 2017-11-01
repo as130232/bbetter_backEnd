@@ -12,7 +12,7 @@ public @Data @NoArgsConstructor class ScheduleTypeDTO {
 	private Integer scheduleTypeId;
 	private String typeName;
 	
-	public static ScheduleTypeDTO fromEntity(@NonNull ScheduleType scheduleType){
+	public static ScheduleTypeDTO from(@NonNull ScheduleType scheduleType){
 		ScheduleTypeDTO dto = new ScheduleTypeDTO();
 		dto.setTypeName(scheduleType.getName());
 		dto.setScheduleTypeId(scheduleType.getScheduleTypeId());
