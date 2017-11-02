@@ -1,4 +1,4 @@
-package com.future.bbetter.authentication.service.thirdPartAuth;
+package com.future.bbetter.authentication.service.thirdpartauth;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

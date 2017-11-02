@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.future.bbetter.authentication.jwt.TokenProvider;
 import com.future.bbetter.authentication.model.AuthResponse;
 import com.future.bbetter.authentication.service.AuthService;
-import com.future.bbetter.authentication.service.thirdPartAuth.FacebookAuthService;
+import com.future.bbetter.authentication.service.thirdpartauth.FacebookAuthService;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.exception.customize.ThirdVerificationException;
