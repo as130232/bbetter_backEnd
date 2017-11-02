@@ -2,11 +2,6 @@ package com.future.bbetter.schedule.dto;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.future.bbetter.member.dto.MemberDTO;
-import com.future.bbetter.member.resource.MemberResource;
-import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
 import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleRegistrant;
 
@@ -29,7 +24,7 @@ public @Data @NoArgsConstructor class ScheduleOwnerDTO {
 	//會員資訊..
 	private ScheduleRegistrant scheduleRegistrant;
 	
-	public static ScheduleOwnerDTO fromEntity(@NonNull ScheduleOwner scheduleOwner){
+	public static ScheduleOwnerDTO from(@NonNull ScheduleOwner scheduleOwner){
 		ScheduleOwnerDTO scheduleOwnerDTO = new ScheduleOwnerDTO();
 		scheduleOwnerDTO.setScheduleOwnerId(scheduleOwner.getScheduleOwnerId());
 		scheduleOwnerDTO.setIsValid(scheduleOwner.getIsValid());
@@ -39,10 +34,19 @@ public @Data @NoArgsConstructor class ScheduleOwnerDTO {
 	}
 	
 	//若有會員
-	public static ScheduleOwnerDTO fromEntity(@NonNull ScheduleOwner scheduleOwner, ScheduleRegistrant scheduleRegistrant){
-		ScheduleOwnerDTO scheduleOwnerDTO = ScheduleOwnerDTO.fromEntity(scheduleOwner);
+	public static ScheduleOwnerDTO from(@NonNull ScheduleOwner scheduleOwner, ScheduleRegistrant scheduleRegistrant){
+		ScheduleOwnerDTO scheduleOwnerDTO = ScheduleOwnerDTO.from(scheduleOwner);
 		scheduleOwnerDTO.setScheduleRegistrant(scheduleRegistrant);
 		return scheduleOwnerDTO;
+	}
+	
+	public ScheduleOwner toEntity(){
+		ScheduleOwner owner = new ScheduleOwner();
+		owner.setScheduleOwnerId(this.getScheduleOwnerId());
+		owner.setIsValid(this.getIsValid());
+		owner.setSource(this.getSource());
+		owner.setCreatedate(this.getCreatedate());
+		return owner;
 	}
 	
 }

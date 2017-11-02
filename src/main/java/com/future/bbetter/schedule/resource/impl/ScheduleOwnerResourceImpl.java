@@ -34,7 +34,7 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 		if(option.isPresent()) {
 			ScheduleOwner scheduleOwner = option.get();
 			ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(scheduleOwner.getRegistrantId(), scheduleOwner.getSource());
-			scheduleOwnerDTO = ScheduleOwnerDTO.fromEntity(scheduleOwner, scheduleRegistrant);
+			scheduleOwnerDTO = ScheduleOwnerDTO.from(scheduleOwner, scheduleRegistrant);
 		}else {
 			throw new DataNotFoundException("scheduleOwner id: " + scheduleOwnerId + " is not found.");
 		}
@@ -48,7 +48,7 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 		ScheduleOwner scheduleOwner = scheduleOwnerRepository.findByRegistrantIdAndSource(registrantId, source);
 		//取得註冊者資訊
 		ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(registrantId, source);
-		scheduleOwnerDTO = ScheduleOwnerDTO.fromEntity(scheduleOwner, scheduleRegistrant);
+		scheduleOwnerDTO = ScheduleOwnerDTO.from(scheduleOwner, scheduleRegistrant);
  		return scheduleOwnerDTO;
 	}
 	
@@ -114,7 +114,7 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 		ScheduleOwner newScheduleOwner = scheduleOwnerRepository.saveAndFlush(insert);
 		//取得註冊者資訊
 		ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(registrantId, source);
-		scheduleOwnerDTO = ScheduleOwnerDTO.fromEntity(newScheduleOwner, scheduleRegistrant);
+		scheduleOwnerDTO = ScheduleOwnerDTO.from(newScheduleOwner, scheduleRegistrant);
 		return scheduleOwnerDTO;
 	}
 	
