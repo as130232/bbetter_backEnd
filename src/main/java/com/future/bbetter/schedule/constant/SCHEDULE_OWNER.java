@@ -2,6 +2,9 @@ package com.future.bbetter.schedule.constant;
 
 public enum SCHEDULE_OWNER {
 	
+	/** 來源:其它(0) **/
+	SOURCE_OTHERS(0, "其它"),
+	
 	/** 來源:會員(1) **/
 	SOURCE_MEMBER(1, "會員"),
 	
