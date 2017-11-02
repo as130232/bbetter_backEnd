@@ -18,11 +18,11 @@ public @Data @NoArgsConstructor class ScheduleHadDTO {
 	private int accumulatedTime;
 	private Date createdate;
 	//行程擁有者
-	//private ScheduleOwnerDTO scheduleOwnerInfo;
+	private ScheduleOwnerDTO scheduleOwnerInfo;
 	//private int isValid;
 	//private Date updatedate;
 	
-	private static ScheduleHadDTO fromEntity(@NonNull ScheduleHad scheduleHad){
+	private static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad){
 		ScheduleHadDTO scheduleHadDTO = new ScheduleHadDTO();
 		scheduleHadDTO.setScheduleHadId(scheduleHad.getScheduleHadId());
 		scheduleHadDTO.setAccumulatedTime(scheduleHad.getAccumulatedTime());
@@ -32,19 +32,20 @@ public @Data @NoArgsConstructor class ScheduleHadDTO {
 		return scheduleHadDTO;
 	}
 	
-	public static ScheduleHadDTO fromEntity(@NonNull ScheduleHad scheduleHad, 
-			ScheduleDTO scheduleInfo){
-		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.fromEntity(scheduleHad);
+	public static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad, 
+			@NonNull ScheduleDTO scheduleInfo){
+		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(scheduleHad);
 		scheduleHadDTO.setScheduleInfo(scheduleInfo);
 		return scheduleHadDTO;
 	}
 	
-//	public static ScheduleHadDTO fromEntity(@NonNull ScheduleHad scheduleHad, 
-//			ScheduleDTO scheduleInfo, ScheduleOwnerDTO scheduleOwnerInfo){
-//		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.fromEntity(scheduleHad);
-//		scheduleHadDTO.setScheduleInfo(scheduleInfo);
-//		//scheduleHadDTO.setScheduleOwnerInfo(scheduleOwnerInfo);
-//		return scheduleHadDTO;
-//	}
+	public static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad, 
+			@NonNull ScheduleDTO scheduleInfo,
+			@NonNull ScheduleOwnerDTO scheduleOwnerInfo){
+		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(scheduleHad);
+		scheduleHadDTO.setScheduleInfo(scheduleInfo);
+		scheduleHadDTO.setScheduleOwnerInfo(scheduleOwnerInfo);
+		return scheduleHadDTO;
+	}
 	
 }
