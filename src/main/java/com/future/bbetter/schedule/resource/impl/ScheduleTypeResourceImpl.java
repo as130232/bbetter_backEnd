@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.repository.ScheduleTypeRepository;
@@ -44,6 +45,13 @@ public class ScheduleTypeResourceImpl implements ScheduleTypeResource{
 	@Override
 	public void deleteScheduleType(Integer scheduleTypeId) {
 		schTypeRepo.deleteById(scheduleTypeId);
+	}
+	
+	@Override
+	public ScheduleTypeDTO getScheduleType(@NonNull Integer scheduleTypeId){
+		Optional<ScheduleType> optType = schTypeRepo.findById(scheduleTypeId);
+		return ScheduleTypeDTO.from(optType.orElseThrow(() -> 
+			new DataNotFoundException("It can not find data,ScheduleTypeId:"+scheduleTypeId)));
 	}
 	
 }
