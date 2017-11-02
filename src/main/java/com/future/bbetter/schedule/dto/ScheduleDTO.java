@@ -38,7 +38,7 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 	 * @param schedule non null.
 	 * @return ScheduleDTO object
 	 */
-	public static ScheduleDTO fromEntity(@NonNull Schedule schedule) {
+	public static ScheduleDTO from(@NonNull Schedule schedule) {
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setScheduleId(schedule.getScheduleId());
 		scheduleDTO.setSkillId(schedule.getSkillId());
@@ -62,21 +62,25 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 	 * 將該物件轉成schedule entity 
 	 * @return Schedule object
 	 */
-//	public Schedule toSchedule(){
-//		Schedule sch = new Schedule();
-//		sch.setStartTime(this.getStartTime());
-//		sch.setEndTime(this.getEndTime());
-//		sch.setName(this.getName());
-//		sch.setLocation(this.getLocation());
-//		sch.setStatus(this.getStatus());
-//		sch.setIsCycle(this.getIsCycle());
-//		sch.setIsNeedRemind(this.getIsNeedRemind());
-//		sch.setIsTeamSchedule(this.getIsTeamSchedule());
-//		if(this.getType() != null){
-//			sch.setScheduleType(this.getType().toType());
-//		}
-//		return sch;
-//	}
+	public Schedule toEntity(){
+		Schedule sch = new Schedule();
+		sch.setScheduleId(this.getScheduleId());
+		sch.setSkillId(this.getSkillId());
+		sch.setStartTime(this.getStartTime());
+		sch.setEndTime(this.getEndTime());
+		sch.setName(this.getName());
+		sch.setLocation(this.getLocation());
+		sch.setStatus(this.getStatus());
+		sch.setVisibility(this.getVisibility());
+		sch.setIsCycle(this.getIsCycle());
+		sch.setIsNeedRemind(this.getIsNeedRemind());
+		sch.setIsTeamSchedule(this.getIsTeamSchedule());
+		sch.setCreatedate(this.getCreatedate());
+		if(this.getScheduleTypeInfo() != null){
+			sch.setScheduleType(this.getScheduleTypeInfo().toEntity());
+		}
+		return sch;
+	}
 	
 	
 }
