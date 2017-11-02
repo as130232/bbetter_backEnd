@@ -40,12 +40,12 @@ public class ScheduleHadResourceImpl implements ScheduleHadResource{
 		if(option.isPresent()) {
 			ScheduleHad scheduleHad = option.get();
 			//利用Hibernate manyToOne自動取出
-			ScheduleDTO scheduleDTO = ScheduleDTO.fromEntity(scheduleHad.getSchedule());
+			ScheduleDTO scheduleDTO = ScheduleDTO.from(scheduleHad.getSchedule());
 			//取得行程擁有者資訊
 			//ScheduleRegistrant scheduleRegistrant = scheduleOwnerResource.getScheduleRegistrant(scheduleHad.getScheduleOwner().getRegistrantId(), scheduleHad.getScheduleOwner().getSource());
 			//ScheduleOwnerDTO scheduleOwnerDTO = ScheduleOwnerDTO.fromEntity(scheduleHad.getScheduleOwner(), scheduleRegistrant);
 			//bind
-			scheduleHadDTO = ScheduleHadDTO.fromEntity(scheduleHad, scheduleDTO);
+			scheduleHadDTO = ScheduleHadDTO.from(scheduleHad, scheduleDTO);
 		}else {
 			throw new DataNotFoundException("scheduleHad id: " + scheduleHadId + " is not found.");
 		}
@@ -64,10 +64,10 @@ public class ScheduleHadResourceImpl implements ScheduleHadResource{
 		//該擁有行程也必須為有效
 		.filter(scheduleHad -> SCHEDULE_HAD.IS_VALID_YES.value.equals(scheduleHad.getIsValid()))
 		.forEach(scheduleHad -> {
-			ScheduleDTO scheduleDTO = ScheduleDTO.fromEntity(scheduleHad.getSchedule());
+			ScheduleDTO scheduleDTO = ScheduleDTO.from(scheduleHad.getSchedule());
 			//ScheduleRegistrant scheduleRegistrant = scheduleOwnerResource.getScheduleRegistrant(scheduleHad.getScheduleOwner().getRegistrantId(), scheduleHad.getScheduleOwner().getSource());
 			//ScheduleOwnerDTO scheduleOwnerDTO = ScheduleOwnerDTO.fromEntity(scheduleHad.getScheduleOwner());
-			result.add(ScheduleHadDTO.fromEntity(scheduleHad, scheduleDTO));
+			result.add(ScheduleHadDTO.from(scheduleHad, scheduleDTO));
 		});
 		return result;
 	}
@@ -103,7 +103,7 @@ public class ScheduleHadResourceImpl implements ScheduleHadResource{
 		//取得行程擁有者資訊
 		//ScheduleOwnerDTO scheduleOwnerDTO = scheduleOwnerResource.getScheduleOwner(scheduleOwnerId);
 		//bind
-		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.fromEntity(newScheduleHad, scheduleDTO);
+		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(newScheduleHad, scheduleDTO);
 		return scheduleHadDTO;
 	}
 

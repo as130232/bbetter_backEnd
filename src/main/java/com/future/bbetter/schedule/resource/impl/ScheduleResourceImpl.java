@@ -38,7 +38,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		Optional<Schedule> option = scheduleRepository.findById(scheduleId);
 		if(option.isPresent()) {
 			Schedule schedule = option.get();
-			scheduleDTO = ScheduleDTO.fromEntity(schedule);
+			scheduleDTO = ScheduleDTO.from(schedule);
 		}else {
 			throw new DataNotFoundException("schedule id: " + scheduleId + " is not found.");
 		}
@@ -70,7 +70,7 @@ public class ScheduleResourceImpl implements ScheduleResource {
 		insert.setCreatedate(new Date());
 		insert.setUpdatedate(null);
 		Schedule newSchedule = scheduleRepository.saveAndFlush(insert);
-		return ScheduleDTO.fromEntity(newSchedule);
+		return ScheduleDTO.from(newSchedule);
 	}
 	
 	@Override
