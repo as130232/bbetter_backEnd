@@ -1,6 +1,5 @@
 databaseChangeLog:
 - defaultContexts:
-#this config is not available, why?
     context: test and !prod
     
 - changeSet:
