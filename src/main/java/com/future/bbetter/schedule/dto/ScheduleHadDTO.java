@@ -15,12 +15,12 @@ public @Data @NoArgsConstructor class ScheduleHadDTO {
 	
 	private Long scheduleHadId;
 	//行程資訊
-	private ScheduleDTO scheduleInfo;
+	private ScheduleDTO scheduleDto;
 	private int authority;
 	private int accumulatedTime;
 	private Date createdate;
 	//行程擁有者
-	private ScheduleOwnerDTO scheduleOwnerInfo;
+	private ScheduleOwnerDTO scheduleOwnerDto;
 	//private int isValid;
 	//private Date updatedate;
 	
@@ -35,18 +35,18 @@ public @Data @NoArgsConstructor class ScheduleHadDTO {
 	}
 	
 	public static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad, 
-			@NonNull ScheduleDTO scheduleInfo){
+			@NonNull ScheduleDTO scheduleDto){
 		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(scheduleHad);
-		scheduleHadDTO.setScheduleInfo(scheduleInfo);
+		scheduleHadDTO.setScheduleDto(scheduleDto);
 		return scheduleHadDTO;
 	}
 	
 	public static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad, 
-			@NonNull ScheduleDTO scheduleInfo,
-			@NonNull ScheduleOwnerDTO scheduleOwnerInfo){
+			@NonNull ScheduleDTO scheduleDto,
+			@NonNull ScheduleOwnerDTO scheduleOwnerDto){
 		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(scheduleHad);
-		scheduleHadDTO.setScheduleInfo(scheduleInfo);
-		scheduleHadDTO.setScheduleOwnerInfo(scheduleOwnerInfo);
+		scheduleHadDTO.setScheduleDto(scheduleDto);
+		scheduleHadDTO.setScheduleOwnerDto(scheduleOwnerDto);
 		return scheduleHadDTO;
 	}
 	
@@ -61,12 +61,12 @@ public @Data @NoArgsConstructor class ScheduleHadDTO {
 		had.setAccumulatedTime(this.getAccumulatedTime());
 		had.setAuthority(this.getAuthority());
 		had.setCreatedate(this.getCreatedate());
-		if(this.getScheduleInfo() != null){
-			Schedule sch = this.getScheduleInfo().toEntity();
+		if(this.getScheduleDto() != null){
+			Schedule sch = this.getScheduleDto().toEntity();
 			had.setSchedule(sch);
 		}
-		if(this.getScheduleOwnerInfo() != null){
-			ScheduleOwner owner = this.getScheduleOwnerInfo().toEntity();
+		if(this.getScheduleOwnerDto() != null){
+			ScheduleOwner owner = this.getScheduleOwnerDto().toEntity();
 			had.setScheduleOwner(owner);
 		}
 		return had;

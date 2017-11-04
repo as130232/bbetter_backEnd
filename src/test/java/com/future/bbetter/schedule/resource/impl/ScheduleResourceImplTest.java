@@ -64,7 +64,7 @@ public class ScheduleResourceImplTest {
 		s.setIsCycle(0);
 		s.setIsNeedRemind(0);
 		s.setIsTeamSchedule(0);
-		s.setScheduleTypeInfo(typeDto);
+		s.setScheduleTypeDto(typeDto);
 
 		// when
 		ScheduleDTO result = schRs.addSchedule(s);

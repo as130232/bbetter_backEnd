@@ -38,8 +38,8 @@ public class ScheduleRemindResourceImpl implements ScheduleRemindResource {
 			data.setRemark(remindDto.getRemark());
 			data.setRemindTime(remindDto.getRemindTime());
 			data.setRemindWay(remindDto.getRemindWay());
-			if(remindDto.getScheduleHadInfo() != null){
-				data.setScheduleHad(remindDto.getScheduleHadInfo().toEntity());
+			if(remindDto.getScheduleHadDto() != null){
+				data.setScheduleHad(remindDto.getScheduleHadDto().toEntity());
 			}
 			schRemindRepo.save(data);
 		}

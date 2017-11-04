@@ -74,9 +74,9 @@ public class ScheduleServiceTest {
 		Instant now = Instant.now();
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
 		
-		ScheduleTypeDTO type = new ScheduleTypeDTO();
-		type.setScheduleTypeId(5);
-		type.setTypeName("test_type");
+		ScheduleTypeDTO typeDto = new ScheduleTypeDTO();
+		typeDto.setScheduleTypeId(5);
+		typeDto.setTypeName("test_type");
 		
 		ScheduleDTO schedule = new ScheduleDTO();
 		schedule.setStartTime(Date.from(now));
@@ -87,7 +87,7 @@ public class ScheduleServiceTest {
 		schedule.setIsCycle(0);
 		schedule.setIsNeedRemind(0);
 		schedule.setIsTeamSchedule(0);
-		schedule.setScheduleTypeInfo(type);
+		schedule.setScheduleTypeDto(typeDto);
 		return schedule;
 	}
 	
@@ -101,11 +101,11 @@ public class ScheduleServiceTest {
 		return owner;
 	}
 	
-	private ScheduleHadDTO getFakeScheduleHadData(ScheduleDTO schedule,ScheduleOwnerDTO owner){
+	private ScheduleHadDTO getFakeScheduleHadData(ScheduleDTO scheduleDto,ScheduleOwnerDTO ownerDto){
 		ScheduleHadDTO had = new ScheduleHadDTO();
 		had.setScheduleHadId(10L);
-		had.setScheduleInfo(schedule);
-		had.setScheduleOwnerInfo(owner);
+		had.setScheduleDto(scheduleDto);
+		had.setScheduleOwnerDto(ownerDto);
 		had.setAuthority(SCHEDULE_HAD.AUTHORITY_NO_PERMISSION.value);
 		had.setCreatedate(new Date());
 		return had;
@@ -151,8 +151,8 @@ public class ScheduleServiceTest {
 		//then
 		assertThat(result).isNotNull();
 		assertThat(result.getScheduleHadId()).isEqualTo(mockHad.getScheduleHadId());
-		assertThat(result.getScheduleInfo()).isEqualTo(scheduleWithId);
-		assertThat(result.getScheduleOwnerInfo()).isEqualTo(mockOwner);
+		assertThat(result.getScheduleDto()).isEqualTo(scheduleWithId);
+		assertThat(result.getScheduleOwnerDto()).isEqualTo(mockOwner);
 	}
 	
 	
@@ -193,6 +193,6 @@ public class ScheduleServiceTest {
 		//then
 		assertThat(result).isNotNull();
 		assertThat(result.getScheduleHadId()).isEqualTo(mockHad.getScheduleHadId());
-		assertThat(result.getScheduleInfo()).isEqualTo(scheduleWithId);
+		assertThat(result.getScheduleDto()).isEqualTo(scheduleWithId);
 	}
 }

@@ -17,7 +17,7 @@ import lombok.NonNull;
 public @Data @NoArgsConstructor class ScheduleDTO {
 	// schedule.attributes
 	private Long scheduleId;
-	private ScheduleTypeDTO scheduleTypeInfo;
+	private ScheduleTypeDTO scheduleTypeDto;
 	private Integer skillId;
 	private Date startTime;
 	private Date endTime;
@@ -51,7 +51,7 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 		scheduleDTO.setIsCycle(schedule.getIsCycle());
 		scheduleDTO.setIsNeedRemind(schedule.getIsNeedRemind());
 		scheduleDTO.setIsTeamSchedule(schedule.getIsTeamSchedule());
-		scheduleDTO.setScheduleTypeInfo(ScheduleTypeDTO.from(schedule.getScheduleType()));
+		scheduleDTO.setScheduleTypeDto(ScheduleTypeDTO.from(schedule.getScheduleType()));
 		scheduleDTO.setCreatedate(schedule.getCreatedate());
 		//scheduleDTO.setIsValid(schedule.getIsValid());
 		//scheduleDTO.setUpdatedate(schedule.getUpdatedate());
@@ -76,8 +76,8 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 		sch.setIsNeedRemind(this.getIsNeedRemind());
 		sch.setIsTeamSchedule(this.getIsTeamSchedule());
 		sch.setCreatedate(this.getCreatedate());
-		if(this.getScheduleTypeInfo() != null){
-			sch.setScheduleType(this.getScheduleTypeInfo().toEntity());
+		if(this.getScheduleTypeDto() != null){
+			sch.setScheduleType(this.getScheduleTypeDto().toEntity());
 		}
 		return sch;
 	}

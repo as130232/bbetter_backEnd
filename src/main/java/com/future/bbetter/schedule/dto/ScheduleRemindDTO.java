@@ -12,7 +12,7 @@ import lombok.NonNull;
 public @Data @NoArgsConstructor class ScheduleRemindDTO {
 	
 	private Long scheduleRemindId;
-	private ScheduleHadDTO scheduleHadInfo;
+	private ScheduleHadDTO scheduleHadDto;
 	private Date remindTime;
 	private int remindWay;
 	private String remark;
@@ -27,7 +27,7 @@ public @Data @NoArgsConstructor class ScheduleRemindDTO {
 		if(remind.getScheduleHad() != null){
 			ScheduleHadDTO hadDto = new ScheduleHadDTO();
 			hadDto.setScheduleHadId(remind.getScheduleHad().getScheduleHadId());
-			dto.setScheduleHadInfo(hadDto);
+			dto.setScheduleHadDto(hadDto);
 		}
 		dto.setScheduleRemindId(remind.getScheduleRemindId());
 		dto.setRemark(remind.getRemark());
@@ -47,8 +47,8 @@ public @Data @NoArgsConstructor class ScheduleRemindDTO {
 		entity.setRemark(this.getRemark());
 		entity.setRemindTime(this.getRemindTime());
 		entity.setRemindWay(this.getRemindWay());
-		if(this.getScheduleHadInfo() != null){
-			ScheduleHad had = this.getScheduleHadInfo().toEntity();
+		if(this.getScheduleHadDto() != null){
+			ScheduleHad had = this.getScheduleHadDto().toEntity();
 			entity.setScheduleHad(had);
 		}
 		return entity;
