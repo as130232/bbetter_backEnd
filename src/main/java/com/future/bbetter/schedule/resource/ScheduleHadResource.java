@@ -7,6 +7,16 @@ import com.future.bbetter.schedule.dto.ScheduleHadDTO;
 public interface ScheduleHadResource {
 	
 	/**
+	 * 該行程擁有者新增一筆關聯行程的擁有行程，並將新增資訊回傳
+	 * @author Charles
+	 * @date 2017年10月21日 下午4:36:26
+	 * @param registrantId
+	 * @param source
+	 * @return boolean
+	 */
+	public ScheduleHadDTO addScheduleHad(Long scheduleOwnerId, Long scheduleId, Integer authority);
+	
+	/**
 	 * 取得該行程擁有者擁有的行程資訊
 	 * @author Charles
 	 * @date 2017年10月22日 上午11:48:32
@@ -25,13 +35,4 @@ public interface ScheduleHadResource {
 	 */
 	public List<ScheduleHadDTO> getScheduleHads(Long scheduleOwnerId);
 	
-	/**
-	 * 該行程擁有者新增一筆關聯行程的擁有行程，並將新增資訊回傳
-	 * @author Charles
-	 * @date 2017年10月21日 下午4:36:26
-	 * @param registrantId
-	 * @param source
-	 * @return boolean
-	 */
-	public ScheduleHadDTO addScheduleHad(Long scheduleOwnerId, Long scheduleId, Integer authority);
 }

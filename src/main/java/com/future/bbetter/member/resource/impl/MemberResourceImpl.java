@@ -27,6 +27,44 @@ public class MemberResourceImpl implements MemberResource{
 	private MemberRepository memberRepository;
 	
 	@Override
+	public MemberDTO addMember(MemberDTO memberDTO){
+		Date createdate = new Date();
+		BigDecimal money = new BigDecimal(0.0);
+		String password = memberDTO.getPassword();
+		//密碼加密
+		String encryptPassword = Password.encrypt(password);
+		
+		Member member = new Member();
+		member.setAddress(memberDTO.getAddress());
+		member.setBirthday(memberDTO.getBirthday());
+		member.setEmail(memberDTO.getEmail());
+		member.setGender(memberDTO.getGender());
+		member.setImageUrl(memberDTO.getImageUrl());
+		member.setName(memberDTO.getName());
+		member.setMoney(money);
+		member.setPassword(encryptPassword);
+		member.setCreatedate(createdate);
+		Member newMember = memberRepository.saveAndFlush(member);
+		MemberDTO newMemberDTO = MemberDTO.fromEntity(newMember);
+		return newMemberDTO;
+	}
+	
+	@Override
+	public void updateMember(MemberDTO updateMemberDTO){
+		Long memberId = updateMemberDTO.getMemberId();
+		Optional<Member> optional = memberRepository.findById(memberId);
+		if(optional.isPresent()) {
+			Member member = optional.get();
+			memberRepository.save(member);
+		}
+	}
+	
+	@Override
+	public void deleteMember(Long memberId){
+		memberRepository.deleteById(memberId);
+	}
+	
+	@Override
 	public MemberDTO getMember(Long memberId) throws DataNotFoundException{
 		MemberDTO memberDTO = new MemberDTO();
 		Optional<Member> optional = memberRepository.findById(memberId);
@@ -74,58 +112,6 @@ public class MemberResourceImpl implements MemberResource{
 		return isEmailExist;
 	}
 	
-	@Override
-	public MemberDTO addMember(MemberDTO memberDTO){
-		boolean isEmailExist = this.checkIsEmailExist(memberDTO.getEmail());
-        if(isEmailExist) {
-        	throw new InsertOrUpdateDataFailureException("此信箱已註冊過！");
-        }
-        MemberDTO newMemberDTO = this.insert(memberDTO);
-		return newMemberDTO;
-	}
-	
-	/**
-	 * 新增一筆會員資訊，並回傳新增會員
-	 * @author Charles
-	 * @date 2017年10月21日 下午6:04:06
-	 * @return MemberDTO
-	 */
-	private MemberDTO insert(MemberDTO memberDTO) {
-		Date createdate = new Date();
-		BigDecimal money = new BigDecimal(0.0);
-		String password = memberDTO.getPassword();
-		//密碼加密
-		String encryptPassword = Password.encrypt(password);
-		
-		Member member = new Member();
-		member.setAddress(memberDTO.getAddress());
-		member.setBirthday(memberDTO.getBirthday());
-		member.setEmail(memberDTO.getEmail());
-		member.setGender(memberDTO.getGender());
-		member.setImageUrl(memberDTO.getImageUrl());
-		member.setName(memberDTO.getName());
-		member.setMoney(money);
-		member.setPassword(encryptPassword);
-		member.setCreatedate(createdate);
-		Member newMember = memberRepository.saveAndFlush(member);
-		MemberDTO newMemberDTO = MemberDTO.fromEntity(newMember);
-		return newMemberDTO;
-	}
-	
-	@Override
-	public void updateMember(MemberDTO updateMemberDTO){
-		Long memberId = updateMemberDTO.getMemberId();
-		Optional<Member> optional = memberRepository.findById(memberId);
-		if(optional.isPresent()) {
-			Member member = optional.get();
-			memberRepository.save(member);
-		}
-	}
-	
-	@Override
-	public void deleteMember(Long memberId){
-		memberRepository.deleteById(memberId);
-	}
-	
+
 	
 }

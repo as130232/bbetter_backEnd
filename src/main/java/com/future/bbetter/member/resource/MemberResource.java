@@ -6,6 +6,17 @@ import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.member.dto.MemberDTO;
 
 public interface MemberResource {
+	
+	/**
+	 * 新增一筆會員，並回傳新增會員
+	 * @author Charles
+	 * @date 2017年10月21日 下午5:59:23
+	 * @return MemberDTO
+	 */
+	public MemberDTO addMember(MemberDTO memberDTO);
+	
+	public void updateMember(MemberDTO updateMemberDTO);
+	public void deleteMember(Long memberId);
 
 	/**
 	 * 取得該會員資訊
@@ -33,16 +44,6 @@ public interface MemberResource {
 	 */
 	public Boolean checkIsEmailExist(String email);
 	
-	/**
-	 * 檢查是否有該會員，新增一筆會員，並回傳新增會員
-	 * @author Charles
-	 * @date 2017年10月21日 下午5:59:23
-	 * @return MemberDTO
-	 */
-	public MemberDTO addMember(MemberDTO memberDTO);
 	
-	public void updateMember(MemberDTO updateMemberDTO);
-	public void deleteMember(Long memberId);
-
 
 }

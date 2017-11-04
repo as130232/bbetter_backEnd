@@ -31,27 +31,8 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	private ScheduleRepository scheduleRepository;
 
 	
-
-	@Override
-	public ScheduleDTO getScheduleInfo(Long scheduleId) throws DataNotFoundException {
-		ScheduleDTO scheduleDTO = null;
-		Optional<Schedule> option = scheduleRepository.findById(scheduleId);
-		if(option.isPresent()) {
-			Schedule schedule = option.get();
-			scheduleDTO = ScheduleDTO.from(schedule);
-		}else {
-			throw new DataNotFoundException("schedule id: " + scheduleId + " is not found.");
-		}
-		return scheduleDTO;
-	}
-	
 	@Override
 	public ScheduleDTO addSchedule(@NonNull ScheduleDTO scheduleDTO) {
-		ScheduleDTO newScheduleDTO = this.insert(scheduleDTO);
-		return newScheduleDTO;
-	}
-
-	private ScheduleDTO insert(ScheduleDTO scheduleDTO) {
 		Integer isValid = SCHEDULE.IS_VALID_YES.value;
 		Schedule insert = new Schedule();
 		insert.setContinuousTime(scheduleDTO.getContinuousTime());
@@ -95,5 +76,19 @@ public class ScheduleResourceImpl implements ScheduleResource {
 //		scheduleRepository.deleteById(scheduleId);
 		//TODO delete schedule_remind
 	}
+	
+	@Override
+	public ScheduleDTO getScheduleInfo(Long scheduleId) throws DataNotFoundException {
+		ScheduleDTO scheduleDTO = null;
+		Optional<Schedule> option = scheduleRepository.findById(scheduleId);
+		if(option.isPresent()) {
+			Schedule schedule = option.get();
+			scheduleDTO = ScheduleDTO.from(schedule);
+		}else {
+			throw new DataNotFoundException("schedule id: " + scheduleId + " is not found.");
+		}
+		return scheduleDTO;
+	}
+
 
 }

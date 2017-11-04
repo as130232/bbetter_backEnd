@@ -4,6 +4,16 @@ import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
 import com.future.bbetter.schedule.model.ScheduleRegistrant;
 
 public interface ScheduleOwnerResource {
+	
+	/**
+	 * 新增一位行程擁有者
+	 * @author Charles
+	 * @date 2017年10月21日 下午4:36:26
+	 * @param registrantId
+	 * @param source
+	 * @return ScheduleOwnerDTO
+	 */
+	public ScheduleOwnerDTO addScheduleOwner(Long registrantId, Integer source);
 
 	/**
 	 * 取得行程擁有者
@@ -46,17 +56,6 @@ public interface ScheduleOwnerResource {
 	 */
 	public boolean checkIsScheduleOwnerRegister(Long registrantId, Integer source);
 	
-	/**
-	 * 檢查是否有該行程擁有者，並註冊一位行程擁有者
-	 * @author Charles
-	 * @date 2017年10月21日 下午4:36:26
-	 * @param registrantId
-	 * @param source
-	 * @return ScheduleOwnerDTO
-	 */
-	public ScheduleOwnerDTO addScheduleOwner(Long registrantId, Integer source);
-
-
 	
 
 }

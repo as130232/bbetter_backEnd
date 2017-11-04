@@ -34,6 +34,28 @@ public class ScheduleHadResourceImpl implements ScheduleHadResource{
 	private ScheduleResource scheduleResource;
 	
 	@Override
+	public ScheduleHadDTO addScheduleHad(Long scheduleOwnerId, Long scheduleId, Integer authority) {
+		Integer accumulatedTime = 0;
+		Integer isValid = SCHEDULE_HAD.IS_VALID_YES.value;
+		ScheduleHad scheduleHad = new ScheduleHad();
+		scheduleHad.setScheduleOwner(new ScheduleOwner(scheduleOwnerId));
+		scheduleHad.setSchedule(new Schedule(scheduleId));
+		scheduleHad.setAuthority(authority);
+		scheduleHad.setAccumulatedTime(accumulatedTime);
+		scheduleHad.setCreatedate(new Date());
+		scheduleHad.setIsValid(isValid);
+		scheduleHad.setUpdatedate(null);
+		ScheduleHad newScheduleHad = scheduleHadRepository.saveAndFlush(scheduleHad);
+		//取得行程資訊
+		ScheduleDTO scheduleDTO = scheduleResource.getScheduleInfo(scheduleId);
+		//取得行程擁有者資訊
+		//ScheduleOwnerDTO scheduleOwnerDTO = scheduleOwnerResource.getScheduleOwner(scheduleOwnerId);
+		//bind
+		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(newScheduleHad, scheduleDTO);
+		return scheduleHadDTO;
+	}
+
+	@Override
 	public ScheduleHadDTO getScheduleHad(Long scheduleHadId) {
 		ScheduleHadDTO scheduleHadDTO = null;
 		Optional<ScheduleHad> option = scheduleHadRepository.findById(scheduleHadId);
@@ -73,38 +95,4 @@ public class ScheduleHadResourceImpl implements ScheduleHadResource{
 	}
 	
 	
-	@Override
-	public ScheduleHadDTO addScheduleHad(Long scheduleOwnerId, Long scheduleId, Integer authority) {
-		ScheduleHadDTO scheduleHadDTO = this.insert(scheduleOwnerId, scheduleId, authority);
-		return scheduleHadDTO;
-	}
-
-	/**
-	 * 該行程擁有者新增一筆關聯行程的擁有行程
-	 * @author Charles
-	 * @date 2017年10月21日 下午4:24:25
-	 * @param registrantId
-	 * @param source
-	 */
-	private ScheduleHadDTO insert(Long scheduleOwnerId, Long scheduleId, Integer authority) {
-		Integer accumulatedTime = 0;
-		Integer isValid = SCHEDULE_HAD.IS_VALID_YES.value;
-		ScheduleHad scheduleHad = new ScheduleHad();
-		scheduleHad.setScheduleOwner(new ScheduleOwner(scheduleOwnerId));
-		scheduleHad.setSchedule(new Schedule(scheduleId));
-		scheduleHad.setAuthority(authority);
-		scheduleHad.setAccumulatedTime(accumulatedTime);
-		scheduleHad.setCreatedate(new Date());
-		scheduleHad.setIsValid(isValid);
-		scheduleHad.setUpdatedate(null);
-		ScheduleHad newScheduleHad = scheduleHadRepository.saveAndFlush(scheduleHad);
-		//取得行程資訊
-		ScheduleDTO scheduleDTO = scheduleResource.getScheduleInfo(scheduleId);
-		//取得行程擁有者資訊
-		//ScheduleOwnerDTO scheduleOwnerDTO = scheduleOwnerResource.getScheduleOwner(scheduleOwnerId);
-		//bind
-		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(newScheduleHad, scheduleDTO);
-		return scheduleHadDTO;
-	}
-
 }

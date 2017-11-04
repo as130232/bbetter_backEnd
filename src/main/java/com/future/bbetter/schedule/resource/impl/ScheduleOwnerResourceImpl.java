@@ -26,7 +26,24 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 	@Autowired
 	private ScheduleOwnerRepository scheduleOwnerRepository;
 
-
+	@Override
+	public ScheduleOwnerDTO addScheduleOwner(Long registrantId, Integer source){
+		ScheduleOwnerDTO scheduleOwnerDTO = null;
+		//檢查是否
+		Integer isValid = SCHEDULE_OWNER.IS_VALID_YES.value;
+		Date createdate = new Date();
+		ScheduleOwner insert = new ScheduleOwner();	
+		insert.setRegistrantId(registrantId);
+		insert.setSource(source);
+		insert.setIsValid(isValid);
+		insert.setCreatedate(createdate);
+		ScheduleOwner newScheduleOwner = scheduleOwnerRepository.saveAndFlush(insert);
+		//取得註冊者資訊
+		ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(registrantId, source);
+		scheduleOwnerDTO = ScheduleOwnerDTO.from(newScheduleOwner, scheduleRegistrant);
+		return scheduleOwnerDTO;
+	}
+	
 	@Override
 	public ScheduleOwnerDTO getScheduleOwner(Long scheduleOwnerId) {
 		ScheduleOwnerDTO scheduleOwnerDTO = null;
@@ -83,39 +100,5 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 		return isScheduleOwnerExist;
 	}
 	
-	@Transactional
-	@Override
-	public ScheduleOwnerDTO addScheduleOwner(Long registrantId, Integer source){
-		boolean isScheduleOwnerRegister = this.checkIsScheduleOwnerRegister(registrantId, source);
-		if(isScheduleOwnerRegister) {
-			throw new InsertOrUpdateDataFailureException("該行程擁有者已被註冊！");
-		}
-		ScheduleOwnerDTO scheduleOwnerDTO = this.insert(registrantId, source);
-		return scheduleOwnerDTO;
-	}
-	
-	/**
-	 * 新增一位行程擁有者
-	 * @author Charles
-	 * @date 2017年10月21日 下午4:24:25
-	 * @param registrantId
-	 * @param source
-	 */
-	private ScheduleOwnerDTO insert(Long registrantId, Integer source) {
-		ScheduleOwnerDTO scheduleOwnerDTO = null;
-		//檢查是否
-		Integer isValid = SCHEDULE_OWNER.IS_VALID_YES.value;
-		Date createdate = new Date();
-		ScheduleOwner insert = new ScheduleOwner();	
-		insert.setRegistrantId(registrantId);
-		insert.setSource(source);
-		insert.setIsValid(isValid);
-		insert.setCreatedate(createdate);
-		ScheduleOwner newScheduleOwner = scheduleOwnerRepository.saveAndFlush(insert);
-		//取得註冊者資訊
-		ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(registrantId, source);
-		scheduleOwnerDTO = ScheduleOwnerDTO.from(newScheduleOwner, scheduleRegistrant);
-		return scheduleOwnerDTO;
-	}
 	
 }

@@ -37,15 +37,10 @@ public class ScheduleService {
 	public ScheduleHadDTO createOwnSchedule(Long registrantId, Integer source, ScheduleDTO scheduleDTO) {
 		//1.取得該會員對應行程擁有者ID
 		Long scheduleOwnerId = null;
-		//先檢查該會員是否已註冊對應行程擁有者，若無註冊一個
-//		boolean isScheduleOwnerRegister = scheduleOwnerResource.checkIsScheduleOwnerRegister(registrantId, source);
-//		if(!isScheduleOwnerRegister) {
-//			scheduleOwnerResource.addScheduleOwner(new Long(1), 1);
-//		}
+		//先檢查該會員是否已註冊對應行程擁有者，若找不到，註冊一個
 		try {
 			scheduleOwnerId = scheduleOwnerResource.getScheduleOwnerId(registrantId, source);
 		}catch(DataNotFoundException e) {
-			//若找不到，註冊一個
 			ScheduleOwnerDTO scheduleOwnerDTO = scheduleOwnerResource.addScheduleOwner(registrantId, source);
 			scheduleOwnerId = scheduleOwnerDTO.getScheduleOwnerId();
 		}
