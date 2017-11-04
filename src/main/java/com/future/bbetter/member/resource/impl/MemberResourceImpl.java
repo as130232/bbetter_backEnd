@@ -14,7 +14,7 @@ import com.future.bbetter.authentication.password.Password;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.exception.customize.ThirdVerificationException;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.repository.MemberRepository;
 import com.future.bbetter.member.resource.FriendResource;
@@ -27,31 +27,31 @@ public class MemberResourceImpl implements MemberResource{
 	private MemberRepository memberRepository;
 	
 	@Override
-	public MemberDTO addMember(MemberDTO memberDTO){
+	public MemberDto addMember(MemberDto memberDto){
 		Date createdate = new Date();
 		BigDecimal money = new BigDecimal(0.0);
-		String password = memberDTO.getPassword();
+		String password = memberDto.getPassword();
 		//密碼加密
 		String encryptPassword = Password.encrypt(password);
 		
 		Member member = new Member();
-		member.setAddress(memberDTO.getAddress());
-		member.setBirthday(memberDTO.getBirthday());
-		member.setEmail(memberDTO.getEmail());
-		member.setGender(memberDTO.getGender());
-		member.setImageUrl(memberDTO.getImageUrl());
-		member.setName(memberDTO.getName());
+		member.setAddress(memberDto.getAddress());
+		member.setBirthday(memberDto.getBirthday());
+		member.setEmail(memberDto.getEmail());
+		member.setGender(memberDto.getGender());
+		member.setImageUrl(memberDto.getImageUrl());
+		member.setName(memberDto.getName());
 		member.setMoney(money);
 		member.setPassword(encryptPassword);
 		member.setCreatedate(createdate);
 		Member newMember = memberRepository.saveAndFlush(member);
-		MemberDTO newMemberDTO = MemberDTO.fromEntity(newMember);
+		MemberDto newMemberDTO = MemberDto.from(newMember);
 		return newMemberDTO;
 	}
 	
 	@Override
-	public void updateMember(MemberDTO updateMemberDTO){
-		Long memberId = updateMemberDTO.getMemberId();
+	public void updateMember(MemberDto updateMemberDto){
+		Long memberId = updateMemberDto.getMemberId();
 		Optional<Member> optional = memberRepository.findById(memberId);
 		if(optional.isPresent()) {
 			Member member = optional.get();
@@ -65,24 +65,24 @@ public class MemberResourceImpl implements MemberResource{
 	}
 	
 	@Override
-	public MemberDTO getMember(Long memberId) throws DataNotFoundException{
-		MemberDTO memberDTO = new MemberDTO();
+	public MemberDto getMember(Long memberId) throws DataNotFoundException{
+		MemberDto memberDto = new MemberDto();
 		Optional<Member> optional = memberRepository.findById(memberId);
 		if(optional.isPresent()) {
 			Member member = optional.get();
-			memberDTO = MemberDTO.fromEntity(member);
+			memberDto = MemberDto.from(member);
 		}else {
 			throw new DataNotFoundException("member id: " + memberId.toString() + " is not found.");
 		}
-		return memberDTO;
+		return memberDto;
 	}
 	
 	@Override
-	public MemberDTO getMember(String email) throws DataNotFoundException {
-		MemberDTO memberDTO = new MemberDTO();
+	public MemberDto getMember(String email) throws DataNotFoundException {
+		MemberDto memberDTO = new MemberDto();
 		Member member = memberRepository.findByEmail(email);
 		if(member != null) {
-			memberDTO = MemberDTO.fromEntity(member);
+			memberDTO = MemberDto.from(member);
 		}else {
 			throw new DataNotFoundException("email: " + email + " is not found.");
 		}
@@ -90,16 +90,16 @@ public class MemberResourceImpl implements MemberResource{
 	}
 	
 	@Override
-	public List<MemberDTO> getAllMembers(){
-		List<MemberDTO> memberDTOs = new ArrayList<>();
+	public List<MemberDto> getAllMembers(){
+		List<MemberDto> memberDtos = new ArrayList<>();
 		List<Member> members = memberRepository.findAll();
-		MemberDTO memberDTO = null;
+		MemberDto memberDto = null;
 		for(Member member:members) {
-			memberDTO = new MemberDTO();
-			BeanUtils.copyProperties(member, memberDTO);
-			memberDTOs.add(memberDTO);
+			memberDto = new MemberDto();
+			BeanUtils.copyProperties(member, memberDto);
+			memberDtos.add(memberDto);
 		}
-		return memberDTOs;
+		return memberDtos;
 	}
 
 	@Override

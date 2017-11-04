@@ -12,4 +12,6 @@ public interface FriendRepository  extends JpaRepository<Friend, Long> , JpaSpec
 	public List<Friend> findByMemberByMemberId(Member member);
 	public List<Friend> findByMemberByMemberIdAndIsBlockadeAndIsAccept(Member member, Integer isBlockade,
 			Integer isAccept);
+	public List<Friend> findByMemberByFriendMemberIdAndIsBlockadeAndIsAccept(Member member, Integer isBlockade,
+			Integer isAccept);
 }

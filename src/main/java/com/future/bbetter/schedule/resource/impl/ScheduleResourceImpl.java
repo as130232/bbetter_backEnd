@@ -1,7 +1,6 @@
 package com.future.bbetter.schedule.resource.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -9,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.member.dto.MemberDTO;
-import com.future.bbetter.member.model.Member;
 import com.future.bbetter.schedule.constant.SCHEDULE;
 import com.future.bbetter.schedule.dto.ScheduleDTO;
 import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleType;
-import com.future.bbetter.schedule.repository.ScheduleHadRepository;
-import com.future.bbetter.schedule.repository.ScheduleRemindRepository;
 import com.future.bbetter.schedule.repository.ScheduleRepository;
 import com.future.bbetter.schedule.resource.ScheduleResource;
 

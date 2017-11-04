@@ -14,13 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
-import com.future.bbetter.member.dto.MemberDTO;
-import com.future.bbetter.member.resource.MemberResource;
-import com.future.bbetter.schedule.constant.SCHEDULE_HAD;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
 import com.future.bbetter.schedule.dto.ScheduleDTO;
 import com.future.bbetter.schedule.dto.ScheduleHadDTO;
-import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
 import com.future.bbetter.schedule.resource.ScheduleHadResource;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
 import com.future.bbetter.schedule.resource.ScheduleResource;

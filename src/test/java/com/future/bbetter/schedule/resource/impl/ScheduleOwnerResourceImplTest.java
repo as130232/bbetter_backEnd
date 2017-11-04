@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.resource.impl.MemberResourceImpl;
@@ -129,7 +129,7 @@ public class ScheduleOwnerResourceImplTest {
 		//then
 		assertThat(result).isNotNull();
 		assertThat(result.getScheduleRegistrant()).isNotNull();
-		MemberDTO memDto = (MemberDTO) result.getScheduleRegistrant();
+		MemberDto memDto = (MemberDto) result.getScheduleRegistrant();
 		assertThat(memDto.getMemberId()).isEqualTo(memId);
 	}
 	
@@ -148,8 +148,8 @@ public class ScheduleOwnerResourceImplTest {
 		ScheduleRegistrant result = schOwnerRs.getScheduleRegistrant(registrantId, source);
 		
 		//then
-		assertThat(result).isInstanceOf(MemberDTO.class);
-		assertThat( ((MemberDTO) result).getMemberId()).isEqualTo(registrantId);
+		assertThat(result).isInstanceOf(MemberDto.class);
+		assertThat( ((MemberDto) result).getMemberId()).isEqualTo(registrantId);
 	
 	}
 	

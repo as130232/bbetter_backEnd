@@ -3,7 +3,7 @@ package com.future.bbetter.member.resource;
 import java.util.List;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 
 public interface MemberResource {
 	
@@ -13,9 +13,9 @@ public interface MemberResource {
 	 * @date 2017年10月21日 下午5:59:23
 	 * @return MemberDTO
 	 */
-	public MemberDTO addMember(MemberDTO memberDTO);
+	public MemberDto addMember(MemberDto memberDto);
 	
-	public void updateMember(MemberDTO updateMemberDTO);
+	public void updateMember(MemberDto updateMemberDto);
 	public void deleteMember(Long memberId);
 
 	/**
@@ -24,8 +24,8 @@ public interface MemberResource {
 	 * @date 2017年10月21日 下午5:58:26
 	 * @return MemberDTO
 	 */
-	public MemberDTO getMember(Long memberId) throws DataNotFoundException;
-	public MemberDTO getMember(String email) throws DataNotFoundException;
+	public MemberDto getMember(Long memberId) throws DataNotFoundException;
+	public MemberDto getMember(String email) throws DataNotFoundException;
 	
 	/**
 	 * 取得所有會員
@@ -33,7 +33,7 @@ public interface MemberResource {
 	 * @date 2017年10月21日 下午5:58:53
 	 * @return List<MemberDTO>
 	 */
-	public List<MemberDTO> getAllMembers();
+	public List<MemberDto> getAllMembers();
 	
 	/**
 	 * 檢查該email是否已存在
