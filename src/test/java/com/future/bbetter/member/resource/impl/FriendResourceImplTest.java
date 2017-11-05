@@ -76,9 +76,10 @@ public class FriendResourceImplTest {
 	public void whenAddFriend_thenCanFoundOneRecord() {
 		// given
 		Integer source = FRIEND.SOURCE_BBETTER.value;
-		
+		//還未接收好友邀請
+		Integer isAccept = FRIEND.IS_ACCEPT_NO.value;
 		// when
-		FriendDto result = friendRs.addFriend(memberId, memberIdByFriend, source);
+		FriendDto result = friendRs.addFriend(memberId, memberIdByFriend, source, isAccept);
 		
 		// then
 		Friend found = entityMgr.find(Friend.class, result.getFriendId());
@@ -87,8 +88,7 @@ public class FriendResourceImplTest {
 		//無被封鎖
 		Integer isBlockade = FRIEND.IS_BLOCKADE_NO.value;
 		assertThat(found.getIsBlockade()).isEqualTo(isBlockade);
-		//還未接收好友邀請
-		Integer isAccept = FRIEND.IS_ACCEPT_NO.value;
+		
 		assertThat(found.getIsAccept()).isEqualTo(isAccept);
 		
 	}

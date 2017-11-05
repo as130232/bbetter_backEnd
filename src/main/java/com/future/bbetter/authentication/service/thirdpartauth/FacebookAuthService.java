@@ -119,7 +119,7 @@ public class FacebookAuthService {
 		memberDto.setGender(gender);
 		memberDto.setPassword(password);
 		memberDto.setAddress(user.getLocale().getDisplayCountry());
-		memberDto.setImageUrl(connection.getImageUrl());
+		memberDto.setImageUrl(connection.getImageUrl() + "?type=large");
 		//新增一筆會員
 		MemberDto newMemberDto = memberResource.addMember(memberDto);
 		

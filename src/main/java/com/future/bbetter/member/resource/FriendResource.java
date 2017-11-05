@@ -13,19 +13,20 @@ public interface FriendResource {
 	 * @param memberId
 	 * @param friendMemberId
 	 * @param source 來源:一般、Facebook、Google
+	 * @param isAccept(是否接受好友邀請)，主動發出好友邀請新增時為No，若是另一方接受為Yes
 	 * @return FriendDTO
 	 */
-	public FriendDto addFriend(Long memberId, Long friendMemberId, Integer source);
+	public FriendDto addFriend(Long memberId, Long friendMemberId, Integer source, Integer isAccept);
 	
 	/**
 	 * 接受好友邀請
 	 * @author Charles
 	 * @date 2017年11月4日 下午7:25:11
-	 * @param memberId
-	 * @param friendMemberId
+	 * @param friendMemberId 接受好友邀請的會員
+	 * @param friendId 發出好友邀情及被邀請對象的PK
 	 * @return void
 	 */
-	public void acceptFriendApply(Long memberId, Long friendMemberId);
+	public void acceptFriendApply(Long friendMemberId, Long friendId);
 	
 	/**
 	 * 取得該會員的朋友清單

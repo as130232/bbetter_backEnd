@@ -18,7 +18,6 @@ public @Data @NoArgsConstructor class MemberDto implements ScheduleRegistrant{
 	private BigDecimal money;
 	private Date birthday;
 	private String address;
-	private Date createdate;
 	//新增會員時輸入的密碼(明碼)
 	private String password;
 	private String imageUrl;
@@ -33,6 +32,7 @@ public @Data @NoArgsConstructor class MemberDto implements ScheduleRegistrant{
 		memberDTO.setAddress(member.getAddress());
 		memberDTO.setMoney(member.getMoney());
 		memberDTO.setImageUrl(member.getImageUrl());
+		memberDTO.setPassword("");
 		return memberDTO;
 	}
 	

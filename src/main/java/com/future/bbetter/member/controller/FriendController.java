@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.member.constant.FRIEND;
 import com.future.bbetter.member.dto.FriendDto;
@@ -50,14 +52,27 @@ public class FriendController {
 	}
 	
 	/**
-	 * 新增好友
+	 * 申請好友
 	 * @author Charles
 	 * @date 2017年10月2日 下午11:18:10
 	 */
 	@PostMapping("/member/me/friend/{friendMemberId}")
-	public void addFriend(@PathVariable Long friendMemberId) throws InsertOrUpdateDataFailureException{
+	public void applyFriend(@PathVariable Long friendMemberId) throws InsertOrUpdateDataFailureException{
 		Integer source = FRIEND.SOURCE_BBETTER.value;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		friendsResource.addFriend(new Long(auth.getName()), friendMemberId, source);
+		//主動發出好友申請，但接收方還未同意好友邀請
+		Integer isAccept = FRIEND.IS_ACCEPT_NO.value;
+		friendsResource.addFriend(new Long(auth.getName()), friendMemberId, source, isAccept);
+	}
+	
+	/**
+	 * 該好友接受好友申請
+	 * @author Charles
+	 * @date 2017年10月2日 下午11:18:10
+	 */
+	@PostMapping("/member/me/friend/{friendId}/accept")
+	public void getFriendsInAcceptNotYet(@PathVariable Long friendId) throws DataNotFoundException, AuthenticationException{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		friendsResource.acceptFriendApply(new Long(auth.getName()), friendId);
 	}
 }
