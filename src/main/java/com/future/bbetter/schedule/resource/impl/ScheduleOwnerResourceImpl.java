@@ -11,8 +11,8 @@ import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
-import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
+import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
 import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleRegistrant;
@@ -27,8 +27,8 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 	private ScheduleOwnerRepository scheduleOwnerRepository;
 
 	@Override
-	public ScheduleOwnerDTO addScheduleOwner(Long registrantId, Integer source){
-		ScheduleOwnerDTO scheduleOwnerDTO = null;
+	public ScheduleOwnerDto addScheduleOwner(Long registrantId, Integer source){
+		ScheduleOwnerDto scheduleOwnerDTO = null;
 		//檢查是否
 		Integer isValid = SCHEDULE_OWNER.IS_VALID_YES.value;
 		Date createdate = new Date();
@@ -40,33 +40,33 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 		ScheduleOwner newScheduleOwner = scheduleOwnerRepository.saveAndFlush(insert);
 		//取得註冊者資訊
 		ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(registrantId, source);
-		scheduleOwnerDTO = ScheduleOwnerDTO.from(newScheduleOwner, scheduleRegistrant);
+		scheduleOwnerDTO = ScheduleOwnerDto.from(newScheduleOwner, scheduleRegistrant);
 		return scheduleOwnerDTO;
 	}
 	
 	@Override
-	public ScheduleOwnerDTO getScheduleOwner(Long scheduleOwnerId) {
-		ScheduleOwnerDTO scheduleOwnerDTO = null;
+	public ScheduleOwnerDto getScheduleOwner(Long scheduleOwnerId) {
+		ScheduleOwnerDto scheduleOwnerDto = null;
 		Optional<ScheduleOwner> option = scheduleOwnerRepository.findById(scheduleOwnerId);
 		if(option.isPresent()) {
 			ScheduleOwner scheduleOwner = option.get();
 			ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(scheduleOwner.getRegistrantId(), scheduleOwner.getSource());
-			scheduleOwnerDTO = ScheduleOwnerDTO.from(scheduleOwner, scheduleRegistrant);
+			scheduleOwnerDto = ScheduleOwnerDto.from(scheduleOwner, scheduleRegistrant);
 		}else {
 			throw new DataNotFoundException("scheduleOwner id: " + scheduleOwnerId + " is not found.");
 		}
-		return scheduleOwnerDTO;
+		return scheduleOwnerDto;
 	}
 
 	
 	@Override
-	public ScheduleOwnerDTO getScheduleOwner(Long registrantId, Integer source) {
-		ScheduleOwnerDTO scheduleOwnerDTO = null;
+	public ScheduleOwnerDto getScheduleOwner(Long registrantId, Integer source) {
+		ScheduleOwnerDto scheduleOwnerDto = null;
 		ScheduleOwner scheduleOwner = scheduleOwnerRepository.findByRegistrantIdAndSource(registrantId, source);
 		//取得註冊者資訊
 		ScheduleRegistrant scheduleRegistrant = this.getScheduleRegistrant(registrantId, source);
-		scheduleOwnerDTO = ScheduleOwnerDTO.from(scheduleOwner, scheduleRegistrant);
- 		return scheduleOwnerDTO;
+		scheduleOwnerDto = ScheduleOwnerDto.from(scheduleOwner, scheduleRegistrant);
+ 		return scheduleOwnerDto;
 	}
 	
 	@Override

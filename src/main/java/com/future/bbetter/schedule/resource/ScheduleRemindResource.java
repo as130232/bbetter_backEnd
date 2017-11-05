@@ -1,6 +1,6 @@
 package com.future.bbetter.schedule.resource;
 
-import com.future.bbetter.schedule.dto.ScheduleRemindDTO;
+import com.future.bbetter.schedule.dto.ScheduleRemindDto;
 
 public interface ScheduleRemindResource {
 	
@@ -9,13 +9,13 @@ public interface ScheduleRemindResource {
 	 * @param remindDto
 	 * @return ScheduleRemindDTO 含有資料庫給予的ScheduleRemindId
 	 */
-	public ScheduleRemindDTO addScheduleRemind(ScheduleRemindDTO remindDto);
+	public ScheduleRemindDto addScheduleRemind(ScheduleRemindDto remindDto);
 	
 	/***
 	 * 更新一筆行程提醒
 	 * @param remindDto
 	 */
-	public void updateScheduleRemind(ScheduleRemindDTO remindDto);
+	public void updateScheduleRemind(ScheduleRemindDto remindDto);
 	
 	/***
 	 * 刪除一筆行程提醒
@@ -29,6 +29,6 @@ public interface ScheduleRemindResource {
 	 * @param scheduleRemindId
 	 * @return
 	 */
-	public ScheduleRemindDTO getScheduleRemind(Long scheduleRemindId);
+	public ScheduleRemindDto getScheduleRemind(Long scheduleRemindId);
 	
 }

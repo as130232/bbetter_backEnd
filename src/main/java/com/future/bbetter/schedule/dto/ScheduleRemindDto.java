@@ -9,10 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-public @Data @NoArgsConstructor class ScheduleRemindDTO {
+public @Data @NoArgsConstructor class ScheduleRemindDto {
 	
 	private Long scheduleRemindId;
-	private ScheduleHadDTO scheduleHadDto;
+	private ScheduleHadDto scheduleHadDto;
 	private Date remindTime;
 	private int remindWay;
 	private String remark;
@@ -22,10 +22,10 @@ public @Data @NoArgsConstructor class ScheduleRemindDTO {
 	 * @param remind
 	 * @return ScheduleRemindDTO 其中的ScheduleHadDTO只有scheduleHadId
 	 */
-	public static ScheduleRemindDTO from(@NonNull ScheduleRemind remind){
-		ScheduleRemindDTO dto = new ScheduleRemindDTO();
+	public static ScheduleRemindDto from(@NonNull ScheduleRemind remind){
+		ScheduleRemindDto dto = new ScheduleRemindDto();
 		if(remind.getScheduleHad() != null){
-			ScheduleHadDTO hadDto = new ScheduleHadDTO();
+			ScheduleHadDto hadDto = new ScheduleHadDto();
 			hadDto.setScheduleHadId(remind.getScheduleHad().getScheduleHadId());
 			dto.setScheduleHadDto(hadDto);
 		}

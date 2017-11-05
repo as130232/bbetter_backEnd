@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
+import com.future.bbetter.schedule.dto.ScheduleTypeDto;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.resource.ScheduleTypeResource;
 
@@ -41,11 +41,11 @@ public class ScheduleTypeResourceImplTest {
 	@Test
 	public void whenAddScheduleType_thenNameFieldShouldBeNull_TypeNameShouldExists() {
 		// given
-		ScheduleTypeDTO type = new ScheduleTypeDTO();
+		ScheduleTypeDto type = new ScheduleTypeDto();
 		type.setTypeName("test_type");
 
 		// when
-		ScheduleTypeDTO result = schTypeRs.addScheduleType(type);
+		ScheduleTypeDto result = schTypeRs.addScheduleType(type);
 
 		// then
 		assertThat(result).isNotNull();
@@ -59,7 +59,7 @@ public class ScheduleTypeResourceImplTest {
 		ScheduleType old = addFakeData2ScheduleType();
 		entityMgr.detach(old);
 
-		ScheduleTypeDTO updateBean = new ScheduleTypeDTO();
+		ScheduleTypeDto updateBean = new ScheduleTypeDto();
 		updateBean.setScheduleTypeId(old.getScheduleTypeId());
 		updateBean.setTypeName("Update_data");
 		log.info("old.name:{}, updateBean.name:{}", old.getName(), updateBean.getTypeName());

@@ -11,43 +11,43 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-public @Data @NoArgsConstructor class ScheduleHadDTO {
+public @Data @NoArgsConstructor class ScheduleHadDto {
 	
 	private Long scheduleHadId;
 	//行程資訊
-	private ScheduleDTO scheduleDto;
+	private ScheduleDto scheduleDto;
 	private int authority;
 	private int accumulatedTime;
 	private Date createdate;
 	//行程擁有者
-	private ScheduleOwnerDTO scheduleOwnerDto;
+	private ScheduleOwnerDto scheduleOwnerDto;
 	//private int isValid;
 	//private Date updatedate;
 	
-	private static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad){
-		ScheduleHadDTO scheduleHadDTO = new ScheduleHadDTO();
-		scheduleHadDTO.setScheduleHadId(scheduleHad.getScheduleHadId());
-		scheduleHadDTO.setAccumulatedTime(scheduleHad.getAccumulatedTime());
-		scheduleHadDTO.setAuthority(scheduleHad.getAuthority());
-		scheduleHadDTO.setCreatedate(scheduleHad.getCreatedate());
-		//scheduleHadDTO.setIsValid(scheduleHad.getIsValid());
-		return scheduleHadDTO;
+	private static ScheduleHadDto from(@NonNull ScheduleHad scheduleHad){
+		ScheduleHadDto scheduleHadDto = new ScheduleHadDto();
+		scheduleHadDto.setScheduleHadId(scheduleHad.getScheduleHadId());
+		scheduleHadDto.setAccumulatedTime(scheduleHad.getAccumulatedTime());
+		scheduleHadDto.setAuthority(scheduleHad.getAuthority());
+		scheduleHadDto.setCreatedate(scheduleHad.getCreatedate());
+		//scheduleHadDto.setIsValid(scheduleHad.getIsValid());
+		return scheduleHadDto;
 	}
 	
-	public static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad, 
-			@NonNull ScheduleDTO scheduleDto){
-		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(scheduleHad);
-		scheduleHadDTO.setScheduleDto(scheduleDto);
-		return scheduleHadDTO;
+	public static ScheduleHadDto from(@NonNull ScheduleHad scheduleHad, 
+			@NonNull ScheduleDto scheduleDto){
+		ScheduleHadDto scheduleHadDto = ScheduleHadDto.from(scheduleHad);
+		scheduleHadDto.setScheduleDto(scheduleDto);
+		return scheduleHadDto;
 	}
 	
-	public static ScheduleHadDTO from(@NonNull ScheduleHad scheduleHad, 
-			@NonNull ScheduleDTO scheduleDto,
-			@NonNull ScheduleOwnerDTO scheduleOwnerDto){
-		ScheduleHadDTO scheduleHadDTO = ScheduleHadDTO.from(scheduleHad);
-		scheduleHadDTO.setScheduleDto(scheduleDto);
-		scheduleHadDTO.setScheduleOwnerDto(scheduleOwnerDto);
-		return scheduleHadDTO;
+	public static ScheduleHadDto from(@NonNull ScheduleHad scheduleHad, 
+			@NonNull ScheduleDto scheduleDto,
+			@NonNull ScheduleOwnerDto scheduleOwnerDto){
+		ScheduleHadDto scheduleHadDto = ScheduleHadDto.from(scheduleHad);
+		scheduleHadDto.setScheduleDto(scheduleDto);
+		scheduleHadDto.setScheduleOwnerDto(scheduleOwnerDto);
+		return scheduleHadDto;
 	}
 	
 	/***

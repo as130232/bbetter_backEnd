@@ -20,10 +20,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.schedule.constant.SCHEDULE_HAD;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
-import com.future.bbetter.schedule.dto.ScheduleHadDTO;
-import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
-import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
+import com.future.bbetter.schedule.dto.ScheduleHadDto;
+import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
+import com.future.bbetter.schedule.dto.ScheduleTypeDto;
 import com.future.bbetter.schedule.resource.ScheduleHadResource;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
 import com.future.bbetter.schedule.resource.ScheduleResource;
@@ -70,15 +70,15 @@ public class ScheduleServiceTest {
 	private ScheduleService schSvc;
 	
 	
-	private ScheduleDTO getFakeScheduleData(){
+	private ScheduleDto getFakeScheduleData(){
 		Instant now = Instant.now();
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
 		
-		ScheduleTypeDTO typeDto = new ScheduleTypeDTO();
+		ScheduleTypeDto typeDto = new ScheduleTypeDto();
 		typeDto.setScheduleTypeId(5);
 		typeDto.setTypeName("test_type");
 		
-		ScheduleDTO schedule = new ScheduleDTO();
+		ScheduleDto schedule = new ScheduleDto();
 		schedule.setStartTime(Date.from(now));
 		schedule.setEndTime(Date.from(afterTwoHrs));
 		schedule.setName("Test_Schedule");
@@ -91,8 +91,8 @@ public class ScheduleServiceTest {
 		return schedule;
 	}
 	
-	private ScheduleOwnerDTO getFakeScheduleOwnerData(){
-		ScheduleOwnerDTO owner = new ScheduleOwnerDTO();
+	private ScheduleOwnerDto getFakeScheduleOwnerData(){
+		ScheduleOwnerDto owner = new ScheduleOwnerDto();
 		owner.setScheduleOwnerId(100L);
 		owner.setRegistrantId(1L);
 		owner.setSource(SCHEDULE_OWNER.SOURCE_MEMBER.value);
@@ -101,8 +101,8 @@ public class ScheduleServiceTest {
 		return owner;
 	}
 	
-	private ScheduleHadDTO getFakeScheduleHadData(ScheduleDTO scheduleDto,ScheduleOwnerDTO ownerDto){
-		ScheduleHadDTO had = new ScheduleHadDTO();
+	private ScheduleHadDto getFakeScheduleHadData(ScheduleDto scheduleDto,ScheduleOwnerDto ownerDto){
+		ScheduleHadDto had = new ScheduleHadDto();
 		had.setScheduleHadId(10L);
 		had.setScheduleDto(scheduleDto);
 		had.setScheduleOwnerDto(ownerDto);
@@ -119,17 +119,17 @@ public class ScheduleServiceTest {
 		//given
 		Long registrantId = 1L;
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
-		ScheduleDTO inputSchedule = getFakeScheduleData();
+		ScheduleDto inputSchedule = getFakeScheduleData();
 		
 		Mockito.when(schOwnerRs.getScheduleOwnerId(registrantId, source))
 			.thenThrow(DataNotFoundException.class);
 		
-		ScheduleOwnerDTO mockOwner = getFakeScheduleOwnerData();
+		ScheduleOwnerDto mockOwner = getFakeScheduleOwnerData();
 		Mockito.when(schOwnerRs.addScheduleOwner(registrantId, source))
 			.thenReturn(mockOwner);
 		
 		Long mockScheduleId = 30L;
-		ScheduleDTO scheduleWithId = ScheduleDTO.from(inputSchedule.toEntity());
+		ScheduleDto scheduleWithId = ScheduleDto.from(inputSchedule.toEntity());
 		scheduleWithId.setScheduleId(mockScheduleId);
 		
 		Mockito.when(schRs.addSchedule(inputSchedule))
@@ -138,14 +138,14 @@ public class ScheduleServiceTest {
 		
 		Integer authority = SCHEDULE_HAD.AUTHORITY_LEADER.value;
 		Long mockOwnerId = mockOwner.getScheduleOwnerId();
-		ScheduleHadDTO mockHad = getFakeScheduleHadData(scheduleWithId, mockOwner);
+		ScheduleHadDto mockHad = getFakeScheduleHadData(scheduleWithId, mockOwner);
 		
 		Mockito.when(schHadRs.addScheduleHad(mockOwnerId, mockScheduleId, authority))
 			.thenReturn(mockHad);
 		
 		
 		//when
-		ScheduleHadDTO result = schSvc.createOwnSchedule(registrantId, source, inputSchedule);
+		ScheduleHadDto result = schSvc.createOwnSchedule(registrantId, source, inputSchedule);
 		
 
 		//then
@@ -164,14 +164,14 @@ public class ScheduleServiceTest {
 		//given
 		Long registrantId = 1L;
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
-		ScheduleDTO inputSchedule = getFakeScheduleData();
-		ScheduleOwnerDTO mockOwner = getFakeScheduleOwnerData();
+		ScheduleDto inputSchedule = getFakeScheduleData();
+		ScheduleOwnerDto mockOwner = getFakeScheduleOwnerData();
 		
 		Mockito.when(schOwnerRs.getScheduleOwnerId(registrantId, source))
 			.thenReturn(mockOwner.getScheduleOwnerId());
 		
 		Long mockScheduleId = 30L;
-		ScheduleDTO scheduleWithId = ScheduleDTO.from(inputSchedule.toEntity());
+		ScheduleDto scheduleWithId = ScheduleDto.from(inputSchedule.toEntity());
 		scheduleWithId.setScheduleId(mockScheduleId);
 		
 		Mockito.when(schRs.addSchedule(inputSchedule))
@@ -180,14 +180,14 @@ public class ScheduleServiceTest {
 		
 		Integer authority = SCHEDULE_HAD.AUTHORITY_LEADER.value;
 		Long mockOwnerId = mockOwner.getScheduleOwnerId();
-		ScheduleHadDTO mockHad = getFakeScheduleHadData(scheduleWithId, mockOwner);
+		ScheduleHadDto mockHad = getFakeScheduleHadData(scheduleWithId, mockOwner);
 		
 		Mockito.when(schHadRs.addScheduleHad(mockOwnerId, mockScheduleId, authority))
 			.thenReturn(mockHad);
 		
 		
 		//when
-		ScheduleHadDTO result = schSvc.createOwnSchedule(registrantId, source, inputSchedule);
+		ScheduleHadDto result = schSvc.createOwnSchedule(registrantId, source, inputSchedule);
 		
 
 		//then

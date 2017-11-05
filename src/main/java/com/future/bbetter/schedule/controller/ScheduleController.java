@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
-import com.future.bbetter.schedule.dto.ScheduleHadDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
+import com.future.bbetter.schedule.dto.ScheduleHadDto;
 import com.future.bbetter.schedule.resource.ScheduleHadResource;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
 import com.future.bbetter.schedule.resource.ScheduleResource;
@@ -41,14 +41,14 @@ public class ScheduleController {
 	 */
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping("/member/me/scheduleHads")
-	public List<ScheduleHadDTO> getSchedules() throws DataNotFoundException{
+	public List<ScheduleHadDto> getSchedules() throws DataNotFoundException{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
 		Long registrantId = new Long(auth.getName());
 		//取得註冊的行程擁有者ID
 		Long scheduleOwnerId = scheduleOwnerResource.getScheduleOwnerId(registrantId, source);
-	    List<ScheduleHadDTO> scheduleHadDTO = scheduleHadResource.getScheduleHads(scheduleOwnerId);
-		return scheduleHadDTO;
+	    List<ScheduleHadDto> scheduleHadDto = scheduleHadResource.getScheduleHads(scheduleOwnerId);
+		return scheduleHadDto;
 	}
 	
 	/**
@@ -58,12 +58,12 @@ public class ScheduleController {
 	 */
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping("/member/me/schedule")
-	public ScheduleHadDTO addSchedule(@RequestBody ScheduleDTO scheduleDTO) throws InsertOrUpdateDataFailureException{
+	public ScheduleHadDto addSchedule(@RequestBody ScheduleDto scheduleDto) throws InsertOrUpdateDataFailureException{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
 		Long registrantId = new Long(auth.getName());
-		ScheduleHadDTO newScheduleHadDTO = scheduleService.createOwnSchedule(registrantId, source, scheduleDTO);
-		return newScheduleHadDTO;
+		ScheduleHadDto newScheduleHadDto = scheduleService.createOwnSchedule(registrantId, source, scheduleDto);
+		return newScheduleHadDto;
 	}
 	
 	/**

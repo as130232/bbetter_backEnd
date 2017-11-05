@@ -22,7 +22,7 @@ import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.resource.impl.MemberResourceImpl;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
-import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
+import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
 import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleRegistrant;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
@@ -87,7 +87,7 @@ public class ScheduleOwnerResourceImplTest {
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
 		
 		//when 
-		ScheduleOwnerDTO result = schOwnerRs.addScheduleOwner(registrantId, source);
+		ScheduleOwnerDto result = schOwnerRs.addScheduleOwner(registrantId, source);
 		
 		//then
 		assertThat(result).isNotNull();
@@ -124,7 +124,7 @@ public class ScheduleOwnerResourceImplTest {
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
 
 		//when
-		ScheduleOwnerDTO result = schOwnerRs.getScheduleOwner(registrantId,source);
+		ScheduleOwnerDto result = schOwnerRs.getScheduleOwner(registrantId,source);
 		
 		//then
 		assertThat(result).isNotNull();

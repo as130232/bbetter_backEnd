@@ -14,10 +14,10 @@ import lombok.NonNull;
  * @author alfread
  *
  */
-public @Data @NoArgsConstructor class ScheduleDTO {
+public @Data @NoArgsConstructor class ScheduleDto {
 	// schedule.attributes
 	private Long scheduleId;
-	private ScheduleTypeDTO scheduleTypeDto;
+	private ScheduleTypeDto scheduleTypeDto;
 	private Integer skillId;
 	private Date startTime;
 	private Date endTime;
@@ -38,8 +38,8 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 	 * @param schedule non null.
 	 * @return ScheduleDTO object
 	 */
-	public static ScheduleDTO from(@NonNull Schedule schedule) {
-		ScheduleDTO scheduleDTO = new ScheduleDTO();
+	public static ScheduleDto from(@NonNull Schedule schedule) {
+		ScheduleDto scheduleDTO = new ScheduleDto();
 		scheduleDTO.setScheduleId(schedule.getScheduleId());
 		scheduleDTO.setSkillId(schedule.getSkillId());
 		scheduleDTO.setStartTime(schedule.getStartTime());
@@ -51,7 +51,7 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 		scheduleDTO.setIsCycle(schedule.getIsCycle());
 		scheduleDTO.setIsNeedRemind(schedule.getIsNeedRemind());
 		scheduleDTO.setIsTeamSchedule(schedule.getIsTeamSchedule());
-		scheduleDTO.setScheduleTypeDto(ScheduleTypeDTO.from(schedule.getScheduleType()));
+		scheduleDTO.setScheduleTypeDto(ScheduleTypeDto.from(schedule.getScheduleType()));
 		scheduleDTO.setCreatedate(schedule.getCreatedate());
 		//scheduleDTO.setIsValid(schedule.getIsValid());
 		//scheduleDTO.setUpdatedate(schedule.getUpdatedate());

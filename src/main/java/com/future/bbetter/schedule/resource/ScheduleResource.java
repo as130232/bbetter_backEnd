@@ -3,8 +3,8 @@ package com.future.bbetter.schedule.resource;
 import java.util.List;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
-import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
+import com.future.bbetter.schedule.dto.ScheduleTypeDto;
 
 public interface ScheduleResource {
 	
@@ -15,8 +15,8 @@ public interface ScheduleResource {
 	 * @param scheduleDTO
 	 * @return ScheduleDTO
 	 */
-	public ScheduleDTO addSchedule(ScheduleDTO scheduleDTO);
-	public void updateSchedule(ScheduleDTO scheduleDTO);
+	public ScheduleDto addSchedule(ScheduleDto scheduleDto);
+	public void updateSchedule(ScheduleDto scheduleDto);
 	public void deleteSchedule(Long scheduleId);
 	
 	/**
@@ -25,7 +25,7 @@ public interface ScheduleResource {
 	 * @date 2017年10月21日 下午6:33:56
 	 * @return ScheduleDTO
 	 */
-	public ScheduleDTO getScheduleInfo(Long scheduleId);
+	public ScheduleDto getScheduleInfo(Long scheduleId);
 	
 	
 

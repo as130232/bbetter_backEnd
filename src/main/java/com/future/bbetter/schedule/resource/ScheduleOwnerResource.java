@@ -1,6 +1,6 @@
 package com.future.bbetter.schedule.resource;
 
-import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
+import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
 import com.future.bbetter.schedule.model.ScheduleRegistrant;
 
 public interface ScheduleOwnerResource {
@@ -13,7 +13,7 @@ public interface ScheduleOwnerResource {
 	 * @param source
 	 * @return ScheduleOwnerDTO
 	 */
-	public ScheduleOwnerDTO addScheduleOwner(Long registrantId, Integer source);
+	public ScheduleOwnerDto addScheduleOwner(Long registrantId, Integer source);
 
 	/**
 	 * 取得行程擁有者
@@ -23,8 +23,8 @@ public interface ScheduleOwnerResource {
 	 * @param source
 	 * @return ScheduleOwnerDTO
 	 */
-	public ScheduleOwnerDTO getScheduleOwner(Long scheduleOwnerId);
-	public ScheduleOwnerDTO getScheduleOwner(Long registrantId, Integer source);
+	public ScheduleOwnerDto getScheduleOwner(Long scheduleOwnerId);
+	public ScheduleOwnerDto getScheduleOwner(Long registrantId, Integer source);
 	
 	/**
 	 * 取得行程擁有者ID

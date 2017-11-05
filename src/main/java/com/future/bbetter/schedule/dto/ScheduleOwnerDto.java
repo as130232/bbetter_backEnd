@@ -14,7 +14,7 @@ import lombok.NonNull;
  * @author Charles
  * @date 2017年10月21日 下午2:23:33
  */
-public @Data @NoArgsConstructor class ScheduleOwnerDTO {
+public @Data @NoArgsConstructor class ScheduleOwnerDto {
 	private Long scheduleOwnerId;
 	private Long registrantId;
 	private int source;
@@ -24,20 +24,20 @@ public @Data @NoArgsConstructor class ScheduleOwnerDTO {
 	//會員資訊..
 	private ScheduleRegistrant scheduleRegistrant;
 	
-	public static ScheduleOwnerDTO from(@NonNull ScheduleOwner scheduleOwner){
-		ScheduleOwnerDTO scheduleOwnerDTO = new ScheduleOwnerDTO();
-		scheduleOwnerDTO.setScheduleOwnerId(scheduleOwner.getScheduleOwnerId());
-		scheduleOwnerDTO.setIsValid(scheduleOwner.getIsValid());
-		scheduleOwnerDTO.setSource(scheduleOwner.getSource());
-		scheduleOwnerDTO.setCreatedate(scheduleOwner.getCreatedate());
-		return scheduleOwnerDTO;
+	public static ScheduleOwnerDto from(@NonNull ScheduleOwner scheduleOwner){
+		ScheduleOwnerDto scheduleOwnerDto = new ScheduleOwnerDto();
+		scheduleOwnerDto.setScheduleOwnerId(scheduleOwner.getScheduleOwnerId());
+		scheduleOwnerDto.setIsValid(scheduleOwner.getIsValid());
+		scheduleOwnerDto.setSource(scheduleOwner.getSource());
+		scheduleOwnerDto.setCreatedate(scheduleOwner.getCreatedate());
+		return scheduleOwnerDto;
 	}
 	
 	//若有會員
-	public static ScheduleOwnerDTO from(@NonNull ScheduleOwner scheduleOwner, ScheduleRegistrant scheduleRegistrant){
-		ScheduleOwnerDTO scheduleOwnerDTO = ScheduleOwnerDTO.from(scheduleOwner);
-		scheduleOwnerDTO.setScheduleRegistrant(scheduleRegistrant);
-		return scheduleOwnerDTO;
+	public static ScheduleOwnerDto from(@NonNull ScheduleOwner scheduleOwner, ScheduleRegistrant scheduleRegistrant){
+		ScheduleOwnerDto scheduleOwnerDto = ScheduleOwnerDto.from(scheduleOwner);
+		scheduleOwnerDto.setScheduleRegistrant(scheduleRegistrant);
+		return scheduleOwnerDto;
 	}
 	
 	public ScheduleOwner toEntity(){

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.schedule.dto.ScheduleRemindDTO;
+import com.future.bbetter.schedule.dto.ScheduleRemindDto;
 import com.future.bbetter.schedule.model.ScheduleRemind;
 import com.future.bbetter.schedule.repository.ScheduleRemindRepository;
 import com.future.bbetter.schedule.resource.ScheduleRemindResource;
@@ -23,14 +23,14 @@ public class ScheduleRemindResourceImpl implements ScheduleRemindResource {
 	
 
 	@Override
-	public ScheduleRemindDTO addScheduleRemind(@NonNull ScheduleRemindDTO remindDto) {
+	public ScheduleRemindDto addScheduleRemind(@NonNull ScheduleRemindDto remindDto) {
 		ScheduleRemind remind = remindDto.toEntity();
 		ScheduleRemind result = schRemindRepo.saveAndFlush(remind);
-		return ScheduleRemindDTO.from(result);
+		return ScheduleRemindDto.from(result);
 	}
 
 	@Override
-	public void updateScheduleRemind(@NonNull ScheduleRemindDTO remindDto) {
+	public void updateScheduleRemind(@NonNull ScheduleRemindDto remindDto) {
 		Long id = remindDto.getScheduleRemindId();
 		Optional<ScheduleRemind> optRemind = schRemindRepo.findById(id);
 		if(optRemind.isPresent()){
@@ -51,9 +51,9 @@ public class ScheduleRemindResourceImpl implements ScheduleRemindResource {
 	}
 
 	@Override
-	public ScheduleRemindDTO getScheduleRemind(Long scheduleRemindId) {
+	public ScheduleRemindDto getScheduleRemind(Long scheduleRemindId) {
 		Optional<ScheduleRemind> optRemind = schRemindRepo.findById(scheduleRemindId);
-		return ScheduleRemindDTO.from(optRemind.orElseThrow(() -> 
+		return ScheduleRemindDto.from(optRemind.orElseThrow(() -> 
 				new DataNotFoundException("It can not find data,ScheduleRemindId:"+scheduleRemindId)));
 	}
 

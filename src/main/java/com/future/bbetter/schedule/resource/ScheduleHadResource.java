@@ -2,7 +2,7 @@ package com.future.bbetter.schedule.resource;
 
 import java.util.List;
 
-import com.future.bbetter.schedule.dto.ScheduleHadDTO;
+import com.future.bbetter.schedule.dto.ScheduleHadDto;
 
 public interface ScheduleHadResource {
 	
@@ -14,7 +14,7 @@ public interface ScheduleHadResource {
 	 * @param source
 	 * @return boolean
 	 */
-	public ScheduleHadDTO addScheduleHad(Long scheduleOwnerId, Long scheduleId, Integer authority);
+	public ScheduleHadDto addScheduleHad(Long scheduleOwnerId, Long scheduleId, Integer authority);
 	
 	/**
 	 * 取得該行程擁有者擁有的行程資訊
@@ -24,7 +24,7 @@ public interface ScheduleHadResource {
 	 * @throws exceptionType 如果...將拋出exceptionType異常.
 	 * @return ScheduleHadDTO
 	 */
-	public ScheduleHadDTO getScheduleHad(Long scheduleHadId);
+	public ScheduleHadDto getScheduleHad(Long scheduleHadId);
 	
 	/**
 	 * 取得該行程擁有者所有的行程
@@ -33,6 +33,6 @@ public interface ScheduleHadResource {
 	 * @param scheduleOwnerId
 	 * @return List<ScheduleHadDTO>
 	 */
-	public List<ScheduleHadDTO> getScheduleHads(Long scheduleOwnerId);
+	public List<ScheduleHadDto> getScheduleHads(Long scheduleOwnerId);
 	
 }

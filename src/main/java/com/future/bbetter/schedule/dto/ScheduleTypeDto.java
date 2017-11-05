@@ -8,15 +8,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-public @Data @NoArgsConstructor class ScheduleTypeDTO {
+public @Data @NoArgsConstructor class ScheduleTypeDto {
 	
 	// ScheduleType.attributes
 	private Integer scheduleTypeId;
 	private String typeName;
 	private Date createdate;
 	
-	public static ScheduleTypeDTO from(@NonNull ScheduleType scheduleType){
-		ScheduleTypeDTO dto = new ScheduleTypeDTO();
+	public static ScheduleTypeDto from(@NonNull ScheduleType scheduleType){
+		ScheduleTypeDto dto = new ScheduleTypeDto();
 		dto.setTypeName(scheduleType.getName());
 		dto.setScheduleTypeId(scheduleType.getScheduleTypeId());
 		dto.setCreatedate(scheduleType.getCreatedate());

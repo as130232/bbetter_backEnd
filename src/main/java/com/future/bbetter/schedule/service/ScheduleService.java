@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.schedule.constant.SCHEDULE_HAD;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
-import com.future.bbetter.schedule.dto.ScheduleHadDTO;
-import com.future.bbetter.schedule.dto.ScheduleOwnerDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
+import com.future.bbetter.schedule.dto.ScheduleHadDto;
+import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
 import com.future.bbetter.schedule.resource.ScheduleHadResource;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
 import com.future.bbetter.schedule.resource.ScheduleResource;
@@ -34,23 +34,23 @@ public class ScheduleService {
 	 * @return ScheduleHadDTO
 	 */
 	@Transactional
-	public ScheduleHadDTO createOwnSchedule(Long registrantId, Integer source, ScheduleDTO scheduleDTO) {
+	public ScheduleHadDto createOwnSchedule(Long registrantId, Integer source, ScheduleDto scheduleDto) {
 		//1.取得該會員對應行程擁有者ID
 		Long scheduleOwnerId = null;
 		//先檢查該會員是否已註冊對應行程擁有者，若找不到，註冊一個
 		try {
 			scheduleOwnerId = scheduleOwnerResource.getScheduleOwnerId(registrantId, source);
 		}catch(DataNotFoundException e) {
-			ScheduleOwnerDTO scheduleOwnerDTO = scheduleOwnerResource.addScheduleOwner(registrantId, source);
+			ScheduleOwnerDto scheduleOwnerDTO = scheduleOwnerResource.addScheduleOwner(registrantId, source);
 			scheduleOwnerId = scheduleOwnerDTO.getScheduleOwnerId();
 		}
 		
 		//2.建立該行程
-		ScheduleDTO newScheduleDTO = scheduleResource.addSchedule(scheduleDTO);
+		ScheduleDto newScheduleDto = scheduleResource.addSchedule(scheduleDto);
 		
 		//3.將該行程加入到該行程擁有者的擁有行程中
 		Integer authority = SCHEDULE_HAD.AUTHORITY_LEADER.value;
-		ScheduleHadDTO newScheduleHadDTO = scheduleHadResource.addScheduleHad(scheduleOwnerId, newScheduleDTO.getScheduleId(), authority);
-		return newScheduleHadDTO;
+		ScheduleHadDto newScheduleHadDto = scheduleHadResource.addScheduleHad(scheduleOwnerId, newScheduleDto.getScheduleId(), authority);
+		return newScheduleHadDto;
 	}
 }

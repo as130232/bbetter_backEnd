@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.schedule.constant.SCHEDULE;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
 import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.repository.ScheduleRepository;
@@ -27,35 +27,35 @@ public class ScheduleResourceImpl implements ScheduleResource {
 
 	
 	@Override
-	public ScheduleDTO addSchedule(@NonNull ScheduleDTO scheduleDTO) {
+	public ScheduleDto addSchedule(@NonNull ScheduleDto scheduleDto) {
 		Integer isValid = SCHEDULE.IS_VALID_YES.value;
 		Schedule insert = new Schedule();
-		insert.setContinuousTime(scheduleDTO.getContinuousTime());
-		insert.setEndTime(scheduleDTO.getEndTime());
-		insert.setIsCycle(scheduleDTO.getIsCycle());
-		insert.setIsNeedRemind(scheduleDTO.getIsNeedRemind());
-		insert.setIsTeamSchedule(scheduleDTO.getIsTeamSchedule());
+		insert.setContinuousTime(scheduleDto.getContinuousTime());
+		insert.setEndTime(scheduleDto.getEndTime());
+		insert.setIsCycle(scheduleDto.getIsCycle());
+		insert.setIsNeedRemind(scheduleDto.getIsNeedRemind());
+		insert.setIsTeamSchedule(scheduleDto.getIsTeamSchedule());
 		insert.setIsValid(isValid);
-		insert.setLocation(scheduleDTO.getLocation());
-		insert.setName(scheduleDTO.getName());
-		insert.setScheduleType(new ScheduleType(scheduleDTO.getScheduleTypeDto().getScheduleTypeId()));
-		insert.setSkillId(scheduleDTO.getSkillId());
-		insert.setStartTime(scheduleDTO.getStartTime());	//注意時間轉換問題
-		insert.setStatus(scheduleDTO.getStatus());
-		insert.setVisibility(scheduleDTO.getVisibility());
+		insert.setLocation(scheduleDto.getLocation());
+		insert.setName(scheduleDto.getName());
+		insert.setScheduleType(new ScheduleType(scheduleDto.getScheduleTypeDto().getScheduleTypeId()));
+		insert.setSkillId(scheduleDto.getSkillId());
+		insert.setStartTime(scheduleDto.getStartTime());	//注意時間轉換問題
+		insert.setStatus(scheduleDto.getStatus());
+		insert.setVisibility(scheduleDto.getVisibility());
 		insert.setCreatedate(new Date());
 		insert.setUpdatedate(null);
 		Schedule newSchedule = scheduleRepository.saveAndFlush(insert);
-		return ScheduleDTO.from(newSchedule);
+		return ScheduleDto.from(newSchedule);
 	}
 	
 	@Override
-	public void updateSchedule(@NonNull ScheduleDTO scheduleDTO) {
-		Long scheduleId = scheduleDTO.getScheduleId();
+	public void updateSchedule(@NonNull ScheduleDto scheduleDto) {
+		Long scheduleId = scheduleDto.getScheduleId();
 		Optional<Schedule> optData =  scheduleRepository.findById(scheduleId);
 		if (optData.isPresent()){
 			Schedule data = optData.get();
-			BeanUtils.copyProperties(scheduleDTO, data);
+			BeanUtils.copyProperties(scheduleDto, data);
 			scheduleRepository.save(data);
 		}
 	}
@@ -73,16 +73,16 @@ public class ScheduleResourceImpl implements ScheduleResource {
 	}
 	
 	@Override
-	public ScheduleDTO getScheduleInfo(Long scheduleId) throws DataNotFoundException {
-		ScheduleDTO scheduleDTO = null;
+	public ScheduleDto getScheduleInfo(Long scheduleId) throws DataNotFoundException {
+		ScheduleDto scheduleDto = null;
 		Optional<Schedule> option = scheduleRepository.findById(scheduleId);
 		if(option.isPresent()) {
 			Schedule schedule = option.get();
-			scheduleDTO = ScheduleDTO.from(schedule);
+			scheduleDto = ScheduleDto.from(schedule);
 		}else {
 			throw new DataNotFoundException("schedule id: " + scheduleId + " is not found.");
 		}
-		return scheduleDTO;
+		return scheduleDto;
 	}
 
 
