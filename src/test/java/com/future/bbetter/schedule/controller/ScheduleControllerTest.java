@@ -44,9 +44,9 @@ import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleHad;
 import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleType;
+import com.future.bbetter.schedule.resource.ScheduleHadResource;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
 import com.future.bbetter.schedule.resource.ScheduleResource;
-import com.future.bbetter.schedule.resource.impl.ScheduleHadResourceImpl;
 import com.future.bbetter.schedule.service.ScheduleService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 // @WebMvcTest(controllers = ScheduleController.class,secure = false)
 @SpringBootTest
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 public class ScheduleControllerTest {
 
 	@Autowired
@@ -68,10 +68,8 @@ public class ScheduleControllerTest {
 
 	@MockBean
 	private ScheduleOwnerResource ownerRs;
-//	@MockBean
-//	private ScheduleHadResource hadRs;
 	@MockBean
-	private ScheduleHadResourceImpl hadRs;
+	private ScheduleHadResource hadRs;
 	@MockBean
 	private ScheduleResource schRs;
 
