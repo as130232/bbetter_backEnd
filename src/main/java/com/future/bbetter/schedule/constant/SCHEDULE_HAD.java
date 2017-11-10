@@ -11,9 +11,9 @@ public enum SCHEDULE_HAD {
 	
 	/** 該行程中的權限:無權限(0) **/
 	AUTHORITY_NO_PERMISSION(0, "無權限"),
-	/** 該行程中的權限:無權限(1) **/
+	/** 該行程中的權限:團員(1) **/
 	AUTHORITY_MEMBER(1, "團員"),
-	/** 該行程中的權限:無權限(2) **/
+	/** 該行程中的權限:團長(2) **/
 	AUTHORITY_LEADER(2, "團長"),
 	
 	
