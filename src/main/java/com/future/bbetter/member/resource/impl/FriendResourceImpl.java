@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import com.future.bbetter.member.repository.MemberRepository;
 import com.future.bbetter.member.resource.FriendResource;
 
 @Service
+@Primary
 public class FriendResourceImpl implements FriendResource{
 	
 	@Autowired
