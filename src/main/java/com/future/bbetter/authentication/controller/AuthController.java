@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,6 +67,20 @@ public class AuthController {
         //成功登入回傳token
 		final String token = tokenProvider.createToken(memberDTO.getMemberId().toString());
 		return token;
+	}
+	
+	/**
+	 * 檢查該email是否已被註冊
+	 * @author Charles
+	 * @date 2017年11月7日 下午11:30:38
+	 */
+	@GetMapping(value = "/public/checkIsEmailRegistered")	
+	public boolean checkIsEmailRegistered(@RequestParam String email){
+		boolean isEmailRegistered = false;
+		if(memberResource.checkIsEmailExist(email)) {
+			isEmailRegistered = true;
+		}
+		return isEmailRegistered;
 	}
 	
 	/**
