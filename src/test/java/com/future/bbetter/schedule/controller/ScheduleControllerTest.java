@@ -27,10 +27,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.IfProfileValue;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -58,7 +62,8 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 // @WebMvcTest(controllers = ScheduleController.class,secure = false)
 @SpringBootTest
-//@ActiveProfiles("test")
+@ActiveProfiles({"test","testcontroller"})
+//@ActiveProfiles({"test"})
 public class ScheduleControllerTest {
 
 	@Autowired
@@ -75,6 +80,9 @@ public class ScheduleControllerTest {
 	private ScheduleHadResource hadRs;
 	@MockBean
 	private ScheduleResource schRs;
+	
+	@Value("${spring.liquibase.enabled}")
+	private String isLiquibase;
 
 	@Before
 	public void setup() {
@@ -82,6 +90,8 @@ public class ScheduleControllerTest {
 	}
 
 	private Schedule getFakeScheduleData() {
+		log.info("liquibase.enabled:{}",isLiquibase);
+		
 		ScheduleType type = new ScheduleType("test_type");
 		type.setScheduleTypeId(1);
 
