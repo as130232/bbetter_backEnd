@@ -52,7 +52,7 @@ public interface ScheduleOwnerResource {
 	 * @date 2017年10月21日 下午4:36:26
 	 * @param registrantId
 	 * @param source
-	 * @return boolean
+	 * @return boolean true, if exists; false, if didn't exist.
 	 */
 	public boolean checkIsScheduleOwnerRegister(Long registrantId, Integer source);
 	

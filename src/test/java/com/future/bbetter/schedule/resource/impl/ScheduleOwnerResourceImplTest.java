@@ -101,9 +101,10 @@ public class ScheduleOwnerResourceImplTest {
 	@Test
 	public void whenAddScheduleOwnerAndRegistered_thenThrowsException(){
 		//given 
+		assertThat(memId).isNotEqualTo(0L);
 		Long registrantId = memId;
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
-
+		
 		//when 
 		Throwable thrown = catchThrowable(() -> {
 			schOwnerRs.addScheduleOwner(registrantId, source);

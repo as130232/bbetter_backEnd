@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -31,18 +32,19 @@ import lombok.extern.slf4j.Slf4j;
 @ActiveProfiles("test")
 public class FriendResourceImplTest {
 	
-//	@TestConfiguration
-//	static class FriendResourceImplTestContextConfiguration{
-//		@Bean
-//		public FriendResource friendResource(){
-//			return new FriendResourceImpl();
-//		}
-//	}
+	@TestConfiguration
+	static class FriendResourceImplTestContextConfiguration{
+		@Bean("testFriendRs")
+		public FriendResource friendResource(){
+			return new FriendResourceImpl();
+		}
+	}
 	
 	@Autowired
 	private TestEntityManager entityMgr;
 
 	@Autowired
+	@Qualifier("testFriendRs")
 	private FriendResource friendRs;
 	
 	Member peter;

@@ -29,7 +29,10 @@ public class ScheduleOwnerResourceImpl implements ScheduleOwnerResource{
 	@Override
 	public ScheduleOwnerDto addScheduleOwner(Long registrantId, Integer source){
 		ScheduleOwnerDto scheduleOwnerDTO = null;
-		//檢查是否
+		if(checkIsScheduleOwnerRegister(registrantId, source)){
+			throw new InsertOrUpdateDataFailureException("該行程擁有者已被註冊！");
+		}
+		
 		Integer isValid = SCHEDULE_OWNER.IS_VALID_YES.value;
 		Date createdate = new Date();
 		ScheduleOwner insert = new ScheduleOwner();	
