@@ -12,8 +12,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,43 +28,22 @@ import com.future.bbetter.schedule.resource.ScheduleHadResource;
 import com.future.bbetter.schedule.resource.ScheduleOwnerResource;
 import com.future.bbetter.schedule.resource.ScheduleResource;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import({
+	ScheduleService.class
+})
 public class ScheduleServiceTest {
 
-	@TestConfiguration
-	static class ScheduleServiceTestContextConfiguration{
-		@Bean
-		public ScheduleResource scheduleResource(){
-			return Mockito.mock(ScheduleResource.class);
-		}
-		@Bean
-		public ScheduleOwnerResource scheduleOwnerResource(){
-			return Mockito.mock(ScheduleOwnerResource.class);
-		}
-		@Bean
-		public ScheduleHadResource scheduleHadResource(){
-			return Mockito.mock(ScheduleHadResource.class);
-		}
-		@Bean
-		public ScheduleService scheduleService(){
-			return new ScheduleService();
-		}
-	}
-	
-	@Autowired
+	@MockBean
 	private ScheduleResource schRs;
 
-	@Autowired
+	@MockBean
 	private ScheduleHadResource schHadRs;
 	
-	@Autowired
+	@MockBean
 	private ScheduleOwnerResource schOwnerRs;
-	
 	
 	@Autowired
 	private ScheduleService schSvc;

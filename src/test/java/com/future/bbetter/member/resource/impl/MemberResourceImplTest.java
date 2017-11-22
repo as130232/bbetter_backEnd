@@ -10,8 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,23 +19,12 @@ import com.future.bbetter.member.constant.MEMBER;
 import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.resource.MemberResource;
-import com.future.bbetter.schedule.constant.SCHEDULE;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import(MemberResourceImpl.class)
 public class MemberResourceImplTest {
-	
-	@TestConfiguration
-	static class MemberResourceImplTestContextConfiguration{
-		@Bean
-		public MemberResource memberResource(){
-			return new MemberResourceImpl();
-		}
-	}
 	
 	@Autowired
 	private TestEntityManager entityMgr;

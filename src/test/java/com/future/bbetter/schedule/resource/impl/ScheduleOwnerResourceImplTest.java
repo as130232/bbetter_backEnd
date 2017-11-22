@@ -1,6 +1,9 @@
 package com.future.bbetter.schedule.resource.impl;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,8 +14,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,7 +23,6 @@ import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException
 import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.resource.MemberResource;
-import com.future.bbetter.member.resource.impl.MemberResourceImpl;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
 import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
 import com.future.bbetter.schedule.model.ScheduleOwner;
@@ -33,27 +35,19 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import({
+	ScheduleOwnerResourceImpl.class
+})
 public class ScheduleOwnerResourceImplTest {
-	
-	
-	@TestConfiguration
-	static class ScheduleOwnerResourceImplTestContextConfiguration{
-		@Bean
-		public ScheduleOwnerResource scheduleOwnerResource(){
-			return new ScheduleOwnerResourceImpl();
-		}
-		@Bean
-		public MemberResource memberResource(){
-			return new MemberResourceImpl();
-		}
-	}
-	
-	
+
 	@Autowired
 	private TestEntityManager entityMgr;
 	
 	@Autowired
 	private ScheduleOwnerResource schOwnerRs;
+	
+	@MockBean
+	private MemberResource memRs;
 	
 	Long memId = 0L;
 	Long ownerId = 0L;
@@ -75,6 +69,11 @@ public class ScheduleOwnerResourceImplTest {
 		owner.setSource(SCHEDULE_OWNER.SOURCE_MEMBER.value);
 		owner.setIsValid(1);
 		ownerId = (Long) entityMgr.persistAndGetId(owner);
+		
+		
+		MemberDto memDtoMock = MemberDto.from(john);
+		when(memRs.getMember(memId))
+			.thenReturn(memDtoMock);
 	}
 	
 	/***
@@ -123,7 +122,7 @@ public class ScheduleOwnerResourceImplTest {
 		//given
 		Long registrantId = memId;
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
-
+		
 		//when
 		ScheduleOwnerDto result = schOwnerRs.getScheduleOwner(registrantId,source);
 		
@@ -142,15 +141,24 @@ public class ScheduleOwnerResourceImplTest {
 	public void whenGetScheduleRegistrantIsMemberSource_thenReturnOneRecord() {
 		//given
 		//從測試資料取得
-		Long registrantId = 1L;
+		Long memberId = 1L;
+		Long registrantId = memberId;
 		Integer source = SCHEDULE_OWNER.SOURCE_MEMBER.value;
+		
+		Member mem = entityMgr.find(Member.class, memberId);
+		assertThat(mem).isNotNull();
+
+		MemberDto memDtoMock = MemberDto.from(mem);
+		when(memRs.getMember(memberId))
+			.thenReturn(memDtoMock);
 		
 		//when
 		ScheduleRegistrant result = schOwnerRs.getScheduleRegistrant(registrantId, source);
 		
 		//then
+		verify(memRs).getMember(memberId); // verify memRs.getMember() execute 1 times.
 		assertThat(result).isInstanceOf(MemberDto.class);
-		assertThat( ((MemberDto) result).getMemberId()).isEqualTo(registrantId);
+		assertThat( ((MemberDto) result).getMemberId() ).isEqualTo(registrantId);
 	
 	}
 	

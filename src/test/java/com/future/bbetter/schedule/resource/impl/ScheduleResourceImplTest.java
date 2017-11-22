@@ -13,8 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,21 +24,11 @@ import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.resource.ScheduleResource;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import(ScheduleResourceImpl.class)
 public class ScheduleResourceImplTest {
-
-	@TestConfiguration
-	static class ScheduleResourceImplTestContextConfiguration {
-		@Bean
-		public ScheduleResource scheduleResource() {
-			return new ScheduleResourceImpl();
-		}
-	}
 
 	@Autowired
 	private TestEntityManager entityMgr;

@@ -10,11 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -24,27 +22,16 @@ import com.future.bbetter.member.model.Friend;
 import com.future.bbetter.member.model.Member;
 import com.future.bbetter.member.resource.FriendResource;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import(FriendResourceImpl.class)
 public class FriendResourceImplTest {
-	
-	@TestConfiguration
-	static class FriendResourceImplTestContextConfiguration{
-		@Bean("testFriendRs")
-		public FriendResource friendResource(){
-			return new FriendResourceImpl();
-		}
-	}
 	
 	@Autowired
 	private TestEntityManager entityMgr;
 
 	@Autowired
-	@Qualifier("testFriendRs")
 	private FriendResource friendRs;
 	
 	Member peter;
