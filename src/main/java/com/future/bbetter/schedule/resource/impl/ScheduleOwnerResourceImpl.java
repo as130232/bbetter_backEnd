@@ -5,15 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
-import com.future.bbetter.schedule.dto.ScheduleDto;
 import com.future.bbetter.schedule.dto.ScheduleOwnerDto;
-import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleRegistrant;
 import com.future.bbetter.schedule.repository.ScheduleOwnerRepository;
