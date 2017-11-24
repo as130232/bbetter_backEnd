@@ -1,0 +1,56 @@
+package com.future.bbetter.schedule.dto;
+
+import java.util.Date;
+
+import com.future.bbetter.schedule.model.ScheduleHad;
+import com.future.bbetter.schedule.model.ScheduleRemind;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+public @Data @NoArgsConstructor class ScheduleRemindDto {
+	
+	private Long scheduleRemindId;
+	private ScheduleHadDto scheduleHadDto;
+	private Date remindTime;
+	private int remindWay;
+	private String remark;
+	
+	/***
+	 * 從ScheduleRemind Entity轉換成DTO物件傳回
+	 * @param remind
+	 * @return ScheduleRemindDTO 其中的ScheduleHadDTO只有scheduleHadId
+	 */
+	public static ScheduleRemindDto from(@NonNull ScheduleRemind remind){
+		ScheduleRemindDto dto = new ScheduleRemindDto();
+		if(remind.getScheduleHad() != null){
+			ScheduleHadDto hadDto = new ScheduleHadDto();
+			hadDto.setScheduleHadId(remind.getScheduleHad().getScheduleHadId());
+			dto.setScheduleHadDto(hadDto);
+		}
+		dto.setScheduleRemindId(remind.getScheduleRemindId());
+		dto.setRemark(remind.getRemark());
+		dto.setRemindTime(remind.getRemindTime());
+		dto.setRemindWay(remind.getRemindWay());
+		return dto;
+	}
+
+	/***
+	 * 將目前DTO物件轉換成Entity物件
+	 * 若ScheduleHadInfo不為空則轉換成Entity並塞入ScheduleRemind Entity
+	 * @return ScheduleRemind 
+	 */
+	public ScheduleRemind toEntity(){
+		ScheduleRemind entity = new ScheduleRemind();
+		entity.setScheduleRemindId(this.getScheduleRemindId());
+		entity.setRemark(this.getRemark());
+		entity.setRemindTime(this.getRemindTime());
+		entity.setRemindWay(this.getRemindWay());
+		if(this.getScheduleHadDto() != null){
+			ScheduleHad had = this.getScheduleHadDto().toEntity();
+			entity.setScheduleHad(had);
+		}
+		return entity;
+	}
+}

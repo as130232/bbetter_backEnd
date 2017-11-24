@@ -1,4 +1,4 @@
-package com.future.bbetter.schedule.resource.logAspect;
+package com.future.bbetter.schedule.resource.logaspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,22 +17,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Aspect
 @Component
-public class ScheduleOwnerLogAspect {
+public class ScheduleLogAspect {
 	/**
-	 * 新增一位行程擁有者Log
+	 * 新增行程Log
 	 * @author Charles
 	 * @date 2017年10月22日 下午12:23:41
 	 */
-	@Pointcut("execution(* com.future.bbetter.schedule.resource.ScheduleOwnerResource.addScheduleOwner(..))")
-	public void addScheduleOwner(){}
+	@Pointcut("execution(* com.future.bbetter.schedule.resource.ScheduleResource.addSchedule(..))")
+	public void addSchedule(){}
 	
-	@Around("addScheduleOwner()")
-	public Object addScheduleOwnerLog(ProceedingJoinPoint pjp) throws InsertOrUpdateDataFailureException{
-		String action = "新增一位行程擁有者";
+	@Around("addSchedule()")
+	public Object addScheduleLog(ProceedingJoinPoint pjp) throws InsertOrUpdateDataFailureException{
+		String action = "新增一筆行程";
 		try {
 			log.info("準備，" + action);
 			Object[] args = pjp.getArgs();
-			String argsResult = "Args- registrantId, source: ";
+			String argsResult = "Args- scheduleDTO: ";
 			for(Object arg:args){
 				argsResult += arg + ", ";
 			}

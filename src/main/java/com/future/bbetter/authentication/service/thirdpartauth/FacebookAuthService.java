@@ -1,4 +1,4 @@
-package com.future.bbetter.authentication.service.thirdPartAuth;
+package com.future.bbetter.authentication.service.thirdpartauth;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +23,7 @@ import com.future.bbetter.authentication.password.Password;
 import com.future.bbetter.exception.customize.ThirdVerificationException;
 import com.future.bbetter.member.constant.MEMBER;
 import com.future.bbetter.member.constant.THIRD_PART_AUTH;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.resource.ThirdPartAuthResource;
 
@@ -112,18 +112,18 @@ public class FacebookAuthService {
         }
         
         //不需要驗證資料是否正確，facebook已驗證
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setEmail(email);
-		memberDTO.setName(user.getName());
-		memberDTO.setBirthday(birthday);
-		memberDTO.setGender(gender);
-		memberDTO.setPassword(password);
-		memberDTO.setAddress(user.getLocale().getDisplayCountry());
-		memberDTO.setImageUrl(connection.getImageUrl());
+		MemberDto memberDto = new MemberDto();
+		memberDto.setEmail(email);
+		memberDto.setName(user.getName());
+		memberDto.setBirthday(birthday);
+		memberDto.setGender(gender);
+		memberDto.setPassword(password);
+		memberDto.setAddress(user.getLocale().getDisplayCountry());
+		memberDto.setImageUrl(connection.getImageUrl() + "?type=large");
 		//新增一筆會員
-		MemberDTO newMemberDTO = memberResource.addMember(memberDTO);
+		MemberDto newMemberDto = memberResource.addMember(memberDto);
 		
 		//並將該會員及來源供應商ID新增至第三方驗證表中
-		thirdPartAuthResource.addThirdPartAuth(newMemberDTO.getMemberId(), userProfile.getId(), THIRD_PART_AUTH.SOURCE_FACEBOOK.value);
+		thirdPartAuthResource.addThirdPartAuth(newMemberDto.getMemberId(), userProfile.getId(), THIRD_PART_AUTH.SOURCE_FACEBOOK.value);
 	}
 }

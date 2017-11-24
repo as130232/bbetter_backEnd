@@ -11,19 +11,20 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.authentication.jwt.TokenProvider;
 import com.future.bbetter.authentication.model.AuthResponse;
 import com.future.bbetter.authentication.service.AuthService;
-import com.future.bbetter.authentication.service.thirdPartAuth.FacebookAuthService;
+import com.future.bbetter.authentication.service.thirdpartauth.FacebookAuthService;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.exception.customize.ThirdVerificationException;
 import com.future.bbetter.exception.customize.ValidateFailureException;
 import com.future.bbetter.member.constant.THIRD_PART_AUTH;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.resource.ThirdPartAuthResource;
 
@@ -59,13 +60,27 @@ public class AuthController {
 	 * @date 2017年9月16日 下午8:45:18
 	 */
 	@PostMapping("/login")
-	public String login(@Valid @RequestBody MemberDTO authMemberDTO,
+	public String login(@Valid @RequestBody MemberDto authMemberDto,
 			HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, DataNotFoundException{
-		MemberDTO memberDTO = memberResource.getMember(authMemberDTO.getEmail());
-		authService.login(memberDTO.getMemberId(), authMemberDTO.getPassword());
+		MemberDto memberDTO = memberResource.getMember(authMemberDto.getEmail());
+		authService.login(memberDTO.getMemberId(), authMemberDto.getPassword());
         //成功登入回傳token
 		final String token = tokenProvider.createToken(memberDTO.getMemberId().toString());
 		return token;
+	}
+	
+	/**
+	 * 檢查該email是否已被註冊
+	 * @author Charles
+	 * @date 2017年11月7日 下午11:30:38
+	 */
+	@GetMapping(value = "/public/checkIsEmailRegistered")	
+	public boolean checkIsEmailRegistered(@RequestParam String email){
+		boolean isEmailRegistered = false;
+		if(memberResource.checkIsEmailExist(email)) {
+			isEmailRegistered = true;
+		}
+		return isEmailRegistered;
 	}
 	
 	/**
@@ -76,9 +91,9 @@ public class AuthController {
 	 */
 	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	@ResponseStatus(HttpStatus.CREATED)	//201:除了回傳OK，告訴客戶端該次也產生新的資源
-	public String signup(@RequestBody MemberDTO memberDTO) throws ValidateFailureException, InsertOrUpdateDataFailureException{
-		authService.register(memberDTO);
-		return tokenProvider.createToken(memberDTO.getEmail());
+	public String signup(@RequestBody MemberDto memberDto) throws ValidateFailureException, InsertOrUpdateDataFailureException{
+		authService.register(memberDto);
+		return tokenProvider.createToken(memberDto.getEmail());
 	}
 	
 	/**

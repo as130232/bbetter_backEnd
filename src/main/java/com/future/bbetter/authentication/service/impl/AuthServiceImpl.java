@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.future.bbetter.authentication.service.AuthService;
 import com.future.bbetter.exception.customize.ValidateFailureException;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.service.MemberService;
 
@@ -45,17 +45,17 @@ public class AuthServiceImpl implements AuthService{
 	 * 註冊
 	 * @author Charles
 	 * @date 2017年9月17日 下午1:57:28
-	 * @param MemberDTO
+	 * @param MemberDto
 	 * @return void
 	 */
 	@Override
-	public void register(MemberDTO memberDTO){
+	public void register(MemberDto memberDto){
 		//錯誤檢查
-		List<String> errorList = memberService.checkAddUser(memberDTO);
+		List<String> errorList = memberService.checkAddUser(memberDto);
 		if(!errorList.isEmpty()) {
 			throw new ValidateFailureException(errorList.toString());
 		}else {
-			memberResource.addMember(memberDTO);
+			memberResource.addMember(memberDto);
 		}
 	}
 	

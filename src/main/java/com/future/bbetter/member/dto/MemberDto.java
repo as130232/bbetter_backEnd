@@ -9,7 +9,7 @@ import com.future.bbetter.schedule.model.ScheduleRegistrant;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public @Data @NoArgsConstructor class MemberDTO implements ScheduleRegistrant{
+public @Data @NoArgsConstructor class MemberDto implements ScheduleRegistrant{
 	//member.attributes
 	private Long memberId;
 	private String email;
@@ -18,13 +18,12 @@ public @Data @NoArgsConstructor class MemberDTO implements ScheduleRegistrant{
 	private BigDecimal money;
 	private Date birthday;
 	private String address;
-	private Date createdate;
 	//新增會員時輸入的密碼(明碼)
 	private String password;
 	private String imageUrl;
 		
-	public static MemberDTO fromEntity(Member member) {
-		MemberDTO memberDTO = new MemberDTO();
+	public static MemberDto from(Member member) {
+		MemberDto memberDTO = new MemberDto();
 		memberDTO.setMemberId(member.getMemberId());
 		memberDTO.setName(member.getName());
 		memberDTO.setEmail(member.getEmail());
@@ -33,6 +32,7 @@ public @Data @NoArgsConstructor class MemberDTO implements ScheduleRegistrant{
 		memberDTO.setAddress(member.getAddress());
 		memberDTO.setMoney(member.getMoney());
 		memberDTO.setImageUrl(member.getImageUrl());
+		memberDTO.setPassword("");
 		return memberDTO;
 	}
 	

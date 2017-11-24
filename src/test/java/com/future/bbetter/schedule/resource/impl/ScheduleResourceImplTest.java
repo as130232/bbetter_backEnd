@@ -13,33 +13,22 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.future.bbetter.schedule.constant.SCHEDULE;
-import com.future.bbetter.schedule.dto.ScheduleDTO;
-import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
+import com.future.bbetter.schedule.dto.ScheduleDto;
+import com.future.bbetter.schedule.dto.ScheduleTypeDto;
 import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.resource.ScheduleResource;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import(ScheduleResourceImpl.class)
 public class ScheduleResourceImplTest {
-
-	@TestConfiguration
-	static class ScheduleResourceImplTestContextConfiguration {
-		@Bean
-		public ScheduleResource scheduleResource() {
-			return new ScheduleResourceImpl();
-		}
-	}
 
 	@Autowired
 	private TestEntityManager entityMgr;
@@ -54,8 +43,8 @@ public class ScheduleResourceImplTest {
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
 
 		ScheduleType type = addFakeData2ScheduleType();
-		ScheduleTypeDTO typeDto = ScheduleTypeDTO.from(type);
-		ScheduleDTO s = new ScheduleDTO();
+		ScheduleTypeDto typeDto = ScheduleTypeDto.from(type);
+		ScheduleDto s = new ScheduleDto();
 		s.setStartTime(Date.from(now));
 		s.setEndTime(Date.from(afterTwoHrs));
 		s.setName("Test_Schedule");
@@ -64,10 +53,10 @@ public class ScheduleResourceImplTest {
 		s.setIsCycle(0);
 		s.setIsNeedRemind(0);
 		s.setIsTeamSchedule(0);
-		s.setScheduleTypeInfo(typeDto);
+		s.setScheduleTypeDto(typeDto);
 
 		// when
-		ScheduleDTO result = schRs.addSchedule(s);
+		ScheduleDto result = schRs.addSchedule(s);
 
 		// then
 		Schedule found = entityMgr.find(Schedule.class, result.getScheduleId());
@@ -100,7 +89,7 @@ public class ScheduleResourceImplTest {
 		entityMgr.detach(original); // 因為複製屬性關係，所以如果不分離會一起被改動值
 
 		// when
-		ScheduleDTO updateBean = new ScheduleDTO();
+		ScheduleDto updateBean = new ScheduleDto();
 		BeanUtils.copyProperties(original, updateBean);
 		updateBean.setName("Updated");
 		updateBean.setScheduleId(original.getScheduleId());

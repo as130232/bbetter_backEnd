@@ -1,4 +1,4 @@
-package com.future.bbetter.authentication.signInAdapter;
+package com.future.bbetter.authentication.signinadapter;
 
 import java.util.Arrays;
 

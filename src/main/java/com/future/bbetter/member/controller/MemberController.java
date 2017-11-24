@@ -12,14 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.member.dto.FriendDTO;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
+import com.future.bbetter.member.dto.MemberDto;
+import com.future.bbetter.member.dto.PublicMemberDto;
 import com.future.bbetter.member.resource.FriendResource;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.service.MemberService;
@@ -27,7 +30,7 @@ import com.future.bbetter.member.service.MemberService;
 @RestController
 @RequestMapping("/api")
 //設定該資源需要什麼權限角色
-//@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class MemberController {
 	
 	@Autowired
@@ -44,12 +47,11 @@ public class MemberController {
 	 */
 	//必須具備USER權限，且該取得的會員資訊必須為會原本人
 	//例:已登入但欲取得他人帳戶資訊，利用該IP查到的會員memberId與當前登入中的Authentication的username做比對
-	@PreAuthorize("hasRole('USER')")
 	@PostAuthorize("returnObject.memberId.toString() == principal.username")
 	@GetMapping("/member/me")
-	public MemberDTO getMember() throws DataNotFoundException{
+	public MemberDto getMember() throws DataNotFoundException{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    MemberDTO memberInfo = memberResource.getMember(new Long(auth.getName()));
+	    MemberDto memberInfo = memberResource.getMember(new Long(auth.getName()));
 		return memberInfo;
 	}
 	
@@ -62,30 +64,16 @@ public class MemberController {
 	//@PreAuthorize("hasRole('USER')")
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/members")
-	public List<MemberDTO> getAllMembers(HttpServletRequest req, HttpServletResponse res) {
+	public List<MemberDto> getAllMembers(HttpServletRequest req, HttpServletResponse res) {
 		//取的用戶的當地語言，未來用於i18n
 		//Locale userPreferredLocale = req.getLocale();
 		return memberResource.getAllMembers();
 	}
 	
-	/**
-	 * 取得該會員所有朋友列表
-	 * @author Charles
-	 * @date 2017年10月2日 下午11:18:10
-	 */
-	@PreAuthorize("hasRole('USER')")
-	@GetMapping("/member/me/friends")
-	public List<FriendDTO> getFriends() throws DataNotFoundException{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		List<FriendDTO> friends = friendsResource.getFriends(new Long(auth.getName()));
-		return friends;
-	}
-	
-	
 	
 	@RequestMapping(value = "/member/{memberId}", method=RequestMethod.PATCH)
-	public void updateUser(@RequestBody MemberDTO updateMemberDTO){
-		memberResource.updateMember(updateMemberDTO);
+	public void updateUser(@RequestBody MemberDto updateMemberDto) throws InsertOrUpdateDataFailureException{
+		memberResource.updateMember(updateMemberDto);
 	}
 	
 	@RequestMapping(value = "/member/{memberId}", method=RequestMethod.DELETE)
@@ -93,5 +81,15 @@ public class MemberController {
 		memberResource.deleteMember(memberId);
 	}
 	
-	
+	/**
+	 * 搜尋會員
+	 * @author Charles
+	 * @date 2017年11月4日 下午9:07:47
+	 */
+	@PostMapping("/member/search")
+	public PublicMemberDto search(@RequestParam String email) throws DataNotFoundException{
+	    MemberDto memberDto = memberResource.getMember(email);
+	    PublicMemberDto publicMemberDto = PublicMemberDto.from(memberDto);
+		return publicMemberDto;
+	}
 }

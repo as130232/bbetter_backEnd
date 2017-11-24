@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.ValidateFailureException;
-import com.future.bbetter.member.dto.MemberDTO;
+import com.future.bbetter.member.dto.MemberDto;
 import com.future.bbetter.member.resource.MemberResource;
 import com.future.bbetter.member.validator.constant.VALIDATE_BEHAVIOR;
 import com.future.bbetter.member.validator.MemberValidator;
@@ -28,7 +28,7 @@ public class MemberService {
 	 * @param memberDTO
 	 * @return List<String>
 	 */
-	public List<String> checkAddUser(MemberDTO memberDTO) {
+	public List<String> checkAddUser(MemberDto memberDto) {
 		List<String> errorList = new ArrayList<>();
 
 		//建立需要檢查的會員驗證行為清單
@@ -42,7 +42,7 @@ public class MemberService {
 		//將會員DTO傳入驗證行為中檢查，若有錯誤會跳出Exception，並將錯誤記錄在errorList中
 		memberValidators.stream().forEach(validator -> {
 			try {
-				validator.validate(memberDTO);
+				validator.validate(memberDto);
 			} catch (ValidateFailureException e) {
 				errorList.add(e.toString());
 			}

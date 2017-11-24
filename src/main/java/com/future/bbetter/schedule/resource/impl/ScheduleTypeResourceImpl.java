@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
-import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
+import com.future.bbetter.schedule.dto.ScheduleTypeDto;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.repository.ScheduleTypeRepository;
 import com.future.bbetter.schedule.resource.ScheduleTypeResource;
@@ -22,22 +22,22 @@ public class ScheduleTypeResourceImpl implements ScheduleTypeResource{
 	
 
 	@Override
-	public ScheduleTypeDTO addScheduleType(@NonNull ScheduleTypeDTO typeDTO) {
-		ScheduleType newData = typeDTO.toEntity();
+	public ScheduleTypeDto addScheduleType(@NonNull ScheduleTypeDto typeDto) {
+		ScheduleType newData = typeDto.toEntity();
 		newData.setCreatedate(new Date());
 		ScheduleType afterData = schTypeRepo.save(newData);
-		ScheduleTypeDTO result = ScheduleTypeDTO.from(afterData);
+		ScheduleTypeDto result = ScheduleTypeDto.from(afterData);
 		return result;
 	}
 
 
 	@Override
-	public void updateScheduleType(@NonNull ScheduleTypeDTO typeDTO) {
-		Integer scheduleTypeId = typeDTO.getScheduleTypeId();
+	public void updateScheduleType(@NonNull ScheduleTypeDto typeDto) {
+		Integer scheduleTypeId = typeDto.getScheduleTypeId();
 		Optional<ScheduleType> optData = schTypeRepo.findById(scheduleTypeId);
 		if(optData.isPresent()){
 			ScheduleType data = optData.get();
-			data.setName(typeDTO.getTypeName());
+			data.setName(typeDto.getTypeName());
 			schTypeRepo.save(data);
 		}
 	}
@@ -48,10 +48,10 @@ public class ScheduleTypeResourceImpl implements ScheduleTypeResource{
 	}
 	
 	@Override
-	public ScheduleTypeDTO getScheduleType(@NonNull Integer scheduleTypeId){
+	public ScheduleTypeDto getScheduleType(@NonNull Integer scheduleTypeId){
 		Optional<ScheduleType> optType = schTypeRepo.findById(scheduleTypeId);
-		return ScheduleTypeDTO.from(optType.orElseThrow(() -> 
-			new DataNotFoundException("It can not find data,ScheduleTypeId:"+scheduleTypeId)));
+		return ScheduleTypeDto.from(optType.orElseThrow(() -> 
+			new DataNotFoundException("It can not find data, ScheduleTypeId:"+scheduleTypeId)));
 	}
 	
 }

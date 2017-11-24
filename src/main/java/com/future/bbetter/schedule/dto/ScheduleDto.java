@@ -14,10 +14,10 @@ import lombok.NonNull;
  * @author alfread
  *
  */
-public @Data @NoArgsConstructor class ScheduleDTO {
+public @Data @NoArgsConstructor class ScheduleDto {
 	// schedule.attributes
 	private Long scheduleId;
-	private ScheduleTypeDTO scheduleTypeInfo;
+	private ScheduleTypeDto scheduleTypeDto;
 	private Integer skillId;
 	private Date startTime;
 	private Date endTime;
@@ -38,8 +38,8 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 	 * @param schedule non null.
 	 * @return ScheduleDTO object
 	 */
-	public static ScheduleDTO fromEntity(@NonNull Schedule schedule) {
-		ScheduleDTO scheduleDTO = new ScheduleDTO();
+	public static ScheduleDto from(@NonNull Schedule schedule) {
+		ScheduleDto scheduleDTO = new ScheduleDto();
 		scheduleDTO.setScheduleId(schedule.getScheduleId());
 		scheduleDTO.setSkillId(schedule.getSkillId());
 		scheduleDTO.setStartTime(schedule.getStartTime());
@@ -51,7 +51,7 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 		scheduleDTO.setIsCycle(schedule.getIsCycle());
 		scheduleDTO.setIsNeedRemind(schedule.getIsNeedRemind());
 		scheduleDTO.setIsTeamSchedule(schedule.getIsTeamSchedule());
-		scheduleDTO.setScheduleTypeInfo(ScheduleTypeDTO.from(schedule.getScheduleType()));
+		scheduleDTO.setScheduleTypeDto(ScheduleTypeDto.from(schedule.getScheduleType()));
 		scheduleDTO.setCreatedate(schedule.getCreatedate());
 		//scheduleDTO.setIsValid(schedule.getIsValid());
 		//scheduleDTO.setUpdatedate(schedule.getUpdatedate());
@@ -62,21 +62,25 @@ public @Data @NoArgsConstructor class ScheduleDTO {
 	 * 將該物件轉成schedule entity 
 	 * @return Schedule object
 	 */
-//	public Schedule toSchedule(){
-//		Schedule sch = new Schedule();
-//		sch.setStartTime(this.getStartTime());
-//		sch.setEndTime(this.getEndTime());
-//		sch.setName(this.getName());
-//		sch.setLocation(this.getLocation());
-//		sch.setStatus(this.getStatus());
-//		sch.setIsCycle(this.getIsCycle());
-//		sch.setIsNeedRemind(this.getIsNeedRemind());
-//		sch.setIsTeamSchedule(this.getIsTeamSchedule());
-//		if(this.getType() != null){
-//			sch.setScheduleType(this.getType().toType());
-//		}
-//		return sch;
-//	}
+	public Schedule toEntity(){
+		Schedule sch = new Schedule();
+		sch.setScheduleId(this.getScheduleId());
+		sch.setSkillId(this.getSkillId());
+		sch.setStartTime(this.getStartTime());
+		sch.setEndTime(this.getEndTime());
+		sch.setName(this.getName());
+		sch.setLocation(this.getLocation());
+		sch.setStatus(this.getStatus());
+		sch.setVisibility(this.getVisibility());
+		sch.setIsCycle(this.getIsCycle());
+		sch.setIsNeedRemind(this.getIsNeedRemind());
+		sch.setIsTeamSchedule(this.getIsTeamSchedule());
+		sch.setCreatedate(this.getCreatedate());
+		if(this.getScheduleTypeDto() != null){
+			sch.setScheduleType(this.getScheduleTypeDto().toEntity());
+		}
+		return sch;
+	}
 	
 	
 }

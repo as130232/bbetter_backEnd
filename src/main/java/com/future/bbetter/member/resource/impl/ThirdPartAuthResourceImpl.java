@@ -15,6 +15,19 @@ public class ThirdPartAuthResourceImpl implements ThirdPartAuthResource{
 	private ThirdPartAuthRepository thirdPartAuthRepository;
 	
 	@Override
+	public void addThirdPartAuth(Long memberId, String providerId, Integer source) {
+		boolean isExist = this.checkIsExist(providerId, source);
+		if(isExist) {
+			throw new InsertOrUpdateDataFailureException("該第三方帳戶已被註冊！");
+		}
+		ThirdPartAuth thirdPartAuth = new ThirdPartAuth();
+		thirdPartAuth.setMemberId(memberId);
+		thirdPartAuth.setProviderId(providerId);
+		thirdPartAuth.setSource(source);
+		thirdPartAuthRepository.saveAndFlush(thirdPartAuth);
+	}
+	
+	@Override
 	public Long getMemberId(String providerId, Integer source) {
 		ThirdPartAuth thirdPartAuth = thirdPartAuthRepository.findByProviderIdAndSource(providerId, source);
 		return thirdPartAuth.getMemberId();
@@ -29,26 +42,6 @@ public class ThirdPartAuthResourceImpl implements ThirdPartAuthResource{
 		}
 		return isExist;
 	}
-	
-	@Override
-	public void addThirdPartAuth(Long memberId, String providerId, Integer source) {
-		boolean isExist = this.checkIsExist(providerId, source);
-		if(isExist) {
-			throw new InsertOrUpdateDataFailureException("該第三方帳戶已被註冊！");
-		}
-		this.insert(memberId, providerId, source);
-	}
-	
-	private void insert(Long memberId, String providerId, Integer source) {
-		ThirdPartAuth thirdPartAuth = new ThirdPartAuth();
-		thirdPartAuth.setMemberId(memberId);
-		thirdPartAuth.setProviderId(providerId);
-		thirdPartAuth.setSource(source);
-		thirdPartAuthRepository.saveAndFlush(thirdPartAuth);
-	}
-
-
-
 	
 
 }

@@ -1,4 +1,4 @@
-package com.future.bbetter.schedule.resource.logAspect;
+package com.future.bbetter.schedule.resource.logaspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 
 import lombok.extern.slf4j.Slf4j;
+
 /**
  * 使用AOP管理Log日誌
  * @author Charles
@@ -17,22 +18,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Aspect
 @Component
-public class ScheduleLogAspect {
+public class ScheduleHadLogAspect {
 	/**
-	 * 新增行程Log
+	 * 新增擁有行程Log
 	 * @author Charles
 	 * @date 2017年10月22日 下午12:23:41
 	 */
-	@Pointcut("execution(* com.future.bbetter.schedule.resource.ScheduleResource.addSchedule(..))")
-	public void addSchedule(){}
+	@Pointcut("execution(* com.future.bbetter.schedule.resource.ScheduleHadResource.addScheduleHad(..))")
+	public void addScheduleHad(){}
 	
-	@Around("addSchedule()")
-	public Object addScheduleLog(ProceedingJoinPoint pjp) throws InsertOrUpdateDataFailureException{
-		String action = "新增一筆行程";
+	@Around("addScheduleHad()")
+	public Object addScheduleHadLog(ProceedingJoinPoint pjp) throws InsertOrUpdateDataFailureException{
+		String action = "新增一筆擁有行程";
 		try {
 			log.info("準備，" + action);
 			Object[] args = pjp.getArgs();
-			String argsResult = "Args- scheduleDTO: ";
+			String argsResult = "Args- scheduleOwnerId, scheduleId, authority: ";
 			for(Object arg:args){
 				argsResult += arg + ", ";
 			}

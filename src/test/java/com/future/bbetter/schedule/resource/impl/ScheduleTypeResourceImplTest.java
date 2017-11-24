@@ -7,12 +7,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.future.bbetter.schedule.dto.ScheduleTypeDTO;
+import com.future.bbetter.schedule.dto.ScheduleTypeDto;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.resource.ScheduleTypeResource;
 
@@ -22,15 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Import(ScheduleTypeResourceImpl.class)
 public class ScheduleTypeResourceImplTest {
-
-	@TestConfiguration
-	static class ScheduleTypeResourceImplTestContextConfiguration {
-		@Bean
-		public ScheduleTypeResource scheduleTypeResource() {
-			return new ScheduleTypeResourceImpl();
-		}
-	}
 
 	@Autowired
 	private TestEntityManager entityMgr;
@@ -41,11 +33,11 @@ public class ScheduleTypeResourceImplTest {
 	@Test
 	public void whenAddScheduleType_thenNameFieldShouldBeNull_TypeNameShouldExists() {
 		// given
-		ScheduleTypeDTO type = new ScheduleTypeDTO();
+		ScheduleTypeDto type = new ScheduleTypeDto();
 		type.setTypeName("test_type");
 
 		// when
-		ScheduleTypeDTO result = schTypeRs.addScheduleType(type);
+		ScheduleTypeDto result = schTypeRs.addScheduleType(type);
 
 		// then
 		assertThat(result).isNotNull();
@@ -59,7 +51,7 @@ public class ScheduleTypeResourceImplTest {
 		ScheduleType old = addFakeData2ScheduleType();
 		entityMgr.detach(old);
 
-		ScheduleTypeDTO updateBean = new ScheduleTypeDTO();
+		ScheduleTypeDto updateBean = new ScheduleTypeDto();
 		updateBean.setScheduleTypeId(old.getScheduleTypeId());
 		updateBean.setTypeName("Update_data");
 		log.info("old.name:{}, updateBean.name:{}", old.getName(), updateBean.getTypeName());
