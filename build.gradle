@@ -87,6 +87,7 @@ dependencies {
 	compile("org.springframework.social:spring-social-facebook")
 	
 	compile("org.springframework.social:spring-social-security")
+	compile('org.postgresql:postgresql:9.4.1212')
 	
 	//DataBase:MySQL
 	runtime('mysql:mysql-connector-java')
