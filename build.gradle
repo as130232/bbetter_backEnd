@@ -99,8 +99,12 @@ dependencies {
 }
 //備份專案所使用的library
 task copyToLib(type: Copy) {
+	dependsOn build
     into "$buildDir/output/libs"
     from configurations.runtime
 }
 
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+stage.dependsOn copyToLib
 
