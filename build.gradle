@@ -101,7 +101,7 @@ dependencies {
 task copyToLib(type: Copy) {
 	dependsOn build
     into "$buildDir/output/libs"
-    from configurations.runtime
+    from configurations.compile
 }
 
 task stage(dependsOn: ['build', 'clean'])
