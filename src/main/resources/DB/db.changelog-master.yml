@@ -1,4 +1,4 @@
 databaseChangeLog:
 - includeAll:
-#    path: classpath*:DB/changelog/
-    path: src/main/resources/DB/changelog/
+    path: classpath*:DB/changelog/
+#    path: src/main/resources/DB/changelog/
