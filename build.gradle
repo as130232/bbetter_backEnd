@@ -104,7 +104,6 @@ task copyToLib(type: Copy) {
     from configurations.compile
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
+task stage(dependsOn: ['build'])
 stage.dependsOn copyToLib
 
