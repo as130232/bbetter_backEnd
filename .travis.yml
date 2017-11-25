@@ -1,13 +1,20 @@
 language: java
-
 before_install:
 - chmod +x gradlew
 - chmod +x print_test_reports.sh
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-after_failure: 
-- ./print_test_reports.sh
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+after_failure:
+- "./print_test_reports.sh"
+deploy:
+  provider: heroku
+  api_key:
+    secure: fEdHZNWlFSpUBe2yOL/Zc5r2M3gH0oH9+fNwXTNeAdDaobNPobFnGkhAEwq2rtUCNffVzCvpgi8HtCIw4lbRHa4bsQ81qjQr7fSqeEC1wER2vPIKxhF8FhVrg2uXq7FYV2OMp4ZkUDcSzDgi7FXY9v2iZAztPgZNuw93czwe3Cwkx5cWOkEXIVywzCFY8HU8iXEAVMzVuTlAx8wx9utDa5sUnarf+Iura8r55G4cW2nqhP/QEgqqh2gHS728xnolbvkuInDFQk6NdOKW3xqwfbCgn0SbmBdQk3WBSuiGuynQmybxKztCin9vkHrQsWTT84PmnuGPIu5b2FK4RjMRhH0CfFEVUfu/KbH3bd+bWS8jrK5ZmtkvOSsJUHZPvbL0fPHE8/KjSs3jWT3adVHUI+gnzHZwdon6+Jtn8EoewTuIA8ZPtzJD/0LHTGXHvWVIFw4nUhX+o2bLsPsA0Ow+QAKeiaNGxy7nmEjXqgdGI2BZdSuEdzQXlYBUltQu5cJAFUcxD9OMzIDB6+kyzOVaM5Z57qWVttUMc+FpdCSJELVaDVxvGg/isqY0h8bepcWILsQKUgiR2laxlxye/g7umCocdgL6glU8u1ic9HxfvkDIxch7xhqQy1X+e9LgumrtMVu+CeyhPUfuCgDY7z6puvC+PSu1NzgDqawFlPThmTM=
+  app: bbetter-backend
+  on:
+    repo: alfreadx/bbetter_backEnd
+    branch: develop
