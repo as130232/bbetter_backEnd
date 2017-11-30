@@ -36,4 +36,18 @@ public @Data @NoArgsConstructor class MemberDto implements ScheduleRegistrant{
 		return memberDTO;
 	}
 	
+	
+	public Member toEntity() {
+		Member member = new Member();
+		member.setMemberId(this.getMemberId());
+		member.setName(this.getName());
+		member.setEmail(this.getEmail());
+		member.setBirthday(this.getBirthday());
+		member.setGender(this.getGender());
+		member.setAddress(this.getAddress());
+		member.setMoney(this.getMoney());
+		member.setImageUrl(this.getImageUrl());
+		member.setPassword("");
+		return member;
+	}
 }
