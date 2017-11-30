@@ -11,7 +11,7 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/libs-snapshot" }
 		maven { url "https://repo.spring.io/milestone" }
 		maven { url "https://plugins.gradle.org/m2/" }
 	}
@@ -47,7 +47,7 @@ apply from: 'liquibase.gradle'
 
 repositories {
 	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/libs-snapshot" }
 	maven { url "https://repo.spring.io/milestone" }
 }
 
@@ -84,9 +84,9 @@ dependencies {
 	compile group: 'org.liquibase.ext', name: 'liquibase-hibernate5', version: '3.6'
 	
 	//facebook authentication
-	compile("org.springframework.social:spring-social-facebook")
+	compile("org.springframework.social:spring-social-facebook:2.0.3.RELEASE")
 	
-	compile("org.springframework.social:spring-social-security")
+	compile("org.springframework.social:spring-social-security:1.1.0.RELEASE")
 	compile('org.postgresql:postgresql:9.4.1212')
 	
 	//DataBase:MySQL
