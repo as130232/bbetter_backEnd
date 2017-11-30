@@ -38,13 +38,11 @@ public class AchievementHadResourceImpl implements AchievementHadResource{
 	public AchievementHadDto addAchievementHad(@NonNull Long memberId,
 			@NonNull Integer achievementTypeId) {
 		AchievementType type = achTypeRepo.findById(achievementTypeId)
-				.orElseThrow(()->{
-					throw new DataNotFoundException("It can't found AchievementType data for id:" + achievementTypeId);
-				});
+				.orElseThrow(()->
+					new DataNotFoundException("It can't found AchievementType data for id:" + achievementTypeId));
 		Member mem = memRepo.findById(memberId)
-				.orElseThrow(()->{
-					throw new DataNotFoundException("It can't found Member data for id:" + memberId);
-				});
+				.orElseThrow(()->
+					new DataNotFoundException("It can't found Member data for id:" + memberId));
 		AchievementHad data = new AchievementHad(type,mem,new Date());
 		AchievementHad afterData = achHadRepo.save(data);
 		return AchievementHadDto.from(afterData);

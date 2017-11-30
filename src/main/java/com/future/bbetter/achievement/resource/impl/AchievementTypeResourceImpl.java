@@ -46,9 +46,8 @@ public class AchievementTypeResourceImpl implements AchievementTypeResource{
 	@Override
 	public AchievementTypeDto getAchievementType(@NonNull Integer id) {
 		AchievementType data = achTypeRepo.findById(id)
-				.orElseThrow(()->{
-					throw new DataNotFoundException("There is no AchievementType data in database, id:" + id);
-				});
+				.orElseThrow(()->
+					new DataNotFoundException("There is no AchievementType data in database, id:" + id));
 		
 		return AchievementTypeDto.from(data);
 	}
