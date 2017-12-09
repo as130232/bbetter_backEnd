@@ -4,13 +4,13 @@ public enum CYCLE_RULE {
 	
 	
 	/** 循環週期: 每日(1) **/
-	PERIOD_DAILY(1, ""),
+	PERIOD_DAILY(1, "每日"),
 	/** 循環週期: 每週(2) **/
-	PERIOD_WEEKLY(2, ""),
+	PERIOD_WEEKLY(2, "每週"),
 	/** 循環週期: 每月(3) **/
-	PERIOD_MONTHLY(3, ""),
+	PERIOD_MONTHLY(3, "每月"),
 	/** 循環週期: 每年(4) **/
-	PERIOD_ANNUALLY(4, ""),
+	PERIOD_ANNUALLY(4, "每年"),
 	
 	
 	/** 無效(0) **/
