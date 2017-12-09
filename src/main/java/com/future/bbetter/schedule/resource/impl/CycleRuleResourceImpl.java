@@ -48,7 +48,7 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 			dataInDb.setPeriod(dto.getPeriod());
 			dataInDb.setTimePoint(dto.getTimePoint());
 			dataInDb.setIsValid(dto.getIsValid());
-			dataInDb.setUpdatedate(dto.getUpdatedate());
+			dataInDb.setUpdatedate(new Date());
 			dataInDb.setScheduleHad(dto.getScheduleHadDto().toEntity());
 			cycleRuleRepo.save(dataInDb);
 		}
@@ -56,12 +56,12 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 	}
 
 	@Override
-	public void deleteCycleRule(Long id) {
+	public void deleteCycleRule(@NonNull Long id) {
 		cycleRuleRepo.deleteById(id);
 	}
 
 	@Override
-	public CycleRuleDto getCycleRule(Long id) {
+	public CycleRuleDto getCycleRule(@NonNull Long id) {
 		Optional<CycleRule> optData = cycleRuleRepo.findById(id);
 		
 		return CycleRuleDto.from(optData.orElseThrow(()-> 
@@ -69,7 +69,7 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 	}
 
 	@Override
-	public List<CycleRuleDto> getCycleRulesByScheduleHadId(Long scheduleHadId) {
+	public List<CycleRuleDto> getCycleRulesByScheduleHadId(@NonNull Long scheduleHadId) {
 		List<CycleRule> results = cycleRuleRepo.getCycleRulesByScheduleHadId(scheduleHadId);
 		
 		return results.stream()
@@ -78,7 +78,7 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 	}
 
 	@Override
-	public Optional<CycleRuleDto> getCycleRuleForOptional(Long id) {
+	public Optional<CycleRuleDto> getCycleRuleForOptional(@NonNull Long id) {
 		Optional<CycleRule> optData = cycleRuleRepo.findById(id);
 		return optData.map(d -> CycleRuleDto.from(d));
 	}
