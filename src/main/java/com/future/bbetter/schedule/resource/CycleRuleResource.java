@@ -9,22 +9,22 @@ import com.future.bbetter.schedule.dto.CycleRuleDto;
 public interface CycleRuleResource {
 
 	/**
-	 * 新增一筆資料,dto參數內應含有schedulehaddto資料(不為null)
+	 * 新增一筆資料,dto參數內應含有scheduledto資料(不為null)
 	 * @author alfred <alfreadx@gmail.com>
 	 * @date 2017年12月9日 下午1:57:26
 	 * @param dto 
-	 * @throws InsertOrUpdateDataFailureException 若參數內的ScheduleHadDto為null,則拋出
+	 * @throws InsertOrUpdateDataFailureException 若參數內的ScheduleDto為null,則拋出
 	 * @return CycleRuleDto 回傳含有該筆id的物件
 	 */
 	CycleRuleDto addCycleRule(CycleRuleDto dto);
 	
 	
 	/**
-	 * 更新一筆資料,dto參數內應含有schedulehaddto資料(不為null)
+	 * 更新一筆資料,dto參數內應含有scheduledto資料(不為null)
 	 * @author alfred <alfreadx@gmail.com>
 	 * @date 2017年12月9日 下午1:57:26
 	 * @param dto
-	 * @throws InsertOrUpdateDataFailureException 若參數內的ScheduleHadDto為null,則拋出
+	 * @throws InsertOrUpdateDataFailureException 若參數內的ScheduleDto為null,則拋出
 	 */
 	void updateCycleRule(CycleRuleDto dto);
 	
@@ -60,12 +60,12 @@ public interface CycleRuleResource {
 	
 	
 	/**
-	 * 給予ScheduleHadId取得對應資料
+	 * 給予ScheduleId取得對應資料
 	 * @author alfred <alfreadx@gmail.com>
 	 * @date 2017年12月9日 下午1:57:26
-	 * @param scheduleHadId ScheduleHad的id
+	 * @param scheduleId Schedule的id
 	 * @return List<CycleRuleDto> CycleRuleDto集合,若找不到則回傳emptyList (not null)
 	 */
-	List<CycleRuleDto> getCycleRulesByScheduleHadId(Long scheduleHadId);
+	List<CycleRuleDto> getCycleRulesByScheduleId(Long scheduleId);
 	
 }

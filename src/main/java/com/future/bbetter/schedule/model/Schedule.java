@@ -46,6 +46,7 @@ public class Schedule implements java.io.Serializable {
 	private Date updatedate;
 	private Set<ScheduleReport> scheduleReports = new HashSet<ScheduleReport>(0);
 	private Set<ScheduleHad> scheduleHads = new HashSet<ScheduleHad>(0);
+	private Set<CycleRule> cycleRules = new HashSet<CycleRule>(0);
 
 	public Schedule() {
 	}
@@ -71,7 +72,7 @@ public class Schedule implements java.io.Serializable {
 	public Schedule(ScheduleType scheduleSubType, Date startTime, Date endTime, String name, String location,
 			Integer status, Integer continuousTime, Integer visibility, Integer isCycle, Integer isNeedRemind, Integer isTeamSchedule,
 			Integer isValid, Date createdate, Date updatedate, Set<ScheduleReport> scheduleReports,
-			Set<ScheduleHad> scheduleHads) {
+			Set<ScheduleHad> scheduleHads, Set<CycleRule> cycleRules) {
 		this.scheduleType = scheduleSubType;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -88,6 +89,7 @@ public class Schedule implements java.io.Serializable {
 		this.updatedate = updatedate;
 		this.scheduleReports = scheduleReports;
 		this.scheduleHads = scheduleHads;
+		this.cycleRules = cycleRules;
 	}
 
 	@Id
@@ -265,4 +267,12 @@ public class Schedule implements java.io.Serializable {
 		this.scheduleHads = scheduleHads;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "schedule")
+	public Set<CycleRule> getCycleRules() {
+		return this.cycleRules;
+	}
+
+	public void setCycleRules(Set<CycleRule> cycleRules) {
+		this.cycleRules = cycleRules;
+	}
 }

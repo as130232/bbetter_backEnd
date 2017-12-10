@@ -24,7 +24,7 @@ import org.hibernate.annotations.ColumnDefault;
 public class CycleRule implements java.io.Serializable {
 
 	private Long cycleRuleId;
-	private ScheduleHad scheduleHad;
+	private Schedule schedule;
 	private int period;
 	private int timePoint;
 	private int isValid;
@@ -34,16 +34,16 @@ public class CycleRule implements java.io.Serializable {
 	public CycleRule() {
 	}
 
-	public CycleRule(ScheduleHad scheduleHad, int period, int timePoint, int isValid) {
-		this.scheduleHad = scheduleHad;
+	public CycleRule(Schedule schedule, int period, int timePoint, int isValid) {
+		this.schedule = schedule;
 		this.period = period;
 		this.timePoint = timePoint;
 		this.isValid = isValid;
 	}
 
-	public CycleRule(ScheduleHad scheduleHad, int period, int timePoint, int isValid, Date createdate,
+	public CycleRule(Schedule schedule, int period, int timePoint, int isValid, Date createdate,
 			Date updatedate) {
-		this.scheduleHad = scheduleHad;
+		this.schedule = schedule;
 		this.period = period;
 		this.timePoint = timePoint;
 		this.isValid = isValid;
@@ -64,13 +64,13 @@ public class CycleRule implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "schedule_had_id", nullable = false)
-	public ScheduleHad getScheduleHad() {
-		return this.scheduleHad;
+	@JoinColumn(name = "schedule_id", nullable = false)
+	public Schedule getSchedule() {
+		return this.schedule;
 	}
 
-	public void setScheduleHad(ScheduleHad scheduleHad) {
-		this.scheduleHad = scheduleHad;
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
 	}
 
 	@Column(name = "period", nullable = false)

@@ -35,7 +35,6 @@ public class ScheduleHad implements java.io.Serializable {
 	private Date createdate;
 	private Date updatedate;
 	private Set<ScheduleHistory> scheduleHistories = new HashSet<ScheduleHistory>(0);
-	private Set<CycleRule> cycleRules = new HashSet<CycleRule>(0);
 	private Set<ScheduleRemind> scheduleReminds = new HashSet<ScheduleRemind>(0);
 
 	public ScheduleHad() {
@@ -52,7 +51,7 @@ public class ScheduleHad implements java.io.Serializable {
 	}
 
 	public ScheduleHad(Schedule schedule, ScheduleOwner scheduleOwner, int authority, int isValid, int accumulatedTime,
-			Date createdate, Date updatedate, Set<ScheduleHistory> scheduleHistories, Set<CycleRule> cycleRules,
+			Date createdate, Date updatedate, Set<ScheduleHistory> scheduleHistories, 
 			Set<ScheduleRemind> scheduleReminds) {
 		this.schedule = schedule;
 		this.scheduleOwner = scheduleOwner;
@@ -62,7 +61,6 @@ public class ScheduleHad implements java.io.Serializable {
 		this.createdate = createdate;
 		this.updatedate = updatedate;
 		this.scheduleHistories = scheduleHistories;
-		this.cycleRules = cycleRules;
 		this.scheduleReminds = scheduleReminds;
 	}
 
@@ -155,15 +153,6 @@ public class ScheduleHad implements java.io.Serializable {
 
 	public void setScheduleHistories(Set<ScheduleHistory> scheduleHistories) {
 		this.scheduleHistories = scheduleHistories;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleHad")
-	public Set<CycleRule> getCycleRules() {
-		return this.cycleRules;
-	}
-
-	public void setCycleRules(Set<CycleRule> cycleRules) {
-		this.cycleRules = cycleRules;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "scheduleHad")

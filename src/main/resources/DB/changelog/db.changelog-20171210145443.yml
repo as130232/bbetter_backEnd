@@ -1,0 +1,48 @@
+databaseChangeLog:
+- changeSet:
+    id: 1512917693348-1
+    author: alfread (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: schedule_id
+            type: bigint
+        tableName: cycle_rule
+- changeSet:
+    id: 1512917693348-2
+    author: alfread (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: third_part_auth_id
+        constraintName: UC_THIRD_PART_AUTHTHIRD_PART_AUTH_ID_COL
+        tableName: third_part_auth
+- changeSet:
+    id: 1512917693348-3
+    author: alfread (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: schedule_id
+        baseTableName: cycle_rule
+        constraintName: FKiyy9jvb9yfmsjudevpvndmung
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: schedule_id
+        referencedTableName: schedule
+- changeSet:
+    id: 1512917693348-4
+    author: alfread (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: cycle_rule
+        constraintName: fk_cycle_rule_schedule_had1
+- changeSet:
+    id: 1512917693348-5
+    author: alfread (generated)
+    changes:
+    - dropColumn:
+        columnName: schedule_had_id
+        tableName: cycle_rule
+

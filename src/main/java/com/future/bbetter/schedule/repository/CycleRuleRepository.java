@@ -12,7 +12,7 @@ public interface CycleRuleRepository extends
 	JpaRepository<CycleRule, Long> ,
 	JpaSpecificationExecutor<CycleRule> {
 
-	@Query("select c from CycleRule c where c.scheduleHad.scheduleHadId = ?1")
-	List<CycleRule> getCycleRulesByScheduleHadId(Long scheduleHadId);
+	@Query("select c from CycleRule c where c.schedule.scheduleId = ?1")
+	List<CycleRule> getCycleRulesByScheduleId(Long scheduleId);
 	
 }

@@ -26,8 +26,8 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 
 	@Override
 	public CycleRuleDto addCycleRule(@NonNull CycleRuleDto dto) {
-		if(dto.getScheduleHadDto() == null)
-			throw new InsertOrUpdateDataFailureException("It can't found ScheduleHad data in CycleRuleDto: " + dto);
+		if(dto.getScheduleDto() == null)
+			throw new InsertOrUpdateDataFailureException("It can't found Schedule data in CycleRuleDto: " + dto);
 		
 		CycleRule data = dto.toEntity();
 		data.setCreatedate(new Date());
@@ -38,8 +38,8 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 
 	@Override
 	public void updateCycleRule(@NonNull CycleRuleDto dto) {
-		if(dto.getScheduleHadDto() == null)
-			throw new InsertOrUpdateDataFailureException("It can't found ScheduleHad data in CycleRuleDto: " + dto);
+		if(dto.getScheduleDto() == null)
+			throw new InsertOrUpdateDataFailureException("It can't found Schedule data in CycleRuleDto: " + dto);
 		
 		Long cycleId = dto.getCycleRuleId();
 		Optional<CycleRule> optData = cycleRuleRepo.findById(cycleId);
@@ -49,7 +49,7 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 			dataInDb.setTimePoint(dto.getTimePoint());
 			dataInDb.setIsValid(dto.getIsValid());
 			dataInDb.setUpdatedate(new Date());
-			dataInDb.setScheduleHad(dto.getScheduleHadDto().toEntity());
+			dataInDb.setSchedule(dto.getScheduleDto().toEntity());
 			cycleRuleRepo.save(dataInDb);
 		}
 		
@@ -69,8 +69,8 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 	}
 
 	@Override
-	public List<CycleRuleDto> getCycleRulesByScheduleHadId(@NonNull Long scheduleHadId) {
-		List<CycleRule> results = cycleRuleRepo.getCycleRulesByScheduleHadId(scheduleHadId);
+	public List<CycleRuleDto> getCycleRulesByScheduleId(@NonNull Long scheduleId) {
+		List<CycleRule> results = cycleRuleRepo.getCycleRulesByScheduleId(scheduleId);
 		
 		return results.stream()
 					.map(data -> CycleRuleDto.from(data))

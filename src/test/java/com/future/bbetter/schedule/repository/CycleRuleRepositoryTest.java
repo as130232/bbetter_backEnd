@@ -38,7 +38,7 @@ public class CycleRuleRepositoryTest {
 	@Autowired
 	private CycleRuleRepository cycleRepo;
 	
-	ScheduleHad had;
+	Schedule schedule1;
 
 	@Before
 	public void setup() throws Exception {
@@ -67,7 +67,7 @@ public class CycleRuleRepositoryTest {
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2)
 				.toInstant(ZoneOffset.UTC);
 		
-		Schedule schedule1 = new Schedule();
+		schedule1 = new Schedule();
 		schedule1.setScheduleType(type);
 		schedule1.setStartTime(Date.from(now));
 		schedule1.setEndTime(Date.from(afterTwoHrs));
@@ -81,24 +81,13 @@ public class CycleRuleRepositoryTest {
 		schedule1.setCreatedate(new Date());
 		entityMgr.persistAndFlush(schedule1);
 		
-		had = new ScheduleHad();
-		had.setScheduleOwner(owner);
-		had.setSchedule(schedule1);
-		had.setAuthority(1);
-		had.setIsValid(1);
-		had.setAccumulatedTime(0);
-		had.setCreatedate(new Date());
-		entityMgr.persistAndFlush(had);
-		
 	}
 
 	@Test
 	public void whenGetCycleRulesByScheduleHadId_thenSuccess() {
 		//given
-		assertThat(had).isNotNull();
-		
 		CycleRule cycle = new CycleRule();
-		cycle.setScheduleHad(had);
+		cycle.setSchedule(schedule1);
 		cycle.setPeriod(10);
 		cycle.setIsValid(1);
 		cycle.setTimePoint(0307);
@@ -106,18 +95,18 @@ public class CycleRuleRepositoryTest {
 		cycle.setUpdatedate(new Date());
 		entityMgr.persist(cycle);
 		
-		Long hadId = had.getScheduleHadId();
+		Long scheduleId = schedule1.getScheduleId();
 		
 		//when
-		List<CycleRule> results = cycleRepo.getCycleRulesByScheduleHadId(hadId);
+		List<CycleRule> results = cycleRepo.getCycleRulesByScheduleId(scheduleId);
 		
 		//then
 		assertThat(results).isNotNull();
 		assertThat(results.size()).isEqualTo(1);
 		assertThat(results.get(0)
-				.getScheduleHad()
-				.getScheduleHadId())
-			.isEqualTo(hadId);
+				.getSchedule()
+				.getScheduleId())
+			.isEqualTo(scheduleId);
 		
 	}
 

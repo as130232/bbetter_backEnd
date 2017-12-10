@@ -49,7 +49,7 @@ public class CycleRuleResourceImplTest {
 	@Autowired
 	private CycleRuleResource cycleRs;
 	
-	ScheduleHad had;
+	Schedule schedule1;
 	CycleRule cycleRule;
 	int isValid = 1;
 	int period = 2;
@@ -82,7 +82,7 @@ public class CycleRuleResourceImplTest {
 		Instant afterTwoHrs = LocalDateTime.now().plusHours(2)
 				.toInstant(ZoneOffset.UTC);
 		
-		Schedule schedule1 = new Schedule();
+		schedule1 = new Schedule();
 		schedule1.setScheduleType(type);
 		schedule1.setStartTime(Date.from(now));
 		schedule1.setEndTime(Date.from(afterTwoHrs));
@@ -96,18 +96,10 @@ public class CycleRuleResourceImplTest {
 		schedule1.setCreatedate(new Date());
 		entityMgr.persistAndFlush(schedule1);
 		
-		had = new ScheduleHad();
-		had.setScheduleOwner(owner);
-		had.setSchedule(schedule1);
-		had.setAuthority(1);
-		had.setIsValid(1);
-		had.setAccumulatedTime(0);
-		had.setCreatedate(new Date());
-		entityMgr.persistAndFlush(had);
 		
 
 		cycleRule = new CycleRule();
-		cycleRule.setScheduleHad(had);
+		cycleRule.setSchedule(schedule1);
 		cycleRule.setIsValid(isValid);
 		cycleRule.setPeriod(period);
 		cycleRule.setTimePoint(timePoint);
@@ -128,7 +120,7 @@ public class CycleRuleResourceImplTest {
 		data.setIsValid(isValid);
 		data.setPeriod(period);
 		data.setTimePoint(timePoint);
-		data.setScheduleHadDto(ScheduleHadDto.from(had, ScheduleDto.from(had.getSchedule())));
+		data.setScheduleDto(ScheduleDto.from(schedule1));
 		
 		//when
 		CycleRuleDto result = cycleRs.addCycleRule(data);
@@ -152,7 +144,7 @@ public class CycleRuleResourceImplTest {
 		data.setIsValid(isValid);
 		data.setPeriod(period);
 		data.setTimePoint(timePoint);
-		data.setScheduleHadDto(null);
+		data.setScheduleDto(null);
 		
 		//when
 		Throwable thrown = catchThrowable(()->{
@@ -185,8 +177,8 @@ public class CycleRuleResourceImplTest {
 		CycleRule found = entityMgr.find(CycleRule.class, oldId);
 		assertThat(found).isNotNull();
 		assertThat(found.getCycleRuleId()).isEqualTo(oldId);
-		assertThat(found.getScheduleHad().getScheduleHadId())
-			.isEqualTo(had.getScheduleHadId());
+		assertThat(found.getSchedule().getScheduleId())
+			.isEqualTo(schedule1.getScheduleId());
 		assertThat(found.getPeriod())
 			.isEqualTo(newPeriod);
 	}
@@ -200,7 +192,7 @@ public class CycleRuleResourceImplTest {
 	public void whenUpdateCycleRuleAndNoScheduleHadData_thenThrowsException() {
 		//given
 		CycleRuleDto newData = CycleRuleDto.from(cycleRule);
-		newData.setScheduleHadDto(null);
+		newData.setScheduleDto(null);
 
 		
 		//when
@@ -273,43 +265,41 @@ public class CycleRuleResourceImplTest {
 	}
 
 	/***
-	 * test getCycleRulesByScheduleHadId() method
+	 * test getCycleRulesByScheduleId() method
 	 * 給予正確id資料應回傳含有一筆資料的list
 	 */
 	@Test
-	public void whenGetCycleRulesByScheduleHadId_thenReturnOneRecord() {
+	public void whenGetCycleRulesByScheduleId_thenReturnOneRecord() {
 		//given
-		Long hadId = had.getScheduleHadId();
+		Long scheduleId = schedule1.getScheduleId();
 		
 		
 		//when
-		List<CycleRuleDto> results = cycleRs.getCycleRulesByScheduleHadId(hadId);
+		List<CycleRuleDto> results = cycleRs.getCycleRulesByScheduleId(scheduleId);
 		
 		//then
 		assertThat(results).isNotNull();
 		assertThat(results.size()).isEqualTo(1);
 		
 		CycleRuleDto result = results.get(0);
-		assertThat(result
-				.getScheduleHadDto()
-				.getScheduleHadId())
-			.isEqualTo(hadId);
+		assertThat(result.getScheduleDto().getScheduleId())
+			.isEqualTo(scheduleId);
 		assertThat(result.getTimePoint()).isEqualTo(timePoint);
 	}
 	
 	
 	/***
-	 * test getCycleRulesByScheduleHadId() method
+	 * test getCycleRulesByScheduleId() method
 	 * 給予找不到資料的id的資料應回傳無資料的list
 	 */
 	@Test
-	public void whenGetCycleRulesByScheduleHadIdAndNotFound_thenReturnEmptyList() {
+	public void whenGetCycleRulesByScheduleIdAndNotFound_thenReturnEmptyList() {
 		//given
-		long hadId = -99;
-		assertThat(entityMgr.find(ScheduleHad.class, hadId)).isNull();
+		long scheduleId = -99;
+		assertThat(entityMgr.find(Schedule.class, scheduleId)).isNull();
 		
 		//when
-		List<CycleRuleDto> results = cycleRs.getCycleRulesByScheduleHadId(hadId);
+		List<CycleRuleDto> results = cycleRs.getCycleRulesByScheduleId(scheduleId);
 		
 		//then
 		assertThat(results).isNotNull();
@@ -324,10 +314,8 @@ public class CycleRuleResourceImplTest {
 	@Test
 	public void whenGetCycleRuleForOptionalAndNotFound_thenThrowsException() {
 		//given 
-		assertThat(had).isNotNull();
-		
 		CycleRule cycle = new CycleRule();
-		cycle.setScheduleHad(had);
+		cycle.setSchedule(schedule1);
 		cycle.setPeriod(10);
 		cycle.setIsValid(1);
 		cycle.setTimePoint(0307);
