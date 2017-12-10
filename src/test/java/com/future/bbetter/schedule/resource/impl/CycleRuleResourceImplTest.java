@@ -28,10 +28,8 @@ import com.future.bbetter.member.model.Member;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
 import com.future.bbetter.schedule.dto.CycleRuleDto;
 import com.future.bbetter.schedule.dto.ScheduleDto;
-import com.future.bbetter.schedule.dto.ScheduleHadDto;
 import com.future.bbetter.schedule.model.CycleRule;
 import com.future.bbetter.schedule.model.Schedule;
-import com.future.bbetter.schedule.model.ScheduleHad;
 import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleType;
 import com.future.bbetter.schedule.resource.CycleRuleResource;
@@ -138,7 +136,7 @@ public class CycleRuleResourceImplTest {
 	 * 給予資料中必要的資料為null,則應丟出例外
 	 */
 	@Test
-	public void whenAddCycleRuleAndNoScheduleHadData_thenThrowsException() {
+	public void whenAddCycleRuleAndNoScheduleData_thenThrowsException() {
 		//given
 		CycleRuleDto data = new CycleRuleDto();
 		data.setIsValid(isValid);
@@ -153,7 +151,7 @@ public class CycleRuleResourceImplTest {
 		
 		//then
 		assertThat(thrown).isInstanceOf(InsertOrUpdateDataFailureException.class)
-			.hasMessageContaining("It can't found ScheduleHad data in CycleRuleDto: ");
+			.hasMessageContaining("It can't found Schedule data in CycleRuleDto: ");
 	}
 
 	
@@ -189,7 +187,7 @@ public class CycleRuleResourceImplTest {
 	 * 給予資料中必要的資料為null,則應丟出例外
 	 */
 	@Test
-	public void whenUpdateCycleRuleAndNoScheduleHadData_thenThrowsException() {
+	public void whenUpdateCycleRuleAndNoScheduleData_thenThrowsException() {
 		//given
 		CycleRuleDto newData = CycleRuleDto.from(cycleRule);
 		newData.setScheduleDto(null);
@@ -202,7 +200,7 @@ public class CycleRuleResourceImplTest {
 		
 		//then
 		assertThat(thrown).isInstanceOf(InsertOrUpdateDataFailureException.class)
-			.hasMessageContaining("It can't found ScheduleHad data in CycleRuleDto: ");
+			.hasMessageContaining("It can't found Schedule data in CycleRuleDto: ");
 	}
 
 	
