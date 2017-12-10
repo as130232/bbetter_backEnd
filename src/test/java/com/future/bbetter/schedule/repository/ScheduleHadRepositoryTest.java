@@ -10,29 +10,25 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.DisabledIf;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.future.bbetter.member.model.Member;
+import com.future.bbetter.schedule.constant.SCHEDULE_HAD;
+import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
 import com.future.bbetter.schedule.model.Schedule;
 import com.future.bbetter.schedule.model.ScheduleHad;
+import com.future.bbetter.schedule.model.ScheduleOwner;
 import com.future.bbetter.schedule.model.ScheduleType;
-
-import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-@Slf4j
 public class ScheduleHadRepositoryTest {
 	
 	@Autowired
@@ -41,21 +37,17 @@ public class ScheduleHadRepositoryTest {
 	@Autowired
 	private ScheduleHadRepository schHadRepo;
 	
-	private Long john_id = 0L;
-	private Long jay_id = 0L;
-	private Long schedule1_id = 0L;
-	private Long schedule2_id = 0L;
-	
-	private Member john = null;
-	private Member jay = null;
-	private Schedule sch1 = null;
-	private Schedule sch2 = null;
-	
+	Member john ;
+	Member jay;
+	Schedule schedule1;
+	Schedule schedule2;
+	ScheduleOwner johnOwner;
+	ScheduleOwner jayOwner;
 	
 	@Before
 	public void setup(){
 		//add member data
-		Member john = new Member();
+		john = new Member();
 		john.setName("john");
 		john.setEmail("john@gmail.com");
 		john.setPassword("password");
@@ -64,7 +56,7 @@ public class ScheduleHadRepositoryTest {
 		john.setMoney(new BigDecimal(100));
 		entityMgr.persistAndFlush(john);
 		
-		Member jay = new Member();
+		jay = new Member();
 		jay.setName("jay");
 		jay.setEmail("jay@gmail.com");
 		jay.setPassword("password");
@@ -72,12 +64,6 @@ public class ScheduleHadRepositoryTest {
 		jay.setAddress("South Korea");
 		jay.setMoney(new BigDecimal(5000));
 		entityMgr.persistAndFlush(jay);
-		
-//		this.john = john;
-//		this.jay = jay;
-		
-		john_id = john.getMemberId();
-		jay_id = jay.getMemberId();
 		
 		
 		//add schedule type data
@@ -93,7 +79,7 @@ public class ScheduleHadRepositoryTest {
 		Instant afterFourHrs = LocalDateTime.now().plusHours(4)
 				.toInstant(ZoneOffset.UTC);
 		
-		Schedule schedule1= new Schedule();
+		schedule1 = new Schedule();
 		schedule1.setScheduleType(type);
 		schedule1.setStartTime(Date.from(now));
 		schedule1.setEndTime(Date.from(afterTwoHrs));
@@ -108,11 +94,11 @@ public class ScheduleHadRepositoryTest {
 		entityMgr.persistAndFlush(schedule1);
 		
 		
-		Schedule schedule2= new Schedule();
+		schedule2 = new Schedule();
 		schedule2.setScheduleType(type);
 		schedule2.setStartTime(Date.from(now));
 		schedule2.setEndTime(Date.from(afterFourHrs));
-		schedule2.setName("Test_Schedule");
+		schedule2.setName("Test_Schedule2");
 		schedule2.setStatus(1);
 		schedule2.setVisibility(2);
 		schedule2.setIsCycle(0);
@@ -122,38 +108,56 @@ public class ScheduleHadRepositoryTest {
 		schedule2.setCreatedate(new Date());
 		entityMgr.persistAndFlush(schedule2);
 		
-//		this.sch1 = schedule1;
-//		this.sch2 = schedule2;
 		
-		schedule1_id = schedule1.getScheduleId();
-		schedule2_id = schedule2.getScheduleId();
+		johnOwner = new ScheduleOwner();
+		johnOwner.setRegistrantId(john.getMemberId());
+		johnOwner.setIsValid(SCHEDULE_OWNER.IS_VALID_YES.value);
+		johnOwner.setSource(SCHEDULE_OWNER.SOURCE_MEMBER.value);
+		johnOwner.setCreatedate(new Date());
+		johnOwner.setUpdatedate(new Date());
+		entityMgr.persistAndFlush(johnOwner);
+		
+		jayOwner = new ScheduleOwner();
+		jayOwner.setRegistrantId(jay.getMemberId());
+		jayOwner.setIsValid(SCHEDULE_OWNER.IS_VALID_YES.value);
+		jayOwner.setSource(SCHEDULE_OWNER.SOURCE_MEMBER.value);
+		jayOwner.setCreatedate(new Date());
+		jayOwner.setUpdatedate(new Date());
+		entityMgr.persistAndFlush(jayOwner);
 	}
 	
+	/***
+	 * test findByScheduleId() method
+	 * 給予正確的schedule id 資料應回傳2筆行程資料並被不同人擁有
+	 */
 	@Test
-	@Ignore
 	public void whenFindByScheduleId_thenReturnTwoDifferentRecords(){
 		//given
-		Member john = entityMgr.find(Member.class, john_id);
-		Member jay = entityMgr.find(Member.class, jay_id);
-		Schedule sch1 = entityMgr.find(Schedule.class, schedule1_id);
-		
+		int had1_authority = SCHEDULE_HAD.AUTHORITY_LEADER.value;
+		int had2_authority = SCHEDULE_HAD.AUTHORITY_MEMBER.value;
+		int valid = SCHEDULE_HAD.IS_VALID_YES.value;
 		ScheduleHad had = new ScheduleHad();
-		had.setSchedule(sch1);
-		had.setAuthority(1);
-		had.setIsValid(1);
+		had.setScheduleOwner(johnOwner);
+		had.setSchedule(schedule1);
+		had.setAuthority(had1_authority);
+		had.setIsValid(valid);
 		had.setAccumulatedTime(0);
+		had.setCreatedate(new Date());
 		entityMgr.persistAndFlush(had);
 		
 		ScheduleHad had2 = new ScheduleHad();
-		had2.setSchedule(sch1);
-		had2.setAuthority(1);
-		had2.setIsValid(1);
+		had2.setScheduleOwner(jayOwner);
+		had2.setSchedule(schedule1);
+		had2.setAuthority(had2_authority);
+		had2.setIsValid(valid);
 		had2.setAccumulatedTime(0);
+		had2.setCreatedate(new Date());
 		entityMgr.persistAndFlush(had2);
 		
+		long schedule1Id = schedule1.getScheduleId();
 		
 		//when
-		List<ScheduleHad> founds =  schHadRepo.findByScheduleId(schedule1_id);
+		List<ScheduleHad> founds =  schHadRepo.findByScheduleId(schedule1Id);
 		
 		//then
 		assertThat(founds.size()).isEqualTo(2);
@@ -168,36 +172,74 @@ public class ScheduleHadRepositoryTest {
 	}
 	
 	
+	/***
+	 * test findByMemberId() method
+	 * 給予正確的member id 資料應回傳2筆行程資料
+	 */
 	@Test
-	@Ignore
 	public void whenFindByMemberId_thenReturnTwoDifferentRecords(){
 		//given
-		Member john = entityMgr.find(Member.class, john_id);
-		Schedule sch1 = entityMgr.find(Schedule.class, schedule1_id);
-		Schedule sch2 = entityMgr.find(Schedule.class, schedule2_id);
-		
+		int had1_authority = SCHEDULE_HAD.AUTHORITY_LEADER.value;
+		int had2_authority = SCHEDULE_HAD.AUTHORITY_MEMBER.value;
+		int valid = SCHEDULE_HAD.IS_VALID_YES.value;
 		ScheduleHad had = new ScheduleHad();
-		had.setSchedule(sch1);
-		had.setAuthority(1);
-		had.setIsValid(1);
+		had.setScheduleOwner(johnOwner);
+		had.setSchedule(schedule1);
+		had.setAuthority(had1_authority);
+		had.setIsValid(valid);
 		had.setAccumulatedTime(0);
+		had.setCreatedate(new Date());
 		entityMgr.persistAndFlush(had);
 		
 		ScheduleHad had2 = new ScheduleHad();
-		had2.setSchedule(sch2);
-		had2.setAuthority(1);
-		had2.setIsValid(1);
+		had2.setScheduleOwner(johnOwner);
+		had2.setSchedule(schedule2);
+		had2.setAuthority(had2_authority);
+		had2.setIsValid(valid);
 		had2.setAccumulatedTime(0);
+		had2.setCreatedate(new Date());
 		entityMgr.persistAndFlush(had2);
 		
+		long johnId = john.getMemberId();
 		
 		//when
-		List<ScheduleHad> founds =  schHadRepo.findByMemberId(john_id);
+		List<ScheduleHad> founds =  schHadRepo.findByMemberId(johnId);
+		
 		//then
 		assertThat(founds.size()).isEqualTo(2);
 
 		
 		assertThat(founds.get(0).getScheduleHadId())
 			.isNotEqualTo(founds.get(1).getScheduleHadId());
+	}
+	
+	/***
+	 * test findByScheduleOwnerIdAndIsValid() method
+	 * 給予正確資料應回傳一筆資料
+	 */
+	@Test
+	public void whenFindByScheduleOwnerIdAndIsValid_thenReturnOneRecord() {
+		//given
+		int had1_authority = SCHEDULE_HAD.AUTHORITY_LEADER.value;
+		int valid = SCHEDULE_HAD.IS_VALID_YES.value;
+		ScheduleHad had = new ScheduleHad();
+		had.setScheduleOwner(johnOwner);
+		had.setSchedule(schedule1);
+		had.setAuthority(had1_authority);
+		had.setIsValid(valid);
+		had.setAccumulatedTime(0);
+		had.setCreatedate(new Date());
+		entityMgr.persistAndFlush(had);
+		
+		long johnOwnerId = johnOwner.getScheduleOwnerId();
+
+		//when
+		List<ScheduleHad> results = schHadRepo.findByScheduleOwnerIdAndIsValid(johnOwnerId, valid);
+
+		//then
+		assertThat(results).isNotNull();
+		assertThat(results.size()).isEqualTo(1);
+		assertThat(results.get(0).getSchedule().getScheduleId())
+			.isEqualTo(schedule1.getScheduleId());
 	}
 }
