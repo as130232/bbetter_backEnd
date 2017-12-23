@@ -1,5 +1,10 @@
 package com.future.bbetter.schedule.constant;
 
+import static java.util.stream.Collectors.toSet;
+
+import java.util.EnumSet;
+import java.util.Set;
+
 public enum CYCLE_RULE {
 	
 	
@@ -25,4 +30,25 @@ public enum CYCLE_RULE {
 		this.depiction = depiction;
 	}
 
+	
+	public static Set<CYCLE_RULE> periodSet;
+	private static Set<Integer> periodIntValues;
+	static {
+		periodSet = EnumSet.range(PERIOD_DAILY, PERIOD_ANNUALLY);
+
+		periodIntValues = periodSet.stream()
+				.map(p -> p.value)
+				.collect(toSet());
+	}
+	
+	/**
+	 * 驗證傳入的參數值是否符合定義的週期值常數資料
+	 * @author alfred <alfreadx@gmail.com>
+	 * @date 2017年12月23日 下午6:16:31
+	 * @param value 欲驗證的值
+	 * @return boolean true, if value is legal; false, otherwise.
+	 */
+	public static boolean validatePeriod(int value) {
+		return periodIntValues.contains(value);
+	}
 }
