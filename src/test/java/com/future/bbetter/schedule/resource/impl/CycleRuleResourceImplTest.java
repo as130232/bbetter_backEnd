@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
 import com.future.bbetter.member.model.Member;
+import com.future.bbetter.schedule.constant.CYCLE_RULE;
 import com.future.bbetter.schedule.constant.SCHEDULE_OWNER;
 import com.future.bbetter.schedule.dto.CycleRuleDto;
 import com.future.bbetter.schedule.dto.ScheduleDto;
@@ -49,8 +50,8 @@ public class CycleRuleResourceImplTest {
 	
 	Schedule schedule1;
 	CycleRule cycleRule;
-	int isValid = 1;
-	int period = 2;
+	int isValid = CYCLE_RULE.IS_VALID_YES.value;
+	int period = CYCLE_RULE.PERIOD_MONTHLY.value;
 	int timePoint = 10;
 	
 	@Before
@@ -153,6 +154,33 @@ public class CycleRuleResourceImplTest {
 		assertThat(thrown).isInstanceOf(InsertOrUpdateDataFailureException.class)
 			.hasMessageContaining("It can't found Schedule data in CycleRuleDto: ");
 	}
+	
+	
+	/***
+	 * test addCycleRule() method
+	 * 給予資料中週期值為錯誤,則應丟出例外
+	 */
+	@Test
+	public void whenAddCycleRuleAndIllegalPeriodValue_thenThrowsException() {
+		//given
+		int illegalPeriod = -3;
+		//check this period value is illegal.
+		assertThat(CYCLE_RULE.validatePeriod(illegalPeriod)).isEqualTo(false);
+		CycleRuleDto data = new CycleRuleDto();
+		data.setIsValid(isValid);
+		data.setPeriod(illegalPeriod);
+		data.setTimePoint(timePoint);
+		data.setScheduleDto(ScheduleDto.from(schedule1));
+		
+		//when
+		Throwable thrown = catchThrowable(()->{
+			cycleRs.addCycleRule(data);
+		});
+		
+		//then
+		assertThat(thrown).isInstanceOf(InsertOrUpdateDataFailureException.class)
+			.hasMessageContaining("The period value is illegal in CycleRuleDto: ");
+	}
 
 	
 	/***
@@ -164,7 +192,7 @@ public class CycleRuleResourceImplTest {
 		//given
 		long oldId = cycleRule.getCycleRuleId();
 		CycleRuleDto newData = CycleRuleDto.from(cycleRule);
-		int newPeriod = 20;
+		int newPeriod = CYCLE_RULE.PERIOD_WEEKLY.value;
 		newData.setPeriod(newPeriod);
 
 		
@@ -203,6 +231,29 @@ public class CycleRuleResourceImplTest {
 			.hasMessageContaining("It can't found Schedule data in CycleRuleDto: ");
 	}
 
+	
+	/***
+	 * test updateCycleRule() method
+	 * 給予資料中週期值為錯誤,則應丟出例外
+	 */
+	@Test
+	public void whenUpdateCycleRuleAndIllegalPeriodValue_thenThrowsException() {
+		//given
+		int illegalPeriod = -3;
+		//check this period value is illegal.
+		assertThat(CYCLE_RULE.validatePeriod(illegalPeriod)).isEqualTo(false);
+		CycleRuleDto newData = CycleRuleDto.from(cycleRule);
+		newData.setPeriod(illegalPeriod);
+		
+		//when
+		Throwable thrown = catchThrowable(()->{
+			cycleRs.updateCycleRule(newData);
+		});
+		
+		//then
+		assertThat(thrown).isInstanceOf(InsertOrUpdateDataFailureException.class)
+			.hasMessageContaining("The period value is illegal in CycleRuleDto: ");
+	}
 	
 	/***
 	 * test deleteCycleRule() method

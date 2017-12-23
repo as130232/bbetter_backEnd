@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.future.bbetter.exception.customize.DataNotFoundException;
 import com.future.bbetter.exception.customize.InsertOrUpdateDataFailureException;
+import com.future.bbetter.schedule.constant.CYCLE_RULE;
 import com.future.bbetter.schedule.dto.CycleRuleDto;
 import com.future.bbetter.schedule.model.CycleRule;
 import com.future.bbetter.schedule.repository.CycleRuleRepository;
@@ -28,6 +29,8 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 	public CycleRuleDto addCycleRule(@NonNull CycleRuleDto dto) {
 		if(dto.getScheduleDto() == null)
 			throw new InsertOrUpdateDataFailureException("It can't found Schedule data in CycleRuleDto: " + dto);
+		if(! CYCLE_RULE.validatePeriod(dto.getPeriod()))
+			throw new InsertOrUpdateDataFailureException("The period value is illegal in CycleRuleDto: " + dto);
 		
 		CycleRule data = dto.toEntity();
 		data.setCreatedate(new Date());
@@ -40,6 +43,8 @@ public class CycleRuleResourceImpl implements CycleRuleResource{
 	public void updateCycleRule(@NonNull CycleRuleDto dto) {
 		if(dto.getScheduleDto() == null)
 			throw new InsertOrUpdateDataFailureException("It can't found Schedule data in CycleRuleDto: " + dto);
+		if(! CYCLE_RULE.validatePeriod(dto.getPeriod()))
+			throw new InsertOrUpdateDataFailureException("The period value is illegal in CycleRuleDto: " + dto);
 		
 		Long cycleId = dto.getCycleRuleId();
 		Optional<CycleRule> optData = cycleRuleRepo.findById(cycleId);
